@@ -95,7 +95,7 @@ title可加可不加
 ```
 实际效果：
 
-|name|school|age|
+|姓名|户籍所在地|年龄|
 |---|:---:|---|
 |shfh|sfs|10|
 |sam|shdfi|16|
