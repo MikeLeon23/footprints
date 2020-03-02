@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .talk {
+            width: 1160px;
+            margin: 50px auto;
+        }
+
+        .title .cname {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 0.35px;
+            font-family: "ali-medium";
+        }
+
+        .title .ctime {
+            font-size: 14px;
+            color: #969696;
+            padding: 13px 0 0 12px;
+            vertical-align: bottom;
+        }
+        .talk .talk-list {
+            padding-top: 20px;
+        }
+
+        .talk .talk-item {
+            display: inline-block;
+            width: 275px;
+        }
+        .talk .talk-item a {
+            display: block;
+            width: 275px;
+            height: 105px;
+            background-size: 100% 100%;
+            border-radius: 6px;
+            transition: all ease .4s;
+        }
+
+        .talk .talk-item a:hover {
+            transform: translateY(-4px);
+        }
+
+        .talk .talk-item + .talk-item {
+            margin-left:15px;
+        }
+
+        .talk .talk-item .name {
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: bold;
+            margin: 8px 0 0 0;
+        }
+
+        .talk .talk-item .time {
+            font-size: 12px;
+            color: #999999;
+            line-height: 17px;
+            margin: 4px 0 0 0;
+        }
+
+        .talk-item .time span {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            background: url("img/talk-icon.png") no-repeat center;
+            background-size: 100% 100%;
+            vertical-align: -2px;
+        }
+    </style>
+    <title>homework3</title>
+</head>
+<body>
+    <div class="talk">
+        <div class="title">
+            <span class="cname">不凡说</span>
+            <span class="ctime">TALK</span>
+        </div>
+        <ul class="talk-list">
+            <li class="talk-item">
+                <a href="#" style="background-image: url(img/20200119150205.jpg);"></a>
+                <p class="name">怎么在vue脚手架中解决跨域</p>
+                <p class="time"><span></span>2020年01月19日</p>
+            </li>
+            <li class="talk-item">
+                <a href="#" style="background-image: url(img/20200119110601.jpg);"></a>
+                <p class="name">JS元素拖曳的那些事儿</p>
+                <p class="time"><span></span>2020年01月18日</p>
+            </li>
+            <li class="talk-item">
+                <a href="#" style="background-image: url(img/20200110145228.jpg);"></a>
+                <p class="name">聊聊交互设计的纸面原型</p>
+                <p class="time"><span></span>2020年01月14日</p>
+            </li>
+            <li class="talk-item">
+                <a href="#" style="background-image: url(img/20200110105211.jpg);"></a>
+                <p class="name">前端开发中值得推荐的常用工具</p>
+                <p class="time"><span></span>2020年01月10日</p>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

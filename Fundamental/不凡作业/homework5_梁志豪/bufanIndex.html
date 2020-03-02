@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不凡学院</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .header {
+            width: 1160px;
+            height: 60px;
+            margin: 0 auto;
+            /* background-color: pink; */
+        }
+
+        .header .logo {
+            float: left;
+            width: 121px;
+            height: 60px;
+            /* background-color: green; */
+            background: url("image/不凡logo.png") no-repeat center;
+            background-size: 100% auto;
+        }
+
+        .header .nav {
+            float: right;
+            width: 500px;
+            height: 60px;
+            /* background-color: red; */
+        }
+
+        .nav .nav-item {
+            position: relative;
+            float: left;
+            width: 64px;
+            height: 100%;
+            text-align: center;
+            /* background-color: silver; */
+            line-height: 60px;
+        }
+
+        .nav .nav-item + .nav-item {
+            margin-left: 45px;
+        }
+
+        .nav-item a {
+            color: black;
+        }
+
+        .header .nav-item:hover a {
+            color: red;
+        }
+
+        .nav-item span {
+            display: none;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: red;
+        }
+
+        .header .nav-item:hover span {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+
+        </div>
+        <ul class="nav">
+            <li class="nav-item">
+                <a href="#">首页</a>
+                <span class="line"></span>
+            </li>
+            <li class="nav-item">
+                <a href="#">前端开发</a>
+                <span class="line"></span>
+            </li>
+            <li class="nav-item">
+                <a href="#">UI设计</a>
+                <span class="line"></span>
+            </li>
+            <li class="nav-item">
+                <a href="#">不凡说</a>
+                <span class="line"></span>
+            </li>
+            <li class="nav-item">
+                <a href="#">导航</a>
+                <span class="line"></span>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

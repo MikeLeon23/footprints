@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米商城</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .banner {
+            position: relative;
+            width: 1226px;
+            height: 460px;
+            margin: 50px auto;
+            /* background-color: pink; */
+            /* background: url("image/dcb09c80c58dc9d71623c925739a3733.png") no-repeat center; */
+        }
+
+        .banner img{
+            width: 100%;
+        }
+
+        .banner .goods {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 234px;
+            height: 460px;
+            /* background-color: green; */
+            background: rgba(105, 101, 101, 0.6);
+        }
+
+        .goods .item {
+            /* float: left; */
+            /* position: absolute; */
+            /* left: 0; */
+            top: 20px;
+            width: 234px;
+            height: 42px;
+            /* background-color: red; */
+
+        }
+
+        .goods .item:hover {
+            background-color: #ff6700;
+            opacity: 1;
+        }
+
+        .goods .item a {
+            text-decoration: none;
+            color: white;
+            line-height: 42px;
+            padding-left: 30px;
+        }
+
+        .goods .item:first-child {
+            margin-top: 20px;
+        }
+        
+        .banner .bcgImage .arrow-l{
+            position: absolute;
+            top: 230px;
+            left: 234px;
+            width: 41px;
+            height: 69px;
+            margin-top: -35px;
+            background: url("image/icon-slides.png") no-repeat -83px 0;
+            /* background-color: white; */
+        }
+
+        .banner .bcgImage .arrow-r {
+            position: absolute;
+            top: 230px;
+            right: 0;
+            width: 41px;
+            height: 69px;
+            margin-top: -35px;
+            background: url("image/icon-slides.png") no-repeat -123px 0;
+            /* background-color: white; */
+        }
+
+        .bcgImage .arrow-l:hover {
+            background: url("image/icon-slides.png") no-repeat 0 0;
+        }
+
+        .bcgImage .arrow-r:hover {
+            background: url("image/icon-slides.png") no-repeat -42px 0;
+        }
+
+        .dots {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            width: 400px;
+            height: 20px;
+        }
+        .dots .dot {
+            float: right;
+            width: 6px;
+            height: 6px;
+            margin: 0 4px 0;
+            border: 2px solid rgb(158, 157, 157);
+            border-radius: 50%;
+            background-color:rgba(0, 0, 0, .4);
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="bcgImage">
+            <img src="image/dcb09c80c58dc9d71623c925739a3733.png" alt="">
+            <a href="#" class="arrow-l"></a>
+            <a href="#" class="arrow-r"></a>
+        </div>
+        <ul class="goods">
+            <li class="item"><a href="#">手机 电话卡</a></li>
+            <li class="item"><a href="#">电视 盒子</a></li>
+            <li class="item"><a href="#">笔记本 显示器 平板</a></li>
+            <li class="item"><a href="#">家电 插线板</a></li>
+            <li class="item"><a href="#">出行 穿戴</a></li>
+            <li class="item"><a href="#">智能 路由器</a></li>
+            <li class="item"><a href="#">电源 配件</a></li>
+            <li class="item"><a href="#">健康 儿童</a></li>
+            <li class="item"><a href="#">耳机 音响</a></li>
+            <li class="item"><a href="#">生活 箱包</a></li>
+        </ul>
+        <ul class="dots">
+            <li class="dot"></li>
+            <li class="dot"></li>
+            <li class="dot"></li>
+            <li class="dot"></li>
+            <li class="dot"></li>
+        </ul>
+    </div>
+</body>
+</html>

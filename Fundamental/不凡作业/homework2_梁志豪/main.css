@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.box {
+    width: 1200px;
+    height: 300px;
+    margin: 0 auto;
+}
+ul {
+    list-style: none;
+}
+
+.box .item {
+    display: inline-block;
+    width: 275px;
+    height: 200px;
+    padding: 20px 0 0 0;
+}
+
+.box .item a {
+    display: block;
+    width: 100%;
+    height: 105px;
+    border-radius: 5px;
+}
+
+#item1 {
+    background: url(img/20200119150205.jpg) no-repeat center;
+    background-size: 100% 100%;
+}
+
+#item2 {
+    background: url(img/20200119110601.jpg) no-repeat center;
+    background-size: 100% 100%;
+}
+
+#item3 {
+    background: url(img/20200110145228.jpg) no-repeat center;
+    background-size: 100% 100%;
+}
+
+#item4 {
+    background: url(img/20200110105211.jpg) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.box .item + .item {
+    margin: 0 0 0 20px;
+}
+
+.item .time {
+    font-size: 14px;
+    color: gray;
+}
+
+.item p {
+    text-align: left;
+}
+
+.item .talk-title {
+    margin: 8px 0 0 0;
+}
+
+.item .talk-time {
+    margin: 4px 0 0 0;
+}
+
+.item .talk-time {
+    font-size: 14px;
+    color: gray;
+}
