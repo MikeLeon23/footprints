@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        ul{
+            list-style: none;
+        }
+
+        a{
+            text-decoration: none;
+            color: #666;
+        }
+
+        .header-c{
+            position: relative;
+            width: 990px;
+            height: 60px;
+            margin: 20px auto 10px;
+        }
+
+        .header-c .logo{
+            float: left;
+            width: 170px;
+            height: 60px;
+            background: url("image/logo.png") no-repeat center;
+        }
+
+        .header-c .welcome{
+            float: left;
+            width: 110px;
+            height: 40px;
+            margin: 20px 0 0 20px;
+            background: url("image/wel.png") no-repeat center;
+        }
+
+        .header-c .ask{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            color: #999;
+            font-size: 12px;
+            text-indent: 24px;
+            background: url("image/q-icon.png") no-repeat left center;
+        }
+
+        .tip{
+            text-align: center;
+            background-color: #fff8f0;
+        }
+
+        .tip-c{
+            display: inline-block;
+            height: 38.49px;
+            font-size: 12px;
+            line-height: 38.49px;
+            color: #999;
+            background: url("image/icon-tips.png") no-repeat left;
+            padding-left: 24px;
+        }
+
+        .main{
+            width: 100%;
+            height: 475px;
+            background-color: #e93854;
+        }
+
+        .main-c{
+            width: 990px;
+            height: 475px;
+            margin: 0 auto;
+            background: url("image/bg.png") no-repeat center;
+        }
+
+        .main .login-block{
+            float: right;
+            width: 346px;
+            height: 399px;
+            margin-top: 10px;
+            background-color: #fff;
+        }
+
+        .login-block .tab{
+            float: left;
+            width: 173px;
+            height: 55px;
+            border-bottom: 1px solid #f4f4f4;
+            font-size: 18px;
+            font-family: "microsoft yahei";
+            text-align: center;
+        }
+        .login-block .tab-l{
+            float: left;
+            position: relative;
+        }
+
+        .login-block .tab-r{
+            float: right;
+            position: relative;
+        }
+
+        .login-block .tab a{
+            width: 99%;
+            height: 18px;
+            line-height: 18px;
+            position: absolute;
+            left: 0;
+            top: 18px;
+            border-right: 1px solid #f4f4f4;
+            text-decoration: none;
+        }
+
+        a:hover{
+            color: #e4393c !important;
+            text-decoration: underline;
+        }
+
+        .login-block .tab a:hover{
+            font-weight: bold;
+        }
+
+        .login-block .active a{
+            color: #e4393c;
+            font-weight: bold;
+        }
+
+        .main .login{
+            float: left;
+            width: 306px;
+            height: 133px;
+            padding: 20px;
+        }
+
+        .main .login .box{
+            position: relative;
+            width: 304px;
+            height: 38px;
+            margin-bottom: 20px;
+            border: 1px solid #bdbdbd;
+        }
+
+        .main .box input{
+            width: 254px;
+            height: 18px;
+            line-height: 18px;
+            padding: 10px 0 10px 50px;
+            font-size: 14px;
+            border: none;
+            outline: none;
+        }
+
+        .main .box .icon{
+            position: absolute;
+            top: 0;
+            left: 1px;
+            width: 39px;
+            height: 38px;
+            border-right:1px solid #bdbdbd;
+            background: url("image/pwd-icons-new.png") no-repeat;
+        }
+
+        .main .pwd .icon{
+            background-position: -48px 0;
+        }
+
+        .login .forget{
+            display: block;
+            font-size: 12px;
+            color: #666;
+            text-align: right;
+        }
+        .login .btn{
+            height: 31px;
+            line-height: 31px;
+            color: #fff;
+            text-align: center;
+            border: 1px solid #e85356;
+            font-size: 20px;
+            font-family: "Microsoft YaHei";
+            background-color: #e4393c;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+
+        .main .contact{
+            width: 306px;
+            height: 50px;
+            margin: 46px auto 0;
+        }
+
+        .main .contact li{
+            display: inline-block;
+            width: 70px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 12px;
+        }
+
+        .main .contact .register{
+            width: 79px;
+        }
+
+        .contact .register{
+            float: right;
+            text-align: right;
+        }
+
+        .contact .register a{
+            font-size: 14px;
+            color: #b61d1d;
+        }
+
+        .contact .QQ .qq-icon,
+        .contact .wx .wx-icon,
+        .contact .register .reg-icon{
+            display: inline-block;
+            width: 19px;
+            height: 19px;
+        }
+
+        .contact .QQ .line{
+            float: right;
+            width: 1px;
+            height: 12px;
+            background-color: #ccc;
+            margin: 19px 10px;
+        }
+
+        .contact .QQ .qq-icon{
+            background: url("image/qq-wx.png") no-repeat 0px 0px;
+            vertical-align: -5px;
+        }
+
+        .contact .wx .wx-icon{
+            background: url("image/qq-wx.png") no-repeat -19px 0px;
+            vertical-align: -5px;
+        }
+
+        .contact .register .reg-icon{
+            background: url("image/pwd-icons-new.png") no-repeat -104px -74px;
+            vertical-align: -5px;
+        }
+
+        .footer-c{
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .footer-c .links a{
+            margin: 0 10px;
+        }
+        .footer-c .copyright{
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-c">
+            <a href="http://www.jd.com" class="logo"></a>
+            <div class="welcome"></div>
+            <a href="#" class="ask">
+                登录页面，调查问卷
+            </a>
+        </div>
+    </div>
+    <div class="tip">
+        <div class="tip-c">依据《网络安全法》，为保障您的账户安全和正常使用，请尽快完成手机号验证！ 新版《京东隐私政策》已上线，将更有利于保护您的个人隐私。</div>
+    </div>
+    <!-- 主要内容 -->
+    <div class="main">
+        <div class="main-c">
+            <div class="login-block">
+                <div class="tip">
+                    <div class="tip-c">京东不会以任何理由要求您转账汇款，谨防诈骗</div>
+                </div>
+                <!-- 登录切换 -->
+                <div class="tab tab-l">
+                    <a href="#">扫码登录</a>
+                </div>
+                <div class="tab tab-r active">
+                    <a href="#">账号登录</a>
+                </div>
+                <!-- 输入框 -->
+                <div class="login">
+                    <div class="box user">
+                        <div class="icon"></div>
+                        <input type="text" placeholder="请输入用户名/邮箱/账号">
+                    </div>
+                    <div class="box pwd">
+                        <div class="icon"></div>
+                        <input type="password" placeholder="密码">
+                    </div>
+                    <a class="forget" href="#">忘记密码</a>
+                    <div class="btn">登&nbsp&nbsp&nbsp&nbsp&nbsp录</div>
+                    <!-- 切换登录方式 -->
+                    <div class="contact">
+                        <ul>
+                            <li class="QQ">
+                                <div class="qq-icon"></div>
+                                <a href="#">QQ</a>
+                                <span class="line"></span>
+                            </li>
+                            <li class="wx">
+                                <div class="wx-icon"></div>
+                                <a href="#">微信</a>
+                            </li>
+                            <li class="register">
+                                <div class="reg-icon"></div>
+                                <a href="#">立即注册</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-c">
+            <div class="links">
+                <a href="#">关于我们</a>
+                 |
+                <a href="#">联系我们</a>
+                 |
+                <a href="#">人才招聘</a>
+                 |
+                <a href="#">商家入驻</a>
+                 |
+                <a href="#">广告服务</a>
+                 |
+                <a href="#">手机京东</a>
+                |
+                <a href="#">友情链接</a>
+                |
+                <a href="#">销售联盟</a>
+                |
+                <a href="#">京东社区</a>
+                |
+                <a href="#">京东公益</a>
+                |
+                <a href="#">English Site</a>
+            </div>
+            <div class="copyright">
+                Copyright © 2004-2020  京东JD.com 版权所有
+            </div>
+        </div>
+    </div>
+</body>
+</html>
