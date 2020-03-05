@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFC</title>
+    <style>
+        .box{
+            width: 400px;
+            
+        }
+
+        .box .tags{
+            float: right;
+        }
+
+        p{
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: gray;
+        }
+
+        .box .tags .tag{
+            display: inline-block;
+            line-height: 20px;
+            margin: 0 4px;
+            padding: 0 4px;
+            border: 1px solid;
+        }
+
+        .tags .tag.gray{
+            color: gray;
+            border-color: gray;
+        }
+
+        .tags .tag.red{
+            color: red;
+            border-color: red;
+        }
+
+        .tags .tag.blue{
+            color: blue;
+            border-color: blue;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="tags">
+            <div class="tag gray">都市</div>
+            <div class="tag red">连载中</div>
+            <div class="tag blue">54.82万字</div>
+        </div>
+        <p>这是一个新的故事这是一个新的故事这是一个新的故事</p>
+        <div class="tags">
+            <div class="tag gray">都市</div>
+            <div class="tag red">完本</div>
+            <div class="tag blue">1万字</div>
+        </div>
+        <p>穿越天地复苏的平行世界穿越天地复苏的平行世界</p>
+        <div class="tags">
+            <div class="tag gray">修仙</div>
+            <div class="tag red">完本</div>
+            <div class="tag blue">1059.98万字</div>
+        </div>
+        <p>修真四万年</p>
+    </div>
+</body>
+</html>
