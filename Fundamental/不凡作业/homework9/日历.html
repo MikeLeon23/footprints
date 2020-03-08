@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日历</title>
+    <style>
+        .calender{
+            border-collapse:collapse;
+        }
+
+        .calender tr{
+            height: 46px;
+        }
+
+        .calender tr:first-child{
+            height: 33px;
+        }
+
+        .calender th{
+            width: 55px;
+            font-size: 14px;
+            font-weight: 400;
+            border-top: 2px solid #57ABFF;
+        }
+
+        .calender th:nth-child(6){
+            color: red;
+        }
+
+        .calender th:nth-child(7){
+            color: red;
+        }
+
+        .calender td{
+            border-top: 1px solid #c8cacc;
+            
+        }
+
+        .calender .calender-box{
+            border: 3px solid transparent;
+            cursor: pointer;
+        }
+
+        .calender-box:hover{
+            border-color: #fb0;
+        }
+
+        .calender-box.today{
+            background: #fb0;
+            color: #fff;
+        }
+        .calender-box.today span{
+            color: #fff;
+        }
+        .calender .calender-box span{
+            display: block;
+        }
+
+        .calender-box .num{
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .calender-box .almanac{
+            width: 50px;
+            margin: 0 auto;
+            font-size: 12px;
+            color:#bfbfbf;
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .calender td:nth-child(6n){
+            color: red;
+        }
+
+        .calender td:nth-child(7n){
+            color: red;
+        }
+
+        .calender .gray{
+            color:#bfbfbf;
+        }
+
+        .calender .paticular{
+            color: red;
+        }
+
+        .calender span.holiday{
+            float: left;
+            width: 15px;
+            height: 15px;
+            font-size: 13px;
+            line-height: 14px;
+            text-align: center;
+            color: #ffffff;
+            background: #FF9A92;
+        }
+
+        .calender .calender-box.holiday{
+            background: #FFF0F0;
+        }
+    </style>
+</head>
+<body>
+    <table class="calender">
+        <tbody>
+            <tr>
+                <th>一</th>
+                <th>二</th>
+                <th>三</th>
+                <th>四</th>
+                <th>五</th>
+                <th class="weekend">六</th>
+                <th class="weekend">日</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="calender-box">
+                        <span class="num gray">24</span>
+                        <span class="almanac">龙头节</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num gray">25</span>
+                        <span class="almanac">初三</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num gray">26</span>
+                        <span class="almanac">初四</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num gray">27</span>
+                        <span class="almanac">初五</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num gray">28</span>
+                        <span class="almanac">初六</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num gray">29</span>
+                        <span class="almanac">初七</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">1</span>
+                        <span class="almanac">初八</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">2</span>
+                        <span class="almanac">初九</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">3</span>
+                        <span class="almanac">初十</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">4</span>
+                        <span class="almanac">十一</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">5</span>
+                        <span class="almanac paticular">惊蛰</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">6</span>
+                        <span class="almanac">十三</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">7</span>
+                        <span class="almanac">十四</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box today">
+                        <span class="num">8</span>
+                        <span class="almanac paticular">妇女节</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">9</span>
+                        <span class="almanac">十六</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">10</span>
+                        <span class="almanac">十七</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">11</span>
+                        <span class="almanac">十八</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">12</span>
+                        <span class="almanac paticular">植树节</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">13</span>
+                        <span class="almanac">二十</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">14</span>
+                        <span class="almanac">廿一</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">15</span>
+                        <span class="almanac paticular">消费者权益日</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">16</span>
+                        <span class="almanac">廿三</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">17</span>
+                        <span class="almanac">廿四</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">18</span>
+                        <span class="almanac">廿五</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">19</span>
+                        <span class="almanac">廿六</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">20</span>
+                        <span class="almanac paticular">春分</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">21</span>
+                        <span class="almanac">廿八</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">22</span>
+                        <span class="almanac">廿九</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">23</span>
+                        <span class="almanac">三十</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">24</span>
+                        <span class="almanac">初一</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">25</span>
+                        <span class="almanac">初二</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">26</span>
+                        <span class="almanac">初三</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">27</span>
+                        <span class="almanac">初四</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">28</span>
+                        <span class="almanac">初五</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">29</span>
+                        <span class="almanac">初六</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">30</span>
+                        <span class="almanac">初七</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num">31</span>
+                        <span class="almanac">初八</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num gray">1</span>
+                        <span class="almanac">愚人节</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num gray">2</span>
+                        <span class="almanac">初十</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box">
+                        <span class="num gray">3</span>
+                        <span class="almanac">十一</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box holiday">
+                        <span class="holiday">休</span>
+                        <span class="num gray">4</span>
+                        <span class="almanac">清明</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="calender-box holiday">
+                        <span class="holiday">休</span>
+                        <span class="num gray">5</span>
+                        <span class="almanac">十三</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
