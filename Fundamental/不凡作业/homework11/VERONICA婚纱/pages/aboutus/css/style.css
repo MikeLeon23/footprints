@@ -1,0 +1,118 @@
+.container .banner{
+    width: 100%;
+    overflow: hidden;
+    /* 黑白滤镜 */
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+}
+
+.container .banner img{
+    width: 100%;
+    height: auto;
+    vertical-align: bottom;
+}
+
+.container .brandstory{
+    width: 100%;
+}
+
+.container .brandstory .brandstory-c{
+    width: 1080px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.container .brandstory .box{
+    width: 100%;
+    overflow: hidden;
+}
+.container .brandstory .img{
+    position: relative;
+    float: left;
+}
+
+.container .brandstory img{
+    vertical-align: bottom;
+}
+
+.container .brandstory .img .filter{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.container .brandstory .img .mask{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 314px;
+    font-size: 30px;
+	color: #ffffff;
+}
+
+.container .brandstory .article1{
+    float: right;
+    width: 593px;
+    font-size: 16px;
+    color: #6b6b6b;
+    text-indent: 2em;
+}
+
+.container .brandstory .article2{
+    margin-top: 50px;
+    margin-bottom: 60px;
+    font-size: 16px;
+	color: #6b6b6b;
+}
+
+.container .contactus{
+    width: 100%;
+    overflow: hidden;
+}
+
+.container .contactus-c{
+    width: 1080px;
+    margin: 0 auto;
+}
+
+.contactus .store .storeName{
+    margin-top: 34px;
+    font-size: 26px;
+	color: #373737;
+}
+
+.contactus .store .storeDescription{
+    margin-top: 24px;
+    font-size: 16px;
+    color: #616060;
+    line-height: 1.5;
+}
+
+.contactus .box{
+    position: relative;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 60px;
+    overflow: hidden;
+}
+
+.contactus .box .map{
+    float: left;
+}
+.contactus .box .contact p:nth-child(1){
+    margin-top: 150px;
+}
+.contactus .box .contact{
+    text-indent: 3em;
+    font-size: 16px;
+    color: #616060;
+    line-height: 1.5;
+}
+

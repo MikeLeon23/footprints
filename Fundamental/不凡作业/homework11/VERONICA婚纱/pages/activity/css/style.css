@@ -1,0 +1,86 @@
+.banner-img{
+    height: 100%;
+    /* 黑白滤镜 */
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+}
+
+.activity{
+    width: 100%;
+    overflow: hidden;
+}
+
+.activity .activity-item li .box{
+    width: 810px;
+    height: 200px;
+    margin: 0 auto;
+    padding: 50px 65px 0px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.activity-item li .date{
+    float: left;
+}
+.activity-item li .date p:first-child{
+    font-size: 60px;
+	color: #929292;
+}
+.activity-item li .date p:last-child{
+    font-size: 16px;
+    color: #929292;
+    text-align: right;
+}
+
+.activity-item li .text{
+    float: right;
+    width: 465px;
+    margin-left: 45px;
+}
+.activity-item li .text h3{
+    margin-top: 13px;
+    margin-bottom: 31px;
+    font-size: 16px;
+	color: #000000;
+}
+.activity-item li .text p{
+    font-size: 12px;
+	color: #4d4d4d;
+    line-height: 1.5;
+}
+
+.activity .activity-item li:hover{
+    background-color: #444444;
+    
+}
+.activity .activity-item li:hover *{
+    color: #ffffff !important;
+}
+
+.activity .navigate{
+    width: 74px;
+    margin: 29px auto 60px;
+    overflow: hidden;
+}
+
+.activity .navigate p{
+    float: left;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color: #c9c9c9;
+    border: solid 1px #c9c9c9;
+    cursor: pointer;
+}
+.activity .navigate p:hover{
+    background-color: #6d6d6d;
+    color: #ffffff;
+}
+.activity .navigate p:first-child{
+    margin-right: 10px;
+}
+
+footer{
+    background-color: #f7f5f5;
+}

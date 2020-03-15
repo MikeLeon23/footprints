@@ -1,0 +1,79 @@
+/* 头部导航栏
+   各个页面重复使用 */
+
+.header-c{
+    width: 1200px;
+    height: 80px;
+    margin: 0 auto;
+}
+
+.header-c .nav{
+    float: right;
+    font-size: 0;
+    width: 735px;
+    height: 100%;
+}
+
+.header-c .logo{
+    float: left;
+    width: 307px;
+    height: 100%;
+}
+
+.header-c .logo .logo-img{
+    display: block;
+    width: 180px;
+    height: 100%;
+    margin: 0 auto;
+    background: url(../img/logo.png) no-repeat center;
+    background-size: 100% auto;
+}
+
+.header-c li{
+    float: left;
+    height: 80px;
+    width: 20%;
+}
+
+.header-c li a{
+    position: relative;
+    display: block;
+    font-size: 16px;
+    width: 65px;
+    height: 100%;
+    margin: 0 auto;
+    line-height: 80px;
+    text-align: center;
+}
+
+.header-c li a:hover{
+    /* color: #1d1d1d; */
+    font-weight: bold;
+}
+
+.header-c li a.active{
+    /* color: #1d1d1d; */
+    font-weight: bold;
+}
+
+.header-c li a:hover::after{
+    content: "";
+    float: left;
+    position: absolute;
+    top: 55px;
+    left: 16px;
+    width: 32px;
+    height: 2px;
+    background-color: #b9ab77;
+}
+
+.header-c li a.active::after{
+    content: "";
+    float: left;
+    position: absolute;
+    top: 55px;
+    left: 16px;
+    width: 32px;
+    height: 2px;
+    background-color: #b9ab77;
+}

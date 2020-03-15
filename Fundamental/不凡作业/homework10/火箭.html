@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>火箭</title>
+    <style>
+        html,body{
+            background-color: orange;
+            height: 100%; 
+        }
+
+        img{
+            position: absolute;
+            left: -150px;
+            top: 800px;
+            width: 50px;
+            transform:translate(0px ,0px) rotate(45deg);
+            transition: all ease-in 1s;
+        }
+
+        body:hover img{
+            transform:translate(800px, -800px) rotate(45deg);
+        }
+    </style>
+</head>
+<body>
+    <img src="img/rocket.png" alt="">
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圆角拓展</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        div{
+            width: 200px;
+            height: 100px;
+            background-color: red;
+            margin-bottom: 100px;
+            margin-left: 100px; 
+        }
+
+        .radius1{
+            border-radius: 50%;
+        }
+
+        .radius2{
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+        }
+
+        .radius3{
+            border-radius: 100% 0 0 0 / 100% 0 0 0;
+        }
+
+        .radius4{
+            border-radius: 50% 0 50% 0 / 100% 0 100% 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="radius1"></div>
+    <div class="radius2"></div>
+    <div class="radius3"></div>
+    <div class="radius4"></div>
+
+</body>
+</html>
