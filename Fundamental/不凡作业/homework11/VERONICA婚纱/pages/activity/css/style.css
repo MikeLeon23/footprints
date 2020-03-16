@@ -11,12 +11,14 @@
 }
 
 .activity .activity-item li .box{
+    position: relative;
     width: 810px;
     height: 200px;
     margin: 0 auto;
     padding: 50px 65px 0px;
     box-sizing: border-box;
     border-bottom: 1px solid #dbdbdb;
+    transition: all ease-out .4s;
 }
 
 .activity-item li .date{
@@ -33,7 +35,7 @@
 }
 
 .activity-item li .text{
-    float: right;
+    float: left;
     width: 465px;
     margin-left: 45px;
 }
@@ -48,7 +50,20 @@
 	color: #4d4d4d;
     line-height: 1.5;
 }
-
+.activity .box a{
+    display: block;
+    width: 30px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: url(../img/向右.png) no-repeat center;
+    background-size: auto 100%;
+}
+.activity .activity-item li:hover .box{
+    padding: 50px 0 0 0;
+}
 .activity .activity-item li:hover{
     background-color: #444444;
     
@@ -73,6 +88,7 @@
     border: solid 1px #c9c9c9;
     cursor: pointer;
 }
+.activity .navigate p.active,
 .activity .navigate p:hover{
     background-color: #6d6d6d;
     color: #ffffff;

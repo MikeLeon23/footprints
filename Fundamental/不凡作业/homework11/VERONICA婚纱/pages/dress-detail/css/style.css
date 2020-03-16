@@ -111,10 +111,8 @@
     background-color: #dddddd;
 }
 .container .tab .tab-c{
-    position: relative;
     width: 1200px;
     margin: 0 auto;
-    overflow: hidden;
 }
 .tab .kind p{
     display: inline-block;
@@ -135,6 +133,7 @@
 .container .tab .swipper{
     width: 100%;
     margin-top: 40px;
+    overflow: hidden;
 }
 .container .tab .swipper li{
     float: left;
@@ -142,18 +141,23 @@
 .container .tab .swipper li + li{
     margin-left: 48px;
 }
-.container .tab .swipper img{
+.container .tab .arr img{
     vertical-align: bottom;
+}
+.container .tab div:nth-child(2){
+    position: relative;
 }
 .container .tab .arr-l{
     position: absolute;
     left: -46px;
-    bottom: 50px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .container .tab .arr-r{
     position: absolute;
     right: -46px;
-    bottom: 50px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .more{

@@ -109,7 +109,10 @@
     background: #ffffff;
     border: 5px solid #6c6c6c;
 }
-
+.pagination .dot:hover{
+    background: #ffffff;
+    border: 5px solid #6c6c6c;
+}
 /* 婚纱礼服部分 */
 .wedding-dress{
     width: 100%;
@@ -189,17 +192,24 @@
     position: absolute;
     top: 0;
     left: 0;
-    visibility: hidden;
+    opacity: 0;
+    transition: all ease .4s;
+    -webkit-transition: all ease .4s;
+    -moz-transition: all ease .4s;
+    -ms-transition: all ease .4s;
+    -o-transition: all ease .4s;
 }
 .wedding-dress .showcase-item:hover .filter{
-    visibility: visible;
+    opacity: 1;
 }
 .wedding-dress .showcase-item .info{
     position: absolute;
     top: 124px;
     width: 100%;
     text-align: center;
-    visibility: hidden;
+    opacity: 0;
+    transition: all ease .5s;
+    transition-delay: .4s;
 }
 .wedding-dress .showcase-item .info .herstyle{
     margin-bottom: 39px;
@@ -216,7 +226,7 @@
 	color: #ffffff;
 }
 .wedding-dress .showcase-item:hover .info{
-    visibility: visible;
+    opacity: 1;
 }
 .wedding-dress .showcase-item + .showcase-item{
     margin-left: 40px;
@@ -270,17 +280,19 @@
     position: absolute;
     top: 120px;
     left: 0;
-    visibility: hidden;
+    opacity: 0;
+    transition: all ease .5s;
 }
 .jewelry .showcase-item:hover .filter{
-    visibility: visible;
+    opacity: 1;
 }
 .jewelry .showcase-item .info{
     position: absolute;
     top: 120px;
     width: 100%;
     text-align: left;
-    visibility: hidden;
+    opacity: 0;
+    transition: all ease .5s;
 }
 .jewelry .showcase-item .info .info-title{
     width: 88%;
@@ -298,7 +310,7 @@
     text-overflow: ellipsis;
 }
 .jewelry .showcase-item:hover .info{
-    visibility: visible;
+    opacity: 1;
 }
 .jewelry .showcase-item + .showcase-item{
     margin-left: 40px;
@@ -339,18 +351,20 @@
     -webkit-filter: opacity(90%); */
     /* 直接用background-color写更简单，如下 */
     background-color: RGB(241, 239, 240, 0.9);
-    visibility: hidden;
+    opacity: 0;
+    transition: all ease 0.5s;
 }
 .activity .box .case-item:hover .filter{
-    visibility: visible;
+    opacity: 1;
 }
 .activity .box .info{
     position: absolute;
     top: 44px;
-    visibility: hidden;
+    opacity: 0;
+    transition: all ease 0.2;
 }
 .activity .box .case-item:hover .info{
-    visibility: visible;
+    opacity: 1;
 }
 .activity .box .info>*{
     width: 72%;
