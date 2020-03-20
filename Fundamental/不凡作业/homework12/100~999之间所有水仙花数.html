@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.log('100~999之间的莲花数有：')
+        for(i = 100; i < 1000; i++){
+            var num = i;
+            var count = 0;
+            while(num != 0){
+                var a = num%10;
+                count = count + Math.pow(a, 3);
+                num = Math.floor(num/10);
+            }
+            if(count == i){
+                console.log(i)
+            }
+        }
+    </script>
+</body>
+</html>
