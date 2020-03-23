@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function isPrimeNumber(n){
+            var count = 0;
+            for(var i = 1; i <= n; i++){
+                if(n%i == 0){
+                    count++;
+                }
+            }
+            return count == 2 ? true : false;
+        }
+
+        var a = prompt('请输入一个自然数');
+        alert('这个数是否是质数：' + isPrimeNumber(a));
+    </script>
+</body>
+</html>
