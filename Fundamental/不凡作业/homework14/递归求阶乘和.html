@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var num = prompt('请输入需要求阶乘和的数字');
+        
+        //求阶乘的函数
+        function factorial(num) {
+            if (num == 1) {
+                return 1;
+            } else {
+                return factorial(num - 1) * num;
+            }
+        }
+
+        //求阶乘和的函数
+        function factorialSum(num){
+            if(num == 1){
+                return 1;
+            }else{
+                return factorialSum(num-1) + factorial(num);
+            }
+        }
+
+        alert(num + '的阶乘和是：' + factorialSum(num));
+    </script>
+</body>
+</html>

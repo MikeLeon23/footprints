@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 首先获得日期对象
+        // 然后看是不是闰年，是闰年就把数组中的2月改称29天，因为每次调用都初始化数组所以没影响。
+        // 然后日期当日的日期，加上当年之前各个月的天数之和，就是这天是当年第几天的结果
+        
+
+        function whichDayOfTheYear(str){
+            var monthArr = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            var date = new Date(str);
+            var year = date.getFullYear();
+            var month = date.getMonth();
+            var day = date.getDate();
+            console.log(month,day);
+            if(year%4 == 0 && year%100 != 0 || year%400 == 0){
+                monthArr[1] = 29;
+            }
+            var num = 0;
+            for(var i = 0; i < month; i++){
+                num = num + monthArr[i];
+            }
+
+            return num+day;
+        }
+        
+        console.log(whichDayOfTheYear('2020-2-17'));
+    </script>
+</body>
+</html>

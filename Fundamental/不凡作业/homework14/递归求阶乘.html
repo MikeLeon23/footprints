@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var num = prompt('请输入要求阶乘的数字');
+        function factorial(num) {
+            if (num == 1) {
+                return 1;
+            } else {
+                return factorial(num - 1) * num;
+            }
+        }
+
+        alert(num + '的阶乘为：' + factorial(num));
+    </script>
+</body>
+
+</html>

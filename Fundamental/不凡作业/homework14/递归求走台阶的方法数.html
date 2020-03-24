@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var steps = prompt('一共有多少级台阶？');
+
+        function goUpTheSteps(steps){
+            if(steps == 1 || steps == 2){
+                return steps;
+            }else{
+                return goUpTheSteps(steps-1) + goUpTheSteps(steps-2);
+            }
+        }
+
+        alert('走上'+steps+'级台阶，一共存在'+goUpTheSteps(steps)+'种走法');
+    </script>
+</body>
+</html>

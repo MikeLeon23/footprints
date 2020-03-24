@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var month = prompt('你想知道第几个月时兔子的数量？');
+
+        function rabbitNeverDie(month){
+            if(month == 1 || month == 2){
+                return 1;
+            }else{
+                return rabbitNeverDie(month-1) + rabbitNeverDie(month-2);
+            }
+        }
+
+        alert('第' + month + '个月时，兔子的数量是：' + rabbitNeverDie(month));
+    </script>
+</body>
+</html>
