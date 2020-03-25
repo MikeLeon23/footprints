@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //创建对象
+        var person1 = {
+            name: '张三',
+            age: 20,
+            gender: 'male',
+            greet: function(){
+                console.log('你好，我是' + this.name);
+            }
+        }
+        console.log(person1);
+
+        //创建对象的另一种方法
+        var person2 = new Object();
+        console.log(person2);
+
+        //添加属性、修改属性
+        person2.name = '李四';
+        person2.age = 10;
+        person2.greet = function(){
+            console.log('你好，我是' + this.name);
+        }
+        console.log(person2);
+
+        // 获取属性
+        var a = person2.name;
+        console.log(a);
+
+        //删除属性
+        delete person2.age;
+        console.log(person2);
+
+        //调用对象的方法
+        person2.greet();
+
+        // 获取不存在的属性，返回的结果是undefined
+        console.log(person2.height);
+    </script>
+</body>
+</html>

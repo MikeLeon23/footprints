@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="douban.js"></script>
+</head>
+<body>
+    <script>
+        // 遍历豆瓣数据
+        for(var key in movies){
+            console.log(key, movies[key]);
+        }
+
+        // 错误写法，返回的都是undefined
+        for(var key in movies){
+            console.log(key, movies.key);
+        }
+
+        //筛选出所有喜剧电影
+        var subjects = movies.subjects;
+        var arr = new Array();
+        console.log(arr);
+        for(var i = 0; i < subjects.length; i++){
+            if(subjects[i].genres.indexOf('喜剧') != -1){
+                arr.push(subjects[i].title);
+            }
+        }
+        console.log(arr);
+
+        // 遍历并打印出所有主演的名字
+        for(var i = 0; i < subjects.length; i++){
+            var castArr = subjects[i].casts;
+            for(var j = 0; j < castArr.length; j++){
+                console.log(castArr[j].name);
+            }
+        }
+
+        // 遍历电影,打印'电影名字:风语咒,演员:沈腾/张一鸣'
+        for(var i = 0; i <subjects.length; i++){
+            var castArr = subjects[i].casts;
+            var str = '电影名字：' + subjects[i].title +'，演员：';
+            for(var j = 0; j < castArr.length; j++){
+                if(j == castArr.length-1){
+                    str += castArr[j].name;
+                }else{
+                    str += castArr[j].name + '/';
+                }
+            }
+            console.log(str);
+        }
+    </script>
+</body>
+</html>

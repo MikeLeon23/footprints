@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 
+        1. 给数组的第一个数做一个标记，依次与后面的数作比较
+        2. 如果后面的数小于当前标记的数，就把这个标记给它，直到数组末尾
+        3. 将标记的数与数组的第一个数交换位置（如果第一个数就是标记的数，则不用交换）
+        4. 给数组的第2个数做标记，重复上面步骤
+        5. 直到数组中的每一个位置都经历过上面各步骤，即可得到一个从小到大排序的有序数组
+        */
+
+        function selectSort(arr) {
+            for (var i = 0; i < arr.length - 1; i++) {
+                var minNum = i;
+                for (var j = i + 1; j < arr.length; j++) {
+                    if (arr[j] < arr[minNum]) {
+                        minNum = j;
+                    }
+                }
+                if (minNum != i) {
+                    var temp = arr[i];
+                    arr[i] = arr[minNum];
+                    arr[minNum] = temp;
+                }
+            }
+        }
+
+        var arr = [3, 6, 8, 23, 4, 67, 3, 3, 0, 56, 2]
+        console.log('原数组：'+arr);
+        selectSort(arr);
+        console.log('选择排序后：'+arr);
+    </script>
+</body>
+
+</html>
