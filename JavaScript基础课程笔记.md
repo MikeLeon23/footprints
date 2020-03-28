@@ -2022,3 +2022,393 @@ for (var key in user) {
 ```
 
 注意：for in遍历的时候，必须使用`obj[key]`来获取属性，不能使用`obj.key`获取。因为`[]`里的内容会当做变量解析，而`obj.key`表示的是`obj`的`key`属性（变量中不存在key属性），不会当做变量解析。
+
+#### 构造函数创建对象
+
+- 构造函数就是一个普通的函数，创建方式和普通函数没有区别，不同的是构造函数习惯上**首字母大写**。
+- 构造函数和普通函数的区别就是**调用方式**的不同：普通函数是直接调用，而构造函数需要使用 new 关键字来调用。
+- **this 的指向也有所不同**：
+  - 1.以函数的形式调用时，this 永远都是 window。比如`fun();`相当于`window.fun();`
+  - 2.以方法的形式调用时，this 是调用方法的那个对象
+  - 3.以构造函数的形式调用时，this 是 new 出来的那个对象
+
+#### new到底做了什么
+
+- 开辟内存空间，存储新创建的空对象
+- 将新建的对象设置为构造函数中的 this，在构造函数中可以使用 this 来引用 新建的对象
+- 执行函数中的代码（包括设置对象属性和方法等）
+- 将新建的对象作为返回值返回
+
+因为 this 指的是 new 一个 Object 之后的对象实例。
+
+```javascript
+// 在js中 所有的对象都是函数 所有的函数也可以称为"对象"
+// 此时 这个Human为手动创建的自定义构造函数对象
+// 在js中 this的指向在调用前是不确定的.
+// 面试: 构造函数对象的this指向new出来的实例对象
+function Human() {
+	this.name = "张三";
+	this.age = 20;
+	this.say = function() {
+		alert(this.name + "的年龄为:" + this.age);
+	};
+}
+// zs为通过Human创建的一个实例对象
+var zs = new Human();
+// 通过zs的实例对象调用的属性 和方法
+alert("手动弹出name==>" + zs.name);
+zs.say();
+
+// var date = new Date();
+// date.getFullYear()
+
+// 如果不通过new实例对象,那么this指向调用者!!!
+//全局声明的变量和函数，挂载在window对象上，使用时会省略window
+window.Human();
+```
+
+#### this指向谁
+
+1. 指向调用者，问题的关键就是找准调用者
+2. 构造函数中的this，指向new出来的实例对象
+3. 可以通过apply, bind, call...这些方法强行修改this的指向
+4. 箭头函数中的this
+
+注意：
+
+- this不执行的时候，不知道指向谁
+- 回调函数（函数作为参数的函数）中慎用this，因为this的指向可能会变
+
+#### Json对象
+
+> JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。JSON 是 JS 对象的字符串表示法，它使用文本表示一个 JS 对象的信息，本质是一个字符串
+
+```javascript
+var obj = { a: "Hello", b: "World" };
+//这是一个对象，注意键名也是可以使用引号包裹的
+var json = '{"a": "Hello", "b": "World"}';
+//这是一个 JSON 字符串，本质是一个字符串
+// 对象类型是不能通过网络进行传输的,只能是文本形式
+var movie = {
+	title: "我不是药神",
+	casts: [
+		{
+			name: "徐峥",
+			avatar: "http://xxxx.jpg",
+			age: 45,
+		},
+		{
+			name: "黄渤",
+			avatar: "http://xxxx2.jpg",
+			age: 42,
+		},
+	],
+	pubDate: "2017-10-1",
+	rate: 5,
+};
+console.log(movie);
+// 1. 通过JSON.stringify(jsonObj) ==> 可以把对象转换为Json字符串
+var jsonStr = JSON.stringify(movie);
+console.log(jsonStr);
+// 2. 通过JSON.parse把json字符串转换为对象
+var movieStr = '{"name":"张三","age":20}';
+var movieObj = JSON.parse(movieStr);
+console.log(movieObj);
+//转换为对象之后，即可通过.的形式调用属性的值
+console.log(movieObj.name);
+
+// 对象和json类型的对象都可以通过 JSON.stringify() 转换为字符串,
+// 但是如果希望字符串转换json对象 必须是json字符串
+var user = {
+	name: "张三",
+	age: 20,
+};
+var userStr = JSON.stringify(user);
+// {"name":"张三","age":20}
+// {name:'张三',age:20}
+console.log(userStr);
+var str = "{name:'张三',age:20}";
+var obj = JSON.parse(str);
+console.log(obj);
+```
+
+### 数组对象的常用方法
+
+#### reverse()
+
+反转数组，返回结果为**反转后的数组**（会改变原来的数组）。
+
+语法：
+
+```text
+反转后的数组  =  数组.reverse();
+```
+
+举例：
+
+```javascript
+var arr = ["a", "b", "c", "d", "e", "f"];
+
+var result = arr.reverse(); // 将数组 arr 进行反转
+
+console.log("arr =" + arr);
+console.log("result =" + result);
+```
+
+打印结果：
+
+```javascript
+arr = ["f", "e", "d", "c", "b", "a"];
+result = ["f", "e", "d", "c", "b", "a"];
+```
+
+从打印结果可以看出，原来的数组已经被改变了。
+
+#### sort()
+
+对数组的元素进行从小到大来排序（会改变原来的数组）。
+
+**无参数时**
+
+如果在使用 sort() 方法时不带参，则默认按照**Unicode 编码**，从小到大进行排序。
+
+**举例 1**：（当数组中的元素为字符串时）
+
+```javascript
+var arr1 = ["e", "b", "d", "a", "f", "c"];
+
+var result = arr1.sort(); // 将数组 arr1 进行排序
+
+console.log("arr1 =" + arr1);
+console.log("result =" + result);
+```
+
+打印结果：
+
+```javascript
+arr1 = ["a", "b", "c", "d", "e", "f"];
+result = ["a", "b", "c", "d", "e", "f"];
+```
+
+**举例 2**：（当数组中的元素为数字时）
+
+```javascript
+var arr2 = [5, 2, 11, 3, 4, 1];
+
+var result = arr2s.sort(); // 将数组 arr2 进行排序
+
+console.log("arr2 =" + arr2);
+console.log("result =" + result);
+```
+
+打印结果：
+
+```javascript
+arr2 = [1, 11, 2, 3, 4, 5];
+result = [1, 11, 2, 3, 4, 5];
+```
+
+上方的打印结果中，你会发现，使用 sort() 排序后，数字`11`竟然在数字`2`的前面。这是为啥呢？因为上面讲到了，`sort()`方法是按照**Unicode 编码**进行排序的。
+
+**带参数时**
+
+如果在 sort()方法中带参，我们就可以自定义排序规则。具体做法如下：
+
+我们可以在 sort()添加一个回调函数，来指定排序规则。回调函数中需要定义两个形参，浏览器将会分别使用数组中的元素作为实参去调用回调函数
+
+浏览器根据回调函数的返回值来决定元素的排序：（重要）
+
+- 如果返回一个大于 0 的值，则元素会交换位置
+- 如果返回一个小于 0 的值，则元素位置不变
+- 如果返回一个 0，则认为两个元素相等，则不交换位置（说明sort()是个稳定排序）
+
+**代码举例**：
+
+```javascript
+var arr3 = [5, 2, 11, 3, 4, 1];
+
+// 自定义排序规则
+var result = arr3.sort(function(a, b) {	//a, b就是遍历到的相邻的两个元素
+	return a - b; // 升序排列
+	// return b - a; // 降序排列
+});
+
+console.log("arr3 =" + arr3); // [1,2,3,4,5,11]
+console.log("result =" + result); // [1,2,3,4,5,11]
+```
+
+forEach()也可以实现对数组的遍历
+
+回调函数中有三个参数：元素、下标、数组
+
+```js
+var arr = ['a', 'b', 'c', 'd', 'e', 'd', 'c']
+//第一个参数表示：当前遍历的元素
+//第二个参数表示：当前遍历元素所在的下标
+//第三个参数表示：正在遍历的这个数组
+arr.forEach(function(item, index, array){
+    console.log(item, index, array);
+})
+```
+
+
+
+#### slice()
+
+从数组中提取指定的一个或者多个元素，返回结果为**新的数组**（不会改变原来的数组）。
+
+备注：该方法不会改变原数组，而是将截取到的元素封装到一个新数组中返回。
+
+语法：
+
+```javascript
+新数组 = 原数组.slice(开始位置的索引, 结束位置的索引); //注意：包含开始索引，不包含结束索引
+```
+
+举例：
+
+```javascript
+var arr = ["a", "b", "c", "d", "e", "f"];
+
+var result1 = arr.slice(2); //从下标为2值开始提取
+var result2 = arr.slice(-2); //提取最后两个元素
+var result3 = arr.slice(2, 4); //提取从下标为2到下标为4之间的值（不包括下标为4的值）
+var result4 = arr.slice(4, 2); //空
+```
+
+#### splice()
+
+从数组中**删除**指定的一个或多个元素，返回结果为**删除的元素组成的数组**（会改变原来的数组，会将指定元素从原数组中删除）。
+
+语法：
+
+```javascript
+原数组.splice(起始索引index, 需要删除的个数, 第三个参数, 第四个参数...);
+```
+
+上方语法中，第三个及之后的参数，表示：向原数组中添加新的元素，这些元素将会自动插入到开始位置索引的前面。
+
+举例 1：
+
+```javascript
+var arr1 = ["a", "b", "c", "d", "e", "f"];
+var result1 = arr1.splice(1); //从第index为1的位置开始，删除元素
+
+console.log("arr1：" + arr1);
+console.log("result1：" + result1);
+
+console.log("-----------------------");
+
+var arr3 = ["a", "b", "c", "d", "e", "f"];
+var result3 = arr3.splice(1, 3); //从第index为1的位置开始删除元素,一共删除三个元素
+
+console.log("arr3：" + arr3);
+console.log("result3：" + result3);
+
+console.log("-----------------------");
+```
+
+打印结果：
+
+```javascript
+arr1：["a"]
+result1：["b","c","d","e","f"]
+-----------------------
+
+arr3：["a","e","f"]
+result3：["b","c","d"]
+-----------------------
+```
+
+举例 2：（我们来看看**第三个参数**的用法）
+
+```javascript
+var arr4 = ["a", "b", "c", "d", "e", "f"];
+
+//从第index为1的位置开始删除元素,一共删除三个元素。并且在 index=1 的前面追加两个元素
+var result4 = arr4.splice(1, 3, "千古壹号", "vae");
+
+console.log("arr4：" + arr4);
+console.log("result4：" + result4);
+```
+
+打印结果：
+
+```javascript
+arr4：["a","千古壹号","vae","e","f"]
+result4：["b","c","d"]
+```
+
+#### indexOf()和lastIndexOf()
+
+```javascript
+索引值 = 数组.indexOf(value);
+
+索引值 = 数组.lastIndexOf(value);
+```
+
+解释：
+
+- indexOf(value)：从前往后索引，获取 value 在数组中的第一个下标。
+- lastIndexOf(value) ：从后往前索引，获取 value 在数组中的最后一个下标。
+
+作用：
+
+利用这个方法，我们可以判断某个值是否在指定的数组中。如果没找到则返回`-1`。
+
+```javascript
+var arr = ["a", "b", "c", "d", "e", "d", "c"];
+
+console.log(arr.indexOf("c")); //从前往后，找第一个"c"在哪个位置,2
+console.log(arr.lastIndexOf("d")); //从后往前，找第一个"d"在哪个位置,5
+```
+
+### 字符串对象的常用方法
+
+- **charAt()** 获取相应位置的字符 
+
+- **charCodeAt()** 指定位置字符 的 Unicode 编码 
+
+- **indexOf()** / **lastIndexOf()** 返回字符在字符串中的位置 
+
+- **concat()** 连接字符串 
+
+- **slice()** 截取字符串，第二个参数是截止位置
+
+- **substr()** 截取字符串，第二个参数是截取个数
+
+- **toUpperCase()** / **toLowerCase()** 转换大小写
+
+```javascript
+var str = "how are you? and you?";
+
+console.log(str.length); // 21
+// charAt()获取相应位置字符
+// 空格也 占位置
+console.log(str.charAt(5)); // r
+// charCodeAt() 方法可返回指定位置字符的 Unicode 编码
+console.log(str.charCodeAt(5)); // 114
+
+// indexOf() / lastIndexOf()
+// 返回字符在字符串中的位置
+console.log(str.indexOf("y")); // 8
+console.log(str.lastIndexOf("y")); // 17
+
+//concat() 连接字符串
+var str2 = " me too";
+console.log(str.concat(str2));
+
+// slice(起始位置, 结束为止)	  方法可提取字符串的某个部分，并以新的字符串返回被提取的部分
+console.log(str.slice(0, 9)); // how are y
+console.log(str.slice(0)); // how are you? and you?
+console.log(str.slice(1, 4)); // 'ow '
+
+// substr(起始位置,[取的个数])  截取字符串 返回截取的字符串
+console.log(str.substr(0)); // 截取 整个字符串
+console.log(str.substr(1, 4)); // ow a
+
+// 转换大小写
+console.log(str.toUpperCase()); // HOW ARE YOU? AND YOU?
+console.log(str);
+console.log(str.toLowerCase()); // how are you? and you?
+```
