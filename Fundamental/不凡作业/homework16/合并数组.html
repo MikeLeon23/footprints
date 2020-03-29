@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function mergeArr(arr1, arr2) {
+            var newArr = [];
+
+            while(arr1.length){
+                newArr.push(arr1.shift());
+                newArr.push(arr1.shift());
+                newArr.push(arr2.shift());
+            }
+            return newArr;
+        }
+
+        var arr1 = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2'];
+        var arr2 = ['A', 'B', 'C', 'D'];
+        console.log(mergeArr(arr1, arr2));
+    </script>
+</body>
+</html>

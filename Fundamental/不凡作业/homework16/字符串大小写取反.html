@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var strOpposite = function(str){
+            var n = 'a'.charCodeAt(0) - 'A'.charCodeAt(0);
+            var arr = str.split('');
+            for(var i = 0; i < str.length; i++){
+                if(str.charCodeAt(i) < 'a'.charCodeAt(0)){
+                    arr[i] = String.fromCharCode(str.charCodeAt(i) + n);
+                }else{
+                    arr[i] = String.fromCharCode(str.charCodeAt(i) - n);
+                }
+            }
+            return arr.join('');
+        }
+
+        var str = 'sdAdGBdieO';
+        console.log('原字符串：' + str);
+        console.log('大小写反转之后：' + strOpposite(str));
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var showTimes = function(arr) {
+            var obj = {};
+            for(var i = 0; i < arr.length; i++){
+                obj[arr[i]] = obj[arr[i]] ? obj[arr[i]]+1 : 1;
+            }
+            return obj;
+        }
+
+        var arr = ["c", "a", "z", "a", "a"];
+        console.log(showTimes(arr));
+    </script>
+</body>
+</html>

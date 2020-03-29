@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function indexOfRepeat(str) {
+            var arr = str.split('');
+            var position = [];
+            for(var i = 0; i < arr.length; i++){
+                if(arr[i] == 'o'){
+                    position.push(i);
+                }
+            }
+            return position;
+        }
+
+        var str = "abcoefoxyozzopp";
+        console.log('字符串' + str + '中o出现的位置索引：' + indexOfRepeat(str));
+    </script>
+</body>
+</html>
