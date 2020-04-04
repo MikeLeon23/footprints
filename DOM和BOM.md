@@ -16,11 +16,11 @@ JavaScript 基础分为三个部分：
 
 ### 事件的三要素
 
-**事件的三要素：事件源、事件、事件驱动程序**。
+**事件的三要素：事件源、事件、事件处理程序**。
 
-比如，我用手去按开关，灯亮了。这件事情里，事件源是：开关。事件是：按开关。事件驱动程序是：灯的开和关。
+比如，我用手去按开关，灯亮了。这件事情里，事件源是：开关。事件是：按开关。事件处理程序是：灯的开和关。
 
-再比如，网页上弹出一个广告，我点击右上角的`X`，广告就关闭了。这件事情里，事件源是：`X`。事件是：鼠标点击这个动作。事件驱动程序是：广告关闭了。
+再比如，网页上弹出一个广告，我点击右上角的`X`，广告就关闭了。这件事情里，事件源是：`X`。事件是：鼠标点击这个动作。事件处理程序是：广告关闭了。
 
 于是我们可以总结出：谁引发的后续事件，谁就是事件源。
 
@@ -28,7 +28,7 @@ JavaScript 基础分为三个部分：
 
 - 事件源：引发后续事件的 html 标签。
 - 事件：js 已经定义好了（见下图）。
-- 事件驱动程序：对样式和 html 的操作。也就是 DOM。（程序员发挥的地方）
+- 事件处理程序：对样式和 html 的操作。也就是 DOM。（程序员发挥的地方）
 
 常见的事件如下：
 
@@ -59,8 +59,8 @@ JavaScript 基础分为三个部分：
 **代码书写步骤如下：**（重要）
 
 1. 获取事件源：document.getElementById("box");
-2. 绑定事件：事件源box.事件onclick = function(){事件驱动程序};
-3. 书写事件驱动程序：关于DOM的操作
+2. 绑定事件：事件源box.事件onclick = function(){事件处理程序};
+3. 书写事件处理程序：关于DOM的操作
 
 最简单的代码举例：（点击 box1，然后弹框）
 
@@ -73,7 +73,7 @@ JavaScript 基础分为三个部分：
 		var box1 = document.getElementById("box1");
 		// 2、绑定事件
 		box1.onclick = function() {
-			// 3、书写事件驱动程序
+			// 3、书写事件处理程序
 			alert("我是弹出的内容");
 		};
 	</script>
@@ -114,6 +114,12 @@ console.log(arr2[0]);	//通过下标获取真正的DOM对象
 </script>
 ```
 
+取消绑定事件的方法：
+
+```js
+div1[0].onclick = null;
+```
+
 方式二：行内绑定
 
 ```html
@@ -143,7 +149,21 @@ console.log(arr2[0]);	//通过下标获取真正的DOM对象
 </script>
 ```
 
-### 事件驱动程序
+**onload事件**
+
+> 当页面加载（文本和图片）完毕的时候，触发 onload 事件。
+
+```js
+// 页面加载完之后再出发程序，用于防止页面从上到下加载，
+// 使得按照原本的顺序，函数执行时，相关的内容还没有加载导致问题
+window.onload = function(){
+    var box = document.querySelector('.box');
+}
+```
+
+
+
+### 事件处理程序
 
 我们在上面是拿 alert 举例，不仅如此，我们还可以操作标签的属性和样式。举例如下：
 
@@ -680,3 +700,230 @@ btn3.onclick = function() {
 </script>
 ```
 
+
+
+### DOM扩展（H5）
+
+1. 获取元素
+
+   `document.querySelector("selector")` html5 新选择器，参数是 css 选择器参数,选择选中的第一个
+
+   `document.querySelectorAll("selector")` 选择多个
+
+2. 类名操作
+
+- `Node.classList.add('class')` 添加 class
+- `Node.classList.remove('class')` 移除 class
+- `Node.classList.toggle('class')` 切换 class，有则移除，无则添加
+- `Node.classList.contains('class')` 检测是否存在 class 非常好用 但是出现的太晚了 。。。
+
+3. 自定义属性
+
+在 HTML5 中我们可以自定义属性，其格式如下 `data-*=""`，例如:
+
+`data-info="我是自定义属性"`，通过`Node.dataset['info']` 我们便可以获取到自定义的属性值。
+
+`Node.dataset`是以类对象形式存在的
+
+当我们如下格式设置时，则需要以小驼峰格式才能正确获取
+
+```
+data-my-name="mm"`，获取`Node.dataset['myName']
+```
+
+## JS补充
+
+### 事件监听器
+
+思考一下，`事件源.onclick = function(){...};`  这种绑定事件方式的缺点？
+
+- 同一个事件源只能绑定一个事件。
+- 如果有多个，后面的会覆盖前面的。
+
+#### addEventListener
+
+> addEventListener 是 W3C DOM 规范中提供的注册事件监听器的方法。是绑定事件的又一种方式。
+
+它的优点包括：
+
+- 它允许给一个事件注册多个 listener。
+- 它提供了一种更精细的手段控制 listener 的触发阶段。（即可以选择捕获或者冒泡）。
+- 它对任何 DOM 元素都是有效的，而不仅仅只对 HTML 元素有效。
+
+#### addEventListener的使用
+
+语法：`target.addEventListener(type,listener,useCapture]);`
+
+- target： 文档节点、document、window 或 XMLHttpRequest。 (事件源)
+- type： 字符串，事件名称，不含“on”，比如“click”、“mouseover”、“keydown”等。
+- listener ：实现了 EventListener 接口或者是 JavaScript 中的函数。
+- useCapture ：是否使用捕获，默认为 false，表示在事件冒泡阶段调用事件处理函数；true 表示在事件捕获阶段调用处理函数；
+
+```javascript
+d1.addEventListener('click', function(){
+    alert('d1);
+}, true)
+
+d2.addEventListener('click', foo, false)
+
+function foo(){
+    alert('d2');
+}
+```
+
+#### 事件捕获和事件冒泡
+
+> DOM事件流（event flow ）存在三个阶段：事件捕获阶段、处于目标阶段、事件冒泡阶段。
+
+**事件捕获（event capturing）：** 当鼠标点击或者触发dom事件时（被触发dom事件的这个元素被叫作事件源），浏览器会从根节点 =>事件源（由外到内）进行事件传播。
+
+**事件冒泡（dubbed bubbling）：** 事件源 =>根节点（由内到外）进行事件传播。
+
+![capture.jpg](https://i.loli.net/2019/08/14/cQAd2iBJTRU9b4q.jpg)
+
+dom标准事件流的触发的先后顺序为：先捕获再冒泡。即当触发dom事件时，会先进行事件捕获，捕获到事件源之后通过事件传播进行事件冒泡。
+
+#### removeEventListener移除绑定
+
+- 如果同一个监听事件分别为“事件捕获”和“事件冒泡”注册了一次，一共两次，这两次事件需要分别移除。两者不会互相干扰。
+- 移除的事件必须为外部事件（外部封装的函数）。
+- 总结来讲，就是移除时，必须和绑定时一一对应。
+
+```javascript
+d2.addEventListener("click", foo, false);
+d2.removeEventListener("click", foo, false);
+function foo() {
+	alert("d2");
+}
+```
+
+#### IE8以下兼容问题
+
+- target.attachEvent(type, listener);
+- target.detachEvent(type,listener);
+
+```javascript
+/**
+ * 兼容IE8和标准浏览器
+ * el 绑定元素
+ * type 事件类型,IE8要加on
+ * func 执行方法
+ **/
+function myAddEventListener(el, type, func) {
+	// attachEvent 是IE 专有的方法
+	if (el.attachEvent) {
+		el.attachEvent("on" + type, func);
+	} else {
+		el.addEventListener(type, func);
+	}
+}
+```
+
+### 定时器
+
+#### 创建定时器
+
+- setTimeout(); 延迟执行
+- setInterval(); 循环执行
+
+#### 移除定时器
+
+只有起了名字的定时器，才能移除
+
+- clearTimeout(); 清除延迟执行的定时器
+- clearInterval(); 清除循环执行的定时器
+
+#### 使用
+
+```javascript
+setTimeout(function() {
+	console.log("延迟了5s才执行");
+}, 5000);
+
+var timer = setInterval(function() {
+	console.log("每隔1s执行一次");
+}, 1000);
+
+// 清除定时器时 需要给定时器命名(用一个变量接受设置的定时器)
+btn.onclick = function() {
+	clearInterval(timer);
+};
+```
+
+#### 倒计时案例
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			h1 {
+				width: 250px;
+				margin: 100px auto 50px auto;
+			}
+
+			.item {
+				width: 500px;
+				height: 50px;
+				margin: 0 auto;
+				text-align: center;
+				font-size: 30px;
+				color: orange;
+			}
+
+			strong {
+				background-color: orange;
+				padding: 0 10px;
+				color: #fff;
+				border-radius: 4px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>距离光棍节,还有</h1>
+		<div class="item">
+			<span><span class="day">00</span>天</span>
+			<strong><span class="hour">00</span>时</strong>
+			<strong><span class="min">00</span>分</strong>
+			<strong><span class="second">00</span>秒</strong>
+		</div>
+
+		<script>
+			var endTime = new Date("2019-11-11");
+			var dayEl = document.querySelector(".day");
+			var hourEl = document.querySelector(".hour");
+			var minEl = document.querySelector(".min");
+			var secondEl = document.querySelector(".second");
+			setInterval(function() {
+				// 获取当前时间
+				var nowTime = new Date();
+				var cha = endTime - nowTime; // 获取相差的毫秒数
+				// console.log(cha);
+				// 转换  天  时  分  秒
+				var DAY_MS = 1000 * 60 * 60 * 24;
+				var HOUR_MS = 1000 * 60 * 60;
+				var MIN_MS = 1000 * 60;
+				var SECOND_MS = 1000;
+				var day = Math.floor(cha / DAY_MS);
+				console.log(day);
+				var hour = Math.floor((cha % DAY_MS) / HOUR_MS);
+				var min = Math.floor((cha % HOUR_MS) / MIN_MS);
+				var second = Math.floor((cha % MIN_MS) / SECOND_MS);
+				dayEl.innerText = wrap(day);
+				hourEl.innerText = wrap(hour);
+				minEl.innerText = wrap(min);
+				secondEl.innerText = wrap(second);
+			}, 1000);
+
+			function wrap(num) {
+				return num < 10 ? "0" + num : num;
+			}
+		</script>
+	</body>
+</html>
+```

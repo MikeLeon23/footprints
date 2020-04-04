@@ -1,0 +1,100 @@
+/* 默认样式清除 */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.banner {
+    width: 1226px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* 清除图片底部空白缝隙 */
+.banner .img img {
+    vertical-align: bottom;
+}
+
+/* banner图左侧侧边导航 */
+.banner .side {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 20px 0;
+    width: 234px;
+    height: 420px;
+    background-color: rgba(0, 0, 0, .5);
+}
+.banner .side li {
+    width: 100%;
+    height: 42px;
+}
+.banner .side a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    line-height: 42px;
+    text-indent: 30px;
+    background: url("../img/arrow.png") no-repeat 200px center;
+}
+.banner .side a:hover {
+    background-color: orange;
+}
+
+/* banner图左右箭头按钮 雪碧图方式 */
+.banner .arr {
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 70px;
+    transform: translateY(-50%);
+}
+.banner .arr.arr-l {
+    left: 234px;
+    background: url("../img/arr.png") no-repeat -84px center;
+}
+.banner .arr.arr-l:hover {
+    background-position: 0 center;
+}
+.banner .arr.arr-r {
+    right: 0;
+    background: url("../img/arr.png") no-repeat -126px center;
+}
+.banner .arr.arr-r:hover {
+    background-position: -42px center;
+}
+
+/* banner右下小圆点 */
+.banner .dot {
+    position: absolute;
+    right: 50px;
+    bottom: 30px;
+}
+.banner .dot .dot-item {
+    float: left;
+    width: 10px;
+    height: 10px;
+    margin: 0 10px;
+}
+.banner .dot a {
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, .4);
+    border: 2px solid rgba(255, 255, 255, .4);
+    border-radius: 50%;
+}
+.banner .dot a:hover,
+.banner .dot-item.active a {
+    background-color: rgba(255, 255, 255, .4);
+    border: 2px solid rgba(0, 0, 0, .4);
+}
