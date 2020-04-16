@@ -43,7 +43,7 @@ Git 是 Linux 发明者 Linus 开发的一款新时代的版本控制系统，�
 - git status 查看文件状态 (红色就是没有添加到暂存区,绿色就是已经添加到了暂存区,绿色红色都没有(目前工作区文件都已提交到了本地仓库))
 - git add 文件名 (将文件添加到 暂存区)
 - git add . (将所有文件添加到 暂存区)
-- git commit -m'提交信息' 暂存区内容 提交到本地仓库
+- git commit -m '提交信息' （暂存区内容 提交到本地仓库）
 - git remote add origin [url]
 - git push origin master
 

@@ -49,8 +49,8 @@
 
             var that = this;
             clearTimeout(timer);
-            $currentLi = $(this);
             timer = setTimeout(function () {
+                $currentLi = $(that);
                 $(that).siblings().animate({
                     width: 100
                 }, 200, "linear");
