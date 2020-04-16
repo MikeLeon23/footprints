@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表格</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            margin: 0 auto;
+        }
+
+        table td{
+            padding: 10px;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        .add {
+            position: fixed;
+            left: 100px;
+            bottom: 100px;
+        }
+
+        .filter {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .4);
+        }
+
+        .filter .form {
+            width: 300px;
+            height: 200px;
+            margin: 200px auto;
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table border="1" class="table">
+    </table>
+    <button class="add" onclick="add()">添加</button>
+    <div class="filter">
+        <div class="form">
+            用户名：<input class="name" type="text"> <br>
+            年龄：<input class="age" type="text"><br>
+            性别：男<input class="male" type="radio" name="gender" id="" checked>
+            女<input class="female" type="radio" name="gender" id=""><br>
+            <button class="save" onclick="save()">确定</button>
+            <button class="cancel" onclick="cancel()">取消</button>
+        </div>
+    </div>
+
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script>
+        var users = [
+            {
+                name: '张三',
+                age: '21',
+                gender: '男'
+            },
+            {
+                name: '李四',
+                age: '23',
+                gender: '男'
+            },
+            {
+                name: '小红',
+                age: '18',
+                gender: '女'
+            },
+            {
+                name: '小米',
+                age: '30',
+                gender: '男'
+            }
+        ];
+        // 根据users数组初始化表格
+        function initTable(table, users) {
+            var str = "<tr><th>用户名</th><th>年龄</th><th>性别</th><th>操作</th></tr>";
+            for (var i = 0; i < users.length; i++) {
+                str += "<tr><td>" + users[i].name + "</td><td>" + users[i].age + "</td><td>" + users[i].gender + "</td><td><button class='edit' onclick='edit(this)'>编辑</button><button class='del' onclick='del(this)'>删除</button></td></tr>"
+            }
+            table.html(str);
+        }
+        initTable($('table'), users);
+
+        // 添加按钮，呼出填写表单
+        // $('.add').click(function () {
+        //     $('.filter').fadeIn(400);
+        //     isEdit = false;
+        // });
+        function add() {
+            $('.filter').fadeIn(400);
+            isEdit = false;
+        }
+
+        var isEdit;
+        var currentTr;
+
+        // 确定按钮，添加表单内容
+        // $('.filter .save').click(function () {
+        //     var name = $('.form .name').val();
+        //     var age = $('.form .age').val();
+        //     var gender = $('.form .male').prop('checked') ? '男' : '女';
+        //     if (isEdit) {
+        //         currentTr.children().eq(0).text(name);
+        //         currentTr.children().eq(1).text(age);
+        //         currentTr.children().eq(2).text(gender);
+        //     } else {
+        //         var str = "<tr><td>" + name + "</td><td>" + age + "</td><td>" + gender + "</td><td><button class='edit' onclick='edit(this)'>编辑</button><button class='del' onclick='del(this)'>删除</button></td></tr>"
+        //         $('table').append(str);
+        //     }
+
+        //     cancel();
+        //     $('.filter').fadeOut(400);
+        // });
+        function save() {
+            var name = $('.form .name').val();
+            var age = $('.form .age').val();
+            var gender = $('.form .male').prop('checked') ? '男' : '女';
+            if (isEdit) {
+                currentTr.children().eq(0).text(name);
+                currentTr.children().eq(1).text(age);
+                currentTr.children().eq(2).text(gender);
+            } else {
+                var str = "<tr><td>" + name + "</td><td>" + age + "</td><td>" + gender + "</td><td><button class='edit' onclick='edit(this)'>编辑</button><button class='del' onclick='del(this)'>删除</button></td></tr>"
+                $('table').append(str);
+            }
+
+            cancel();
+            $('.filter').fadeOut(400);
+        }
+
+        // 取消按钮，清空表单，取消显示
+        // $('.filter .cancel').click(function () {
+        //     $('.form .name').val("");
+        //     $('.form .age').val("")
+        //     $('.form .male').prop('checked');
+        //     $('.filter').fadeOut(400);
+        // });
+        function cancel() {
+            $('.form .name').val("");
+            $('.form .age').val("")
+            $('.form .male').prop('checked');
+            $('.filter').fadeOut(400);
+        }
+
+        // 删除按钮，删除一行
+        // $('table').on('click', '.del', function () {
+        //     $(this).parent().parent().remove();
+        // });
+        function del(el) {
+            $(el).parent().parent().remove();
+        }
+
+        // 编辑按钮
+        function edit(obj) {
+            
+            $('.filter').fadeIn(400);
+
+            currentTr = $(obj).parent().parent();
+            $('.form .name').val(currentTr.children().eq(0).text());
+            $('.form .age').val(currentTr.children().eq(1).text());
+            if (currentTr.children().eq(2).text() == '男') {
+                $('.form .male').prop('checked', true);
+            } else {
+                $('.form .female').prop('checked', true);
+            }
+        }
+
+    </script>
+</body>
+
+</html>

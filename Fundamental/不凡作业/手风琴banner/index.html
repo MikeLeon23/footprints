@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .wrap {
+            width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .wrap .item {
+            float: left;
+            width: 200px;
+        }
+
+        .wrap .item img {
+            height: 460px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="wrap">
+        <li class="item"><img src="img/m1.jpg" alt=""></li>
+        <li class="item"><img src="img/m2.jpg" alt=""></li>
+        <li class="item"><img src="img/m3.jpg" alt=""></li>
+        <li class="item"><img src="img/m4.jpg" alt=""></li>
+        <li class="item"><img src="img/m5.jpg" alt=""></li>
+    </ul>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script>
+        var timer = null;
+        var $currentLi;
+        $('.item').mouseover(function () {
+
+            var that = this;
+            clearTimeout(timer);
+            $currentLi = $(this);
+            timer = setTimeout(function () {
+                $(that).siblings().animate({
+                    width: 100
+                }, 200, "linear");
+
+                $(that).animate({
+                    width: 600
+                }, 200, "linear");
+            }, 200);
+
+            // $(that).siblings().stop().animate({
+            //     width: 100
+            // }, 200, "linear");
+
+            // $(that).animate({
+            //     width: 600
+            // }, 200, "linear");
+
+        });
+
+        $('.wrap').mouseleave(function () {
+            clearTimeout(timer);
+            $currentLi.animate({
+                width: 200
+            }, 200, "linear");
+            $currentLi.siblings().animate({
+                width: 200
+            }, 200, "linear");
+        });
+    </script>
+
+</body>
+
+</html>
