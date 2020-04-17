@@ -1,0 +1,89 @@
+/* 标题部分 */
+.joinus {
+    width: 100%;
+}
+
+.joinus .joinus-title {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background-color: #f7f8f9;
+}
+
+.joinus .joinus-title .e-title{
+    width: 100%;
+    margin-top: 63px;
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 32px;
+	font-weight: bold;
+	color: #181818;
+}
+.joinus .joinus-title .e-name {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+	color: #c3c3c3;
+}
+
+/* 职位展示部分 */
+.job {
+    overflow: hidden;
+}
+
+.job-c {
+    width: 1200px;
+    margin: 0 auto;
+}
+.job .job-c .job-item {
+    width: 100%;
+    padding: 50px 0;
+    overflow: hidden;
+}
+.job .job-c .job-item + .job-item {
+    border-top: 2px solid #eee;
+}
+
+.job .portrait {
+    float: left;
+    margin-right: 96px;
+}
+
+.job .text {
+    float: left;
+}
+
+.job .text .title {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: bold;
+	color: #525252;
+}
+
+.job .text .olist {
+    margin-top: 10px;
+    font-size: 14px;
+	line-height: 26px;
+	color: #525252;
+}
+
+.job .text .requirement {
+    margin-top: 13px;
+}
+
+/* 简历投递邮箱 */
+.job .resume {
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 35px;
+    margin-bottom: 135px;
+}
+.job .resume .email {
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+	line-height: 24px;
+	color: #525252;
+}

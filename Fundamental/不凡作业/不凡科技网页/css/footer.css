@@ -1,0 +1,87 @@
+.contact-us {
+    background-color: #323943;
+}
+
+.contact-us-c {
+    width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+
+/* 标题 */
+.contact-us .title {
+    overflow: hidden;
+    margin-top: 64px;
+    margin-bottom: 75px;
+}
+.contact-us .e-title {
+    float: left;
+    font-size: 24px;
+    color: #f3f3f3;
+    margin-right: 15px;
+}
+.contact-us .e-name {
+    float: left;
+    font-size: 14px;
+    color: #c2c2c2;
+    margin-top: 12px;
+}
+
+/* 不凡科技 */
+.contact-us .how .company {
+    float: left;
+    margin-right: 240px;
+}
+.contact-us .how .company a {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.contact-us .how .company p {
+    font-size: 16px;
+	line-height: 24px;
+	color: #c2c2c2;
+}
+
+/* 地址 */
+.contact-us .how .address {
+    float: left;
+}
+
+.contact-us .how .address {
+    font-size: 15px;
+	line-height: 28px;
+	color: #c2c2c2;
+}
+
+/* 路线 */
+.contact-us .how .route {
+    float: right;
+    margin-bottom: 90px;
+}
+
+.contact-us .how .route {
+    font-size: 15px;
+	line-height: 28px;
+	color: #c2c2c2;
+}
+
+/* 版权信息 */
+.copyright {
+    background-color: #272e36;
+    overflow: hidden;
+}
+.copyright .copyright-c {
+    width: 1200px;
+    height: 58px;
+    margin: 0 auto;
+}
+.copyright p {
+    float: left;
+    font-size: 14px;
+	line-height: 58px;
+    color: #959595;
+    margin-right: 10px;
+}

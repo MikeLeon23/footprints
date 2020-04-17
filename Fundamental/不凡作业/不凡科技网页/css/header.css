@@ -1,0 +1,50 @@
+.header-c {
+    position: relative;
+    width: 1200px;
+    height: 80px;
+    margin: 0 auto;
+}
+
+.header-c .bufan-icon {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+header .nav {
+    float: right;
+    width: 450px;
+    height: 100%;
+}
+
+.nav .item {
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 25%;
+    text-align: center;
+}
+
+.nav .item a {
+    line-height: 80px;
+    font-size: 15px;
+	color: #4e4e4e;
+}
+
+.nav .item a:hover,
+.nav .item a.active {
+    color: #1073d8;
+}
+
+.nav .item a.active::after,
+.nav .item a:hover::after {
+    content: "";
+    float: left;
+    position: absolute;
+    top: 57px;
+    left: 22px;
+    width: 73px;
+    height: 2px;
+    background-color: #1073d8;
+}

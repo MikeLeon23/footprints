@@ -1,0 +1,390 @@
+/* banner模块 */
+.banner {
+    width: 100%;
+    height: 538px;
+    background: url("../image/banner.png") no-repeat center;
+}
+
+.banner .banner-c {
+    position: relative;
+    width: 1200px;
+    height: 538px;
+    margin: 0 auto;
+}
+
+.banner-c .text {
+    position: absolute;
+    top: 203px;
+    left: 115px;
+}
+.banner-c .text .theme {
+    font-size: 39px;
+    color: #ffffff;
+    margin-bottom: 31px;
+}
+
+.banner-c .text .description {
+    font-size: 17px;
+	color: #ffffff;
+}
+
+.banner-c .box {
+    position: absolute;
+    top: 126px;
+    left: 79px;
+    width: 130px;
+    height: 235px;
+    border: solid 1px #74a0c6;
+}
+
+.banner-c .line {
+    position: absolute;
+    top: 254px;
+    left: 115px;
+    width: 148px;
+    height: 2px;
+    background-color: #ffffff;
+}
+
+
+/* 企业优势模块 */
+.advantage .box {
+    width: 1200px;
+    height: 204px;
+    margin: 0 auto;
+    transform: translateY(-47px);
+    background-color: #ffffff;
+    overflow: hidden;
+    box-shadow: 0px 15px 30px -20px #888888;
+}
+
+.advantage .box .item {
+    margin-top: 43px;
+    float: left;
+    width: 200px;
+}
+
+.advantage .item img {
+    display: block;
+    height: 50px;
+    margin: 0 auto;
+    margin-bottom: 24px;
+}
+
+.advantage .item p {
+    display: block;
+    text-align: center;
+}
+
+.advantage .item p.name {
+    font-size: 16px;
+    font-weight: bold;
+	line-height: 26px;
+	color: #505050;
+}
+
+.advantage .item p.descri {
+    font-size: 14px;
+	line-height: 26px;
+	color: #6b6b6b;
+}
+
+/* 移动端介绍模块 */
+.introduce {
+    padding-top: 100px;
+    overflow: hidden;
+}
+
+.introduce .introduce-c {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.introduce .intro {
+    float: right;
+    width: 50%;
+    padding-top: 120px;
+    padding-left: 30px;
+    box-sizing: border-box;
+    height: 612px;
+}
+
+.introduce .intro h2{
+    font-size: 30px;
+    font-weight: bold;
+    color: #242424;
+    margin-bottom: 28px;
+}
+
+.introduce .intro p:nth-child(2) {
+    font-size: 14px;
+	line-height: 24px;
+	color: #605b5b;
+}
+
+.introduce .intro p:nth-child(3) {
+    margin-top: 40px;
+    font-size: 16px;
+	line-height: 24px;
+    color: #363636;
+    font-weight: bold;
+}
+
+.introduce .intro table {
+    margin-top: 20px;
+    color: #605b5b;
+    font-weight: bold;
+    width: 330px;
+    height: 110px;
+    text-align: center;
+}
+
+.introduce .intro table td {
+    font-weight: bold;
+}
+
+.introduce .exibition {
+    position: relative;
+    float: right;
+    width: 50%;
+    background: url(../image/世界地图.png) no-repeat center;
+    z-index: 1;
+}
+
+.introduce .exibition .mobilphone {
+    position: relative;
+    display: block;
+    height: 100%;
+    width: auto;
+    margin: 0 auto;
+    z-index: 3;
+}
+
+.introduce .exibition .weixin {
+    position: absolute;
+    top: 20%;
+    right: 13%;
+    width: 32%;
+    height: auto;
+    z-index: 2;
+}
+
+.introduce .exibition .mobile {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 2;
+}
+
+.introduce .exibition .circle {
+    position: absolute;
+    top: 61%;
+    left: 6.3%;
+    z-index: 3;
+}
+
+/* 企业网站模块 */
+.introduce.firm {
+    background-color: #f9f9f8;
+}
+
+.introduce.firm .exibition {
+    float: left;
+}
+
+.introduce.firm .intro {
+    float: left;
+}
+
+.introduce.firm .exibition .circle2 {
+    position: absolute;
+    bottom: 268px;
+    right: 147px;
+    z-index: 3;
+}
+
+.introduce.firm .exibition .circle3 {
+    position: absolute;
+    left: 30px;
+    bottom: 85px;
+    z-index: 3;
+}
+
+/* 成功案例模块 */
+
+/* 头部标题 */
+.effective-case {
+    width: 100%;
+}
+
+.effective-case-c {
+    width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.effective-case .box {
+    width: 100%;
+    margin-bottom: 51px;
+    overflow: hidden;
+}
+
+.effective-case .box .title {
+    float: left;
+    width: 400px;
+}
+.effective-case .title .e-title {
+    float: left;
+    font-size: 24px;
+    color: #494949;
+    margin-right: 15px;
+}
+.effective-case .box .e-name {
+    float: left;
+    font-size: 14px;
+    color: #c3c3c3;
+    margin-top: 12px;
+}
+
+/* 头部标题右边的tab */
+.effective-case .box .tab {
+    float: right;
+    overflow: hidden;
+}
+
+.effective-case .tab .tab-item {
+    float: left;
+    margin-left: 30px;
+}
+.effective-case .tab a {
+    display: block;
+    width: 73px;
+    height: 31px;
+    text-align: center;
+    line-height: 31px;
+}
+.effective-case .tab a.active {
+    background-color: #1073d8;
+    color: #ffffff;
+}
+
+/* 轮播swiper */
+
+.swiper-container .swiper-little-box {
+    float: left;
+    margin: 0 24px 24px 0;
+}
+.swiper-container .swiper-little-box:nth-child(3n) {
+    margin-right: 0;
+}
+
+.swiper-container .swiper-little-box img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.swiper-container .swiper-little-box .card {
+    box-sizing: border-box;
+    border: 1px solid #eee;
+    height: 78px;
+}
+.swiper-container .swiper-little-box .title {
+    margin-top: 19px;
+    text-align: center;
+    font-size: 16px;
+    color: #555555;
+    font-weight: bold;
+}
+.swiper-container .swiper-little-box .tip {
+    font-size: 14px;
+	line-height: 24px;
+    color: #b3b3b3;
+    text-align: center;
+}
+
+/* 轮播按钮 */
+.swiper-container .swiper-button {
+    width: 106px;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
+.swiper-container .swiper-button .btn {
+    float: left;
+    width: 33px;
+    height: 33px;
+    margin: 0 10px;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    line-height: 33px;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.swiper-container .swiper-button .btn.active {
+    background: #1073d8;
+    color: #ffffff;
+}
+
+
+/* 关于我们模块 */
+.about-us {
+    width: 100%;
+    overflow: hidden;
+    background-color: #f9f9f8;
+    margin-top: 70px;
+}
+.about-us-c {
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 110px;
+    margin-bottom: 117px;
+    overflow: hidden;
+}
+.about-us .text {
+    float: left;
+    width: 50%;
+}
+
+.about-us .text .title {
+    overflow: hidden;
+}
+.about-us .text .e-title {
+    float: left;
+    font-size: 24px;
+    color: #494949;
+    margin-right: 15px;
+}
+.about-us .text .e-name {
+    float: left;
+    font-size: 14px;
+    color: #c3c3c3;
+    margin-top: 12px;
+}
+.about-us .text .description {
+    float: left;
+    width: 90%;
+    margin-top: 48px;
+    font-size: 15px;
+	line-height: 28px;
+	color: #959595;
+}
+
+.about-us .img-box {
+    position: relative;
+    float: left;
+    width: 50%;
+}
+.about-us .img-box img {
+    position: absolute;
+    top: 18px;
+    left: 19px;
+}
+.about-us .img-box .box {
+    width: 511px;
+	height: 278px;
+	border: solid 1px #e2e2e2;
+}
