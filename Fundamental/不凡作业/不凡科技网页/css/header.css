@@ -21,6 +21,9 @@ header .box .btn {
     display: none;
 }
 
+header .nav.mobile {
+    display: none;
+}
 header .nav {
     float: right;
     width: 450px;

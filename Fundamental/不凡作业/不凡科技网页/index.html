@@ -30,17 +30,34 @@
                     <span></span>
                 </div>
             </div>
-            <ul class="nav wow fadeInDown">
+            <ul class="nav pc wow fadeInDown">
                 <li class="item"><a class="active" href="#">首页</a></li>
-                <li class="item"><a href="#">项目案例</a></li>
-                <li class="item"><a href="#">加入我们</a></li>
-                <li class="item"><a href="#">联系我们</a></li>
+                <li class="item"><a href="pages/project/index.html">项目案例</a></li>
+                <li class="item"><a href="pages/joinus/index.html">加入我们</a></li>
+                <li class="item"><a href="pages/contactus/index.html">联系我们</a></li>
+            </ul>
+            <ul class="nav mobile">
+                <li class="item"><a class="active" href="#">首页</a></li>
+                <li class="item"><a href="pages/project/index.html">项目案例</a></li>
+                <li class="item"><a href="pages/joinus/index.html">加入我们</a></li>
+                <li class="item"><a href="pages/contactus/index.html">联系我们</a></li>
             </ul>
         </div>
     </header>
     <!-- banner图模块 -->
     <div class="banner">
-        <a href="javascript:;" class="banner-image"></a>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide banner-item">
+                <a href="javascript:;" class="banner-image"></a>
+            </div>
+            <div class="swiper-slide banner-item">
+                <a href="javascript:;" class="banner-image"></a>
+            </div>
+            <div class="swiper-slide banner-item">
+                <a href="javascript:;" class="banner-image"></a>
+            </div>
+        </div>
+        
         <!-- <img class="banner-image" src="image/banner1.png" alt="" srcset=""> -->
         <!-- <div class="banner-c">
             <div class="text">
@@ -370,6 +387,9 @@
                 nextEl: '.btn-next',
                 prevEl: '.btn-prev',
             }
+
+        });
+        var mySwiper2 = new Swiper('.banner', {
 
         });
     </script>

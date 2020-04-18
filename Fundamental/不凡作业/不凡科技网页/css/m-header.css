@@ -54,15 +54,18 @@
         transform: translateY(-7px) rotate(90deg);
     }
     
-    /* 小屏幕下，导航栏样式重写 */
-    header .nav {
+    /* 小屏幕下，pc导航隐藏 */
+    header .nav.pc {
+        display: none;
+    }
+    header .nav.mobile {
         display: none;
         float: none;
         width: 100%;
         overflow: hidden;
     }
 
-    header .nav .item {
+    header .nav.mobile .item {
         float: none;
         width: 100%;
         height: 40px;
@@ -70,25 +73,25 @@
         text-align: left;
     }
 
-    header .nav .item + .item {
+    header .nav.mobile .item + .item {
         border-top: solid 1px rgba(0, 0, 0, 0.1);
     }
 
-    .nav .item a {
+    .nav.mobile .item a {
         display: block;
         line-height: 40px;
         text-indent: 20px;
     }
 
-    .nav .item a.active::after,
-    .nav .item a:hover::after {
+    .nav.mobile .item a.active::after,
+    .nav.mobile .item a:hover::after {
         display: none;
     }
 
-    .nav .item {
+    .nav.mobile .item {
         position: relative;
     }
-    .nav .item a::before {
+    .nav.mobile .item a::before {
         content: '';
         float: left;
         width: 10px;
@@ -97,7 +100,7 @@
         left: 0;
         top: 0;
     }
-    .nav .item a.active::before {
+    .nav.mobile .item a.active::before {
         background-color: #1073d8;
     }
 }

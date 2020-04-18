@@ -3,7 +3,7 @@
     /* banner图 */
     .banner .banner-image {
         height: 263px;
-        background-size: cover;
+        background-size: cover !important;
     }
 
     /* 优势模块 */

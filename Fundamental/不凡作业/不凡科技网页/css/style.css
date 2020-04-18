@@ -5,12 +5,24 @@
     background-color: #0c5ca7;
 }
 
+.banner .swiper-wrapper {
+    z-index: 0;
+}
+
 .banner .banner-image {
     display: block;
     width: 100%;
     height: 538px;
     margin: 0 auto;
+}
+.banner .banner-item:nth-child(1) .banner-image {
     background: url("../image/banner1.png") no-repeat center;
+}
+.banner .banner-item:nth-child(2) .banner-image {
+    background: url("../image/banner2.jpg") no-repeat center;
+}
+.banner .banner-item:nth-child(3) .banner-image {
+    background: url("../image/banner3.jpg") no-repeat center;
 }
 
 .banner .banner-c {
