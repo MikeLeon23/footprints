@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/m-index.css">
+    <link rel="stylesheet" href="css/m-header.css">
+    <link rel="stylesheet" href="css/m-footer.css">
     <!-- 引入swiper.css -->
     <link rel="stylesheet" href="css/swiper.min.css">
     <!-- 引入animate.css -->
@@ -17,10 +20,17 @@
 
 <body>
     <!-- 顶部导航栏 -->
-    <header class="wow fadeInDown">
+    <header>
         <div class="header-c">
-            <img src="image/不凡科技icon.png" alt="" class="bufan-icon">
-            <ul class="nav">
+            <div class="box wow fadeInDown">
+                <img src="image/不凡科技icon.png" alt="" class="bufan-icon">
+                <div class="btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <ul class="nav wow fadeInDown">
                 <li class="item"><a class="active" href="#">首页</a></li>
                 <li class="item"><a href="#">项目案例</a></li>
                 <li class="item"><a href="#">加入我们</a></li>
@@ -30,14 +40,16 @@
     </header>
     <!-- banner图模块 -->
     <div class="banner">
-        <div class="banner-c">
+        <a href="javascript:;" class="banner-image"></a>
+        <!-- <img class="banner-image" src="image/banner1.png" alt="" srcset=""> -->
+        <!-- <div class="banner-c">
             <div class="text">
                 <p class="theme">匠心设计 品质不凡</p>
                 <p class="description">小程序/公众号/H5活动页</p>
             </div>
             <span class="box"></span>
             <span class="line"></span>
-        </div>
+        </div> -->
     </div>
 
     <!-- 企业优势模块 -->
@@ -346,7 +358,7 @@
     <script src="js/swiper.min.js"></script>
     <!-- 引入 wow .js  -->
     <script src="https://cdn.bootcss.com/wow/1.1.2/wow.js"></script>
-
+    <script src="js/m-header.js"></script>
     <script>
         // 初始化wow.js
         new WOW().init();

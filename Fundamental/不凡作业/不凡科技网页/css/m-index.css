@@ -1,0 +1,150 @@
+@media screen and (max-width: 768px) {
+
+    /* banner图 */
+    .banner .banner-image {
+        height: 263px;
+        background-size: cover;
+    }
+
+    /* 优势模块 */
+    .advantage {
+        width: 100%;
+    }
+
+    .advantage .box {
+        width: 90%;
+        transform: translateY(0);
+    }
+
+    .advantage .box .item {
+        width: 50%;
+    }
+
+    /* 移动端介绍模块和企业网站介绍模块 */
+    .introduce {
+        width: 100%;
+    }
+
+    .introduce .introduce-c {
+        width: 90%;
+    }
+
+    .introduce .intro {
+        float: none;
+        width: 100%;
+        margin: 10px auto;
+        padding: 0;
+    }
+
+    .introduce .intro p,
+    h2 {
+        text-align: center;
+    }
+
+    .introduce .intro table {
+        margin: 20px auto 0;
+        width: 100%;
+    }
+
+    .introduce .exibition {
+        float: none;
+        width: 100%;
+        margin: 10px auto;
+    }
+
+    .introduce.firm .intro {
+        float: none;
+        width: 100%;
+        margin: 10px auto;
+    }
+
+    /* 成功案例展示部分 */
+    .effective-case-c {
+        width: 90%;
+        margin-top: 65px;
+    }
+
+    .effective-case .box .title {
+        float: none;
+        margin: 0 auto;
+    }
+
+    .effective-case .title .e-title {
+        float: none;
+        text-align: center;
+    }
+
+    .effective-case .box .e-name {
+        float: none;
+        text-align: center;
+    }
+
+    .effective-case .box .tab {
+        float: none;
+        display: flex;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .effective-case .tab .tab-item {
+        margin: auto;
+    }
+
+    /* 轮播swiper */
+    .swiper-container .swiper-little-box {
+        float: none;
+        margin: 24px;
+    }
+
+    .swiper-container .swiper-little-box:nth-child(3n) {
+        margin-right: 24px;
+    }
+
+    /* 关于我们 */
+    .about-us-c {
+        width: 90%;
+    }
+
+    .about-us .text {
+        float: none;
+        width: 100%;
+    }
+
+    .about-us .box .title {
+        float: none;
+        margin: 0 auto;
+    }
+
+    .about-us .text .e-title {
+        float: none;
+        text-align: center;
+        margin: 0;
+    }
+
+    .about-us .text .e-name {
+        float: none;
+        text-align: center;
+    }
+
+    .about-us .text .description {
+        float: none;
+        width: 100%;
+    }
+
+    .about-us .img-box {
+        position: relative;
+        float: none;
+        width: 100%;
+        margin-top: 35px;
+    }
+
+    .about-us .img-box img {
+        width: 100%;
+        height: auto;
+        position: unset;
+    }
+
+    .about-us .img-box .box {
+        display: none;
+    }
+}

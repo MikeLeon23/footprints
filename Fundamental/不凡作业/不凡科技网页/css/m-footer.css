@@ -1,0 +1,43 @@
+@media screen and (max-width: 768px) {
+
+    .contact-us-c {
+        width: 90%;
+        text-align: center;
+    }
+
+    .contact-us .e-title {
+        float: none;
+        margin-right: 0;
+    }
+
+    .contact-us .e-name {
+        float: none;
+    }
+
+    .contact-us .how .company {
+        float: none;
+        margin-right: 0;
+        margin-bottom: 40px;
+    }
+
+    .contact-us .how .address {
+        float: none;
+    }
+
+    .contact-us .how .route {
+        float: none;
+        margin-top: 10px;
+    }
+
+    .copyright .copyright-c {
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .copyright p {
+        float: none;
+        margin: 0 10px;
+    }
+}

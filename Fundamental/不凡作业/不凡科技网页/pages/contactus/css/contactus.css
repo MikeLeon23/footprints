@@ -1,0 +1,105 @@
+/* 标题部分 */
+.contactus {
+    width: 100%;
+}
+
+.contactus .contactus-title {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background-color: #f7f8f9;
+}
+
+.contactus .contactus-title .e-title{
+    width: 100%;
+    margin-top: 63px;
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 32px;
+	font-weight: bold;
+	color: #181818;
+}
+.contactus .contactus-title .e-descri {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+	color: #c3c3c3;
+}
+
+/* 优势、理念、团队 */
+.introduction {
+    width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.introduction li {
+    float: left;
+    width: 33.3%;
+    margin-top: 58px;
+}
+
+.introduction li .box {
+    position: relative;
+    width: 87%;
+}
+
+.introduction .advantage .box {
+    float: left;
+}
+
+.introduction .belief .box {
+    margin: 0 auto;
+}
+
+.introduction .team .box {
+    float: right;
+}
+
+.introduction li .intro-title {
+    margin-bottom: 30px;
+    font-size: 24px;
+	line-height: 36px;
+    color: #555555;
+    font-weight: bold;
+    text-indent: 50px;
+}
+
+.introduction li .intro-title::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 36px;
+    height: 36px;
+}
+
+.introduction li:nth-child(1) .intro-title::before {
+    background: url("../image/title-icon-1.png") no-repeat;
+    background-size: 100% 100%;
+}
+.introduction li:nth-child(2) .intro-title::before {
+    background: url("../image/title-icon-2.png") no-repeat;
+    background-size: 100% 100%;
+}
+.introduction li:nth-child(3) .intro-title::before {
+    background: url("../image/title-icon-3.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.introduction li .description {
+    font-size: 15px;
+	line-height: 26px;
+	color: #555555;
+}
+
+/* 地图 */
+.contactus .map {
+    width: 1200px;
+    height: 383px;
+    margin: 0 auto;
+    margin-top: 70px;
+    margin-bottom: 90px;
+    background-color: #e1e1e1;
+}
+

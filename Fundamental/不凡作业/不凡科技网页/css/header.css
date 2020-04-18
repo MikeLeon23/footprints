@@ -1,8 +1,13 @@
 .header-c {
-    position: relative;
     width: 1200px;
-    height: 80px;
     margin: 0 auto;
+    overflow: hidden;
+}
+
+header .header-c .box {
+    position: relative;
+    float: left;
+    height: 80px;
 }
 
 .header-c .bufan-icon {
@@ -10,6 +15,10 @@
     top: 50%;
     left: 0;
     transform: translateY(-50%);
+}
+
+header .box .btn {
+    display: none;
 }
 
 header .nav {
