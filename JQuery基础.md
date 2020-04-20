@@ -802,3 +802,97 @@ import Swiper from 'swiper';
 var mySwiper = new Swiper('.swiper-container', { /* ... */ });
 ```
 
+### 地图插件
+
+- 在百度地图开放平台申请秘钥
+
+  [百度地图开放平台秘钥申请](http://lbsyun.baidu.com/index.php?title=jspopularGL/guide/getkey)
+
+- 引入插件
+
+```html
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=js7AGWN1lo6DIZB9HQLN753gDHA9rRZr"></script>
+```
+
+- 准备容器
+
+```html
+<div class="map" id="allmap"></div>
+```
+
+- 初始化地图实例、设置地图实例
+
+```html
+<script>
+	// 初始化地图实例
+    var map = new BMap.Map('allmap');
+    // 设置地图中心点(经纬度)
+    var point = new BMap.Point(113.774475,34.776698);
+    map.centerAndZoom(point, 16);
+    // 创建标注
+    var marker = new BMap.Marker(point);
+    // 将标注添加到地图中
+    map.addOverlay(marker);
+    marker.setAnimation(BMAP_ANIMATION_BOUNCE);	// 给标注跳动的动画
+</script>
+```
+
+
+
+### Echarts插件
+
+- 引入echarts插件
+
+```html
+<script src="https://cdn.bootcss.com/echarts/4.7.0/echarts.min.js"></script>
+```
+
+- 准备容器
+
+```html
+<div id="main" class="box"></div>
+```
+
+- 初始化一个echarts实例
+
+```js;
+var myChart = echarts.init(document.getElementById('main'));
+```
+
+- 指定图标的配置项和数据
+
+```js
+var option = {
+            // 标题
+            title: {
+                text: 'ECharts'
+            },
+            tooltip: {},
+            legend: {
+                data: ['销量','进货量']
+            },
+            xAxis: {
+                data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            },
+            {
+                name: '进货量',
+                type: 'bar',
+                data: [10, 40, 66, 30, 20, 50]
+            }
+            ]
+        };
+```
+
+- 使用刚刚指定的配置项和数据显示图表
+
+```js
+myChart.setOption(option);
+```
+
+- 可以通过修改配置项改变图表的形态

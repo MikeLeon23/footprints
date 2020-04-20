@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .map {
+            width: 1000px;
+            height: 600px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="map" id="allmap"></div>
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=js7AGWN1lo6DIZB9HQLN753gDHA9rRZr"></script>
+    <script>
+        var map = new BMap.Map('allmap');
+        var point = new BMap.Point(113.774475,34.776698);
+        map.centerAndZoom(point, 11);
+        var marker = new BMap.Marker(point);
+        map.addOverlay(marker);
+        marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+    </script>
+</body>
+</html>

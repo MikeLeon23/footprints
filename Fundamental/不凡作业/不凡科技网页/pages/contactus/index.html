@@ -70,7 +70,7 @@
                 </div>
             </li>
         </ul>
-        <div class="map"></div>
+        <div class="map" id="allmap"></div>
     </div>
 
     <!-- 底部模块 -->
@@ -109,6 +109,21 @@
             </div>
         </div>
     </footer>
+
+    <script type="text/javascript"
+        src="http://api.map.baidu.com/api?v=2.0&ak=js7AGWN1lo6DIZB9HQLN753gDHA9rRZr"></script>
+    <script>
+        // 初始化地图实例
+        var map = new BMap.Map('allmap');
+        // 设置地图中心点(经纬度)
+        var point = new BMap.Point(113.774475, 34.776698);
+        map.centerAndZoom(point, 16);
+        // 创建标注
+        var marker = new BMap.Marker(point);
+        // 将标注添加到地图中
+        map.addOverlay(marker);
+        marker.setAnimation(BMAP_ANIMATION_BOUNCE);	// 给标注跳动的动画
+    </script>
 </body>
 
 </html>
