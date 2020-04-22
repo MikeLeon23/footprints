@@ -104,7 +104,7 @@
         var count = 0;
 
         var buttonEle = document.querySelectorAll('button');
-        // 上一张
+        // 下一张
         buttonEle[1].onclick = function () {
             if (count == ulEle.children.length - 1) {
                 ulEle.style.left = "0px";
@@ -113,9 +113,7 @@
             count++;
             slowlyMove(ulEle, -count * oneImageWidth);
             dotActive(count % 4);
-
-            // autoPlay();
-
+            
             // 移动到最后一张之后，立即直接定位到第一张，这个有错误
             // count++;
             // slowlyMove(ulEle, -count*oneImageWidth);
@@ -125,7 +123,7 @@
             // }
         };
 
-        // 下一张
+        // 上一张
         buttonEle[0].onclick = function () {
             if (count == 0) {
                 count = ulEle.children.length - 1;
@@ -136,8 +134,6 @@
 
             // 激活小圆点
             dotActive(count);
-            // 重新开始自动轮播
-            // autoPlay();
         };
 
 
@@ -169,7 +165,7 @@
         }
 
 
-        // 底部小圆点部分
+        // 底部小圆点部分，给所有小圆点绑定点击事件
         for (var i = 0; i < dots.length; i++) {
             (function (i) {
                 dots[i].onclick = function go(temp) {
@@ -192,9 +188,6 @@
                     dots[j].classList.remove("active");
                 }
             }
-
-            // 重新开始自动轮播
-            autoPlay();
         }
 
         // 自动轮播，需要在每次点击按钮或者小圆点之后，重新开始自动轮播的计时

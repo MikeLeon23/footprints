@@ -567,7 +567,7 @@ myNode.className = "image2-box"; //修改class的name
 元素节点.setAttribute(属性名, 新的属性值);
 ```
 
-方式 2 举例：（设置节点的属性值）
+举例：（设置节点的属性值）
 
 ```javascript
 myNode.setAttribute("src", "images/3.jpg");

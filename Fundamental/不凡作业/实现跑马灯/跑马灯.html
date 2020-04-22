@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跑马灯</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .box {
+            position: relative;
+            width: 500px;
+            height: 100px;
+            margin: 100px auto;
+            border: 2px solid red;
+            overflow: hidden;
+        }
+
+        .runningLine {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+        }
+
+        .runningLine .line-item {
+            float: left;
+            width: 50%;
+            height: 100%;
+            line-height: 100px;
+            text-align: center;
+        }
+
+        button {
+            display: block;
+            width: 31px;
+            height: 19px;
+            margin: 0 auto;
+            line-height: 19px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul class="runningLine">
+            <li class="line-item">一匹马，哒哒哒哒哒哒哒哒哒哒哒哒哒哒哒哒哒哒</li>
+            <li class="line-item">一匹马，哒哒哒哒哒哒哒哒哒哒哒哒哒哒哒哒哒哒</li>
+        </ul>
+    </div>
+    <button>开始</button>
+
+    <script>
+        var ulEle = document.querySelector(".runningLine");
+        var startBtn = document.querySelector("button");
+        var w = document.querySelector(".line-item").offsetWidth;
+
+        // 跑马灯函数
+        function slowlyRun(ele, step) {
+            var count = 0;
+            ele.timer = setInterval(function () {
+                console.log(ulEle.offsetLeft);
+                ele.style.left = ele.offsetLeft - step + "px";
+                count++;
+                if (count < 30) {
+                    ele.style.color = "red";
+                } else if(count < 60){
+                    ele.style.color = "orange";
+                } else {
+                    count = 0;
+                }
+
+                // 判断，实现跑马灯的循环
+                if (ulEle.offsetLeft == -w) {
+                    ulEle.style.left = "0px";
+                }
+            }, 20);
+        }
+
+        // 按钮绑定事件
+        startBtn.onclick = function () {
+            // 调用跑马灯函数
+            slowlyRun(ulEle, 1);
+        }
+
+    </script>
+</body>
+
+</html>
