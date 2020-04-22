@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+
+        button {
+            margin-top: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <button>移动到400px</button>
+    <button>移动到800px</button>
+
+    <script>
+        var btn = document.querySelectorAll("button");
+        btn[0].onclick = function () {
+            averageMove(".box", 400, 6);
+        };
+
+        btn[1].onclick = function () {
+            averageMove(".box", 800, 6);
+        };
+
+        var timer = null;
+        // 匀速移动函数
+        function averageMove(ele, target, step) {
+            
+            // 获取对象
+            var ele = document.querySelector(ele);
+
+            // 判断是否已经在终点
+            if (ele.offsetLeft == target) {
+                return;
+            }
+
+            // 避免重复点击产生多个定时器
+            if (timer) {
+                clearInterval(timer);
+            }
+            timer = setInterval(function () {
+                var start = ele.offsetLeft;
+                step = target > start ? Math.abs(step) : -Math.abs(step);
+                ele.style.left = start + step + "px";
+
+                if (Math.abs(target - ele.offsetLeft) < Math.abs(step)) {
+
+                    ele.style.left = target + "px";
+                    clearInterval(timer);
+                    timer = null;
+                }
+            }, 1000 / 60);
+        }
+    </script>
+</body>
+
+</html>

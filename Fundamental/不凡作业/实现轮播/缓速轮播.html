@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>缓速轮播</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .box {
+            position: relative;
+            width: 500px;
+            height: 200px;
+            margin: 0 auto;
+            margin-top: 100px;
+            border: 2px solid red;
+            overflow: hidden;
+        }
+
+        .banner {
+            position: absolute;
+            width: 500%;
+            height: 100%;
+        }
+
+        .banner .banner-item {
+            float: left;
+            width: 20%;
+            height: 100%;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .control {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        .dot {
+            position: absolute;
+            right: 50px;
+            bottom: 20px;
+        }
+
+        .dot .dot-item {
+            float: left;
+            width: 10px;
+            height: 10px;
+            margin: 0 10px;
+            background-color: aquamarine;
+            background-clip: content-box;
+            border: 2px solid rgba(255, 255, 255, 0);
+            border-radius: 50%;
+        }
+
+        .dot .dot-item.active {
+            border-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul class="banner">
+            <li class="banner-item"><img src="image/m1.jpg" alt=""></li>
+            <li class="banner-item"><img src="image/m2.jpg" alt=""></li>
+            <li class="banner-item"><img src="image/m3.jpg" alt=""></li>
+            <li class="banner-item"><img src="image/m4.jpg" alt=""></li>
+            <li class="banner-item"><img src="image/m1.jpg" alt=""></li>
+        </ul>
+        <ul class="dot">
+            <li class="dot-item active"></li>
+            <li class="dot-item"></li>
+            <li class="dot-item"></li>
+            <li class="dot-item"></li>
+        </ul>
+    </div>
+    <div class="control">
+        <button class="prev">上一张</button>
+        <button class="next">下一张</button>
+    </div>
+
+    <script>
+
+        // 轮播部分
+        var ulEle = document.querySelector("ul");
+        var oneImageWidth = document.querySelector("li").offsetWidth;
+        var dots = document.querySelectorAll(".dot .dot-item");
+
+        var count = 0;
+
+        var buttonEle = document.querySelectorAll('button');
+        // 上一张
+        buttonEle[1].onclick = function () {
+            if (count == ulEle.children.length - 1) {
+                ulEle.style.left = "0px";
+                count = 0;
+            }
+            count++;
+            slowlyMove(ulEle, -count * oneImageWidth);
+            dotActive(count % 4);
+
+            // autoPlay();
+
+            // 移动到最后一张之后，立即直接定位到第一张，这个有错误
+            // count++;
+            // slowlyMove(ulEle, -count*oneImageWidth);
+            // if(count == ulEle.children.length){
+            //     ulEle.style.left = "0px";
+            //     count = 0;
+            // }
+        };
+
+        // 下一张
+        buttonEle[0].onclick = function () {
+            if (count == 0) {
+                count = ulEle.children.length - 1;
+                ulEle.style.left = -count * oneImageWidth + "px";
+            }
+            count--;
+            slowlyMove(ulEle, -count * oneImageWidth);
+
+            // 激活小圆点
+            dotActive(count);
+            // 重新开始自动轮播
+            // autoPlay();
+        };
+
+
+        // 缓速轮播函数
+        function slowlyMove(ele, target) {
+            if (ele.offsetLeft == target) {
+                return;
+            }
+            // 避免计时器叠加
+            if (ele.timer) {
+                clearInterval(ele.timer);
+            }
+            // 核心代码
+            ele.timer = setInterval(function () {
+
+                var start = ele.offsetLeft;
+                var step = (target - start) / 10;
+                if (step < 1) {
+                    step = step > 0 ? 1 : Math.floor(step);
+                }
+                ele.style.left = start + step + "px";
+                if (!step) {
+                    clearInterval(ele.timer);
+                    timer = null;
+                }
+            }, 1000 / 60);
+
+            console.log(count);
+        }
+
+
+        // 底部小圆点部分
+        for (var i = 0; i < dots.length; i++) {
+            (function (i) {
+                dots[i].onclick = function go(temp) {
+                    slowlyMove(ulEle, -i * oneImageWidth);
+                    count = i;
+
+                    // 激活小圆点
+                    dotActive(i);
+                };
+            })(i);
+        }
+
+        // 激活小圆点样式的函数
+        function dotActive(count) {
+            dots[count].classList.add("active");
+
+            // 移除其他小圆点的active类名
+            for (var j = 0; j < dots.length; j++) {
+                if (j != count) {
+                    dots[j].classList.remove("active");
+                }
+            }
+
+            // 重新开始自动轮播
+            autoPlay();
+        }
+
+        // 自动轮播，需要在每次点击按钮或者小圆点之后，重新开始自动轮播的计时
+        function autoPlay() {
+            clearInterval(autoPlayTimer);
+            var autoPlayTimer = setInterval(function () {
+                buttonEle[1].onclick();
+            }, 2000);
+        }
+
+        autoPlay();
+
+    </script>
+</body>
+
+</html>
