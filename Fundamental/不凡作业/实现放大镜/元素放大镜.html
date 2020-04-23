@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            user-select: none;
+        }
+        .content {
+            position: relative;
+            float: left;
+            margin: 100px 100px;
+        }
+
+        .content.small img {
+            width: 200px;
+            height: auto;
+        }
+
+        .content.small #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(0, 0, 0, .5);
+            
+        }
+
+        .content.large {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            border: 2px solid red;
+            overflow: hidden;
+        }
+
+        .content.large img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 800px;
+            height: auto;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="content small">
+        <img src="image/bufantec.com.png" alt="" srcset="">
+        <div id="box"></div>
+    </div>
+    <div class="content large">
+        <img src="image/bufantec.com.png" alt="" srcset="">
+    </div>
+
+
+    <script>
+        var boxEle = document.querySelector(".content.small #box");
+        var contents = document.querySelectorAll(".content");
+        var contentEle = contents[0];
+
+        var bigImg = document.querySelector(".content.large img");
+
+        boxEle.onmousedown = function () {
+            // 触发事件时，鼠标距离触发事件的元素的内填充边（padding edge），在 X/Y 轴方向上的偏移量
+            var mouseXInBox = event.offsetX;
+            var mouseYInBox = event.offsetY;
+
+            // 外面大盒子距离页面的左上边距
+            var contentX = contentEle.offsetLeft;
+            var contentY = contentEle.offsetTop;
+            console.log(contentX, contentY);
+
+            window.onmousemove = function () {
+                // 触发事件时鼠标距离页面的左上边距
+                var targetX = event.pageX;
+                var targetY = event.pageY;
+
+                // 移动小盒子位置
+                boxEle.style.left = targetX - mouseXInBox - contentX + "px";
+                boxEle.style.top = targetY - mouseYInBox - contentY + "px";
+
+                if (boxEle.offsetLeft < 0) {
+                    boxEle.style.left = "0px";
+                } else if (boxEle.offsetLeft > 100) {
+                    boxEle.style.left = "100px";
+                }
+
+                if (boxEle.offsetTop < 0) {
+                    boxEle.style.top = "0px";
+                } else if (boxEle.offsetTop > 300) {
+                    boxEle.style.top = "300px";
+                }
+
+                // 放大镜显示部分
+                bigImg.style.left = (targetX - mouseXInBox - contentX)*(-4) + "px";
+                bigImg.style.top = (targetY - mouseYInBox - contentY)*(-4) + "px";
+                // 判断越界
+                if (bigImg.offsetLeft > 0) {
+                    bigImg.style.left = "0px";
+                } else if (bigImg.offsetLeft < -400) {
+                    bigImg.style.left = "-400px";
+                }
+
+                if (bigImg.offsetTop > 0) {
+                    bigImg.style.top = "0px";
+                } else if (bigImg.offsetTop < -1196) {
+                    bigImg.style.top = "-1196px";
+                }
+            }
+            
+        }
+
+        boxEle.onmouseup = function(){
+            window.onmousemove = null;
+        }
+    </script>
+</body>
+
+</html>
