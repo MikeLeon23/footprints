@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 100px;
+            height: 200px;
+            position: absolute;
+            bottom: 100px;
+            right: 50px;
+            background-color: pink;
+        }
+
+        body {
+            height: 3000px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">广告</div>
+    <script>
+        var boxEle = document.querySelector(".box");
+        var origin = boxEle.offsetTop;
+        window.onscroll = function () {
+            slowlyMove(boxEle, Math.ceil(window.pageYOffset + origin));
+        };
+
+        function slowlyMove(ele, target) {
+            // 判断元素是否已经位于终点
+            if (ele.offsetTop == target) {
+                return;
+            }
+
+            // 清除定时器，防止定时器冲突
+            if (window.timer) {
+                clearInterval(window.timer);
+            }
+
+            // 设置定时器
+            window.timer = setInterval(function () {
+                // 获取起点
+                var start = ele.offsetTop;
+                // 获取步长
+                var step = (target - start) / 10;
+
+                // 步长小于1时的处理
+                if (Math.abs(step) < 1) {
+                    step = step > 0 ? 1 : Math.floor(step);
+                }
+
+                // 元素移动
+                ele.style.top = start + step + "px";
+
+                // 到达终点时处理
+                if (start + step == target) {
+                    clearInterval(window.timer);
+                    window.timer = null;
+                }
+            }, 1000 / 60);
+            console.log("window.timer:", window.timer);
+        }
+    </script>
+</body>
+
+</html>

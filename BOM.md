@@ -84,6 +84,70 @@ event || window.event	// 兼容IE的写法
 
 注意：事件一般是委托给父元素的
 
+#### closest方法
+
+ `Element.closest()` 方法用来获取：匹配特定选择器且离当前元素最近的祖先元素（也可以是当前元素本身）。如果匹配不到，则返回 `null`。 换句话说，方法 closest 在元素中检查每个父类。如果与选择器匹配，则停止搜索并返回祖先。IE不支持此方法
+
+语法：
+
+```js
+var ele = element.closest(selectors); 
+```
+
+例如：
+
+```html
+<article>
+  <div id="div-01">Here is div-01
+    <div id="div-02">Here is div-02
+      <div id="div-03">Here is div-03</div>
+    </div>
+  </div>
+</article>
+
+<script>
+  	var el = document.getElementById('div-03');
+    
+	var r1 = el.closest("#div-02");  
+	// 返回 id 为 div-02 的那个元素
+
+    var r2 = el.closest("div div");  
+	// 返回最近的拥有 div 祖先元素的 div 祖先元素，这里的话就是 div-03 元素本身
+
+	var r3 = el.closest("article > div");  
+	// 返回最近的拥有父元素 article 的 div 祖先元素，这里的话就是 div-01
+
+	var r4 = el.closest(":not(div)"); 
+	// 返回最近的非 div 的祖先元素，这里的话就是最外层的 article
+</script>
+```
+
+#### “行为型”模式
+
+我们还可以使用事件委托**声明式**地通过特定属性和类为元素添加“行为”。
+
+模式分为两步：
+
+1. 我们向元素添加一个特殊属性。
+2. 用文档范围级的处理器追踪事件，如果事件发生在具有特定属性的元素上 —— 则执行该操作。
+
+
+
+```html
+add: <input type="button" value="1" data-counter>
+add1: <input type="button" value="2" data-counter>
+
+<script>
+  document.addEventListener('click', function(event) {
+    if (event.target.dataset.counter != undefined) { // 如果属性存在的话
+      event.target.value++;
+    }
+  });
+</script>
+```
+
+
+
 ### 阻止冒泡
 
 #### 推荐方法
@@ -232,7 +296,220 @@ function slowlyMove(ele, target) {
 
 ### scroll家族
 
+- `scrollWidth` 
+- `scrollHeight` 
+-  `scrollTop` 
+-  `scrollLeft`
+
+
+
+#### `scrollWidth` 和 `scrollHeight`
+
+> 检测盒子的宽高 内容高度 + padding。（调用者：节点元素。属性。） 盒子内容的宽高。（如果有内容超出了，显示内容的宽/高度）
+
+注意：假设元素内容超出盒子大小，盒子有 *padding* 属性
+
++ 有 `overflow: auto/hidden/scroll` 属性，则元素宽度 = 内容宽度 + 左 *padding* 值，元素高度 = 内容高度 + 上下 *padding* 值
++ 没有  `overflow: auto/hidden/scroll` 属性，则元素宽度 = 内容宽度 + 左 *padding* 值，元素高度 = 内容高度 + 上 *padding* 值
+
+
+
+#### `scrollTop` 和 `scrollLeft`
+
+注意：这两个是**可读写**的
+
+> 前提: 目标元素有滚动条 被浏览器或父类遮挡的头部和左边部分。 可以获取或设置一个元素的内容垂直滚动的像素数。element.scrollTop/Left = XXX
+
+**获取页面卷入高度的浏览器兼容问题： **
+
+ 各浏览器下 scrollTop 的差异
+
+- IE6/7/8： 
+  - 没有 doctype 声明的页面里可以使用 document.body.scrollTop 来获取 scrollTop 高度；
+  - 有 doctype 声明的页面则可以使用 document.documentElement.scrollTop ；
+- Safari: safari 比较特别，有自己获取 scrollTop 的函数 ： window.pageYOffset ；
+- Firefox、Chrome: 火狐等等相对标准些的浏览器就省心多了，直接用 document.documentElement.scrollTop ；
+
+兼容写法： 
+
+```js
+var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop || 0;
+var scrollLeft = document.documentElement.scrollLeft || window.pageXOffset || document.body.scrollLeft || 0;
+```
+
+
+
+#### `onscroll` 事件
+
+> 当元素的滚动条滚动时触发的事件。
+
+`onscroll`事件貌似任何实体元素都可以绑定，这里的实体元素包括 DOM 元素、window 元素、document 元素。
+
+```js
+element.onscroll=function(){};
+```
+
+注意：设置此事件的元素一定要有**滚动条**
+
+
+#### window 的滚动事件
+
+- `window.scroll(x,y)`是让 window 滚动条滚动到那个 x,y 坐标。//x 是水平坐标，y 是垂直坐标。
+
+- `window.scrollBy(-x,-y)`是让 window 滚动条相对滚动一段像素距离，- 10 即相对向左/向上滚动 10 像素。
+
+- `window.scrollTo(x,y)`和`window.scroll(x,y)`一样，但是它不兼容 IE。
+
+- `element.scrollIntoView(boolean)` 让元素贴顶或者贴底，相对于可视区域
+
+
+
+#### 实现网页顺滑滚动
+
+实现网页顺滑滚动（smooth scroll）的原生方式有四种：
+
+1. 给html设置一个样式属性，`html { scroll-behavior: smooth; }`
+
+2. `window.scroll` 方法传对象参数
+
+   ```js
+   window.scroll(options);
+   window.scrollTo(options);
+   window.scrollBy(options);
+   ```
+
+   `options` 是一个包含三个属性的对象：
+
+   1. `top` 是文档中的纵轴坐标
+   2. `left` 是文档中的横轴坐标
+   3. `behavior`  类型 `String`，表示滚动行为，支持参数 `smooth`(平滑滚动)，`instant`(瞬间滚动),默认值 `auto`，实测效果等同于 `instant`
+
+   ```js
+   btn.onclick = function () {
+   	window.scroll({
+   		top: 1000,
+   		left: 1000,
+   		behavior: "smooth"
+   	});
+   }
+   ```
+
+3. `elem.scrollIntoView(options)` IE 不支持填写 `options` 选项
+
+   `options` 是一个包含三个属性的对象：
+
+   - `behavior` 可选
+
+     定义动画过渡效果， `"auto"`或 `"smooth"` 之一。默认为 `"auto"`。
+
+   - `block` 可选
+
+     定义垂直方向的对齐， `"start"`, `"center"`, `"end"`, 或 `"nearest"`之一。默认为 `"start"`。
+
+   - `inline` 可选
+
+     定义水平方向的对齐， `"start"`, `"center"`, `"end"`, 或 `"nearest"`之一。默认为 `"nearest"`。
+
+4. 自己写一个缓动动画
+
 
 
 ### client家族
+
+
+
+### 函数防抖和节流
+
+#### 函数防抖debounce
+
+> **指触发事件后在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。**即一段时间内多次触发同一事件，只执行最后一次，或者只是在开始时执行一次，中间不执行。
+
+函数防抖分为立即执行版和非立即执行版，取决于在事件首次触发时是否要执行一次
+
+```js
+var count = 0;
+ele.onmousemove = debounce(function(){
+    box.innerText = ++count;
+}, 500);
+
+// 非立即执行版，事件触发的时候不会立即执行一次，必须在连续wait时间中事件没有触发才会执行一次，如果在wait时间内事件触发，则重新开始计时
+function debounce(func, wait){
+    return function(){
+      	if(func.timer){
+            clearTimeout(func.timer);
+        }
+        func.timer = setTimeout(function(){
+            func();
+        }, wait);
+    };
+}
+
+// 立即执行版，事件触发的时候立即执行一次，然后开始计时，之后和非立即执行版一样
+function debounce(func, wait){
+    return function(){
+      	if(!func.timer){
+            func();
+        }else{
+            clearTimeout(func.timer);
+        }
+        func.timer = setTimeout(function(){
+            func.timer = null;
+        }, wait);
+    };
+}
+```
+
+> 函数防抖可以理解为法师放技能的时候需要读条，技能条没读完又放技能就会重新读条
+
+#### 函数节流 throttle
+
+> 规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
+>
+
+节流会稀释函数的执行频率。一般有两只实现方式，分别是时间戳版和定时器版
+
+```js
+var count = 0;
+ele.onmousemove = throttle(function(){
+    box.innerText = ++count;
+}, 500);
+
+// 时间戳版
+function throttle(func, wait){
+    var previous = 0;
+    return function(){
+    	var now = Date.now();
+        if(now - previous > wait){
+            func();
+            previous = now;
+        }
+    };
+}
+
+// 定时器版
+function throttle(func, wait){
+    var timeout = null;
+    return function(){
+        if(!timeout){
+        	timeout = setTimeout(function(){
+                timeout = null;
+            	func();
+        	}, wait);            
+        }
+    };
+}
+
+// 如果想要立即执行的定时器版，只要把func()移到定时器外面即可
+function throttle(func, wait){
+    var timeout = null;
+    return function(){
+        if(!timeout){
+            func();
+        	timeout = setTimeout(function(){
+                timeout = null;
+        	}, wait);            
+        }
+    };
+}
+```
 
