@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .ad {
+            position: relative;
+            width: 600px;
+            height: 250px;
+            margin: 0 auto;
+            margin-top: 200px;
+        }
+
+        .ad .ad-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 600px;
+            height: auto;
+            z-index: 4;
+            opacity: 1;
+        }
+
+        .ad .ad-item:nth-child(2) {
+            width: 500px;
+            height: auto;
+            top: -50px;
+            left: 400px;
+            z-index: 3;
+            opacity: .7;
+        }
+
+        .ad .ad-item:nth-child(5) {
+            width: 500px;
+            height: auto;
+            top: -50px;
+            left: -300px;
+            z-index: 3;
+            opacity: .7;
+        }
+
+        .ad .ad-item:nth-child(3) {
+            width: 380px;
+            height: auto;
+            top: -100px;
+            left: 320px;
+            z-index: 2;
+            opacity: .3;
+        }
+
+        .ad .ad-item:nth-child(4) {
+            width: 380px;
+            height: auto;
+            top: -100px;
+            left: -100px;
+            z-index: 1;
+            opacity: .3;
+        }
+
+        .ad .ad-item img {
+            width: 100%;
+        }
+
+        .box {
+            position: relative;
+        }
+
+        .box .arr {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="ad">
+        <li class="ad-item"><img src="image/m1.jpg" alt="" srcset=""></li>
+        <li class="ad-item"><img src="image/m2.jpg" alt="" srcset=""></li>
+        <li class="ad-item"><img src="image/m3.jpg" alt="" srcset=""></li>
+        <li class="ad-item"><img src="image/m4.jpg" alt="" srcset=""></li>
+        <li class="ad-item"><img src="image/m5.jpg" alt="" srcset=""></li>
+    </ul>
+    <div class="box">
+        <div class="arr">
+            <button class="btn">上一张</button>
+            <button class="btn">下一张</button>
+        </div>
+    </div>
+
+    <script>
+        var btn = document.querySelectorAll("button");
+        var ad = document.querySelector(".ad");
+        var adItem = document.querySelectorAll(".ad .ad-item");
+
+        var styleArr = [];
+        for (var i = 0; i < adItem.length; i++) {
+            styleArr.push({
+                width: parseInt(window.getComputedStyle(adItem[i], null).width),
+                top: parseInt(window.getComputedStyle(adItem[i], null).top),
+                left: parseInt(window.getComputedStyle(adItem[i], null).left),
+                "z-index": parseInt(window.getComputedStyle(adItem[i], null)["z-index"]),
+                opacity: 1 * (window.getComputedStyle(adItem[i], null).opacity)
+            });
+        }
+        console.log(styleArr);
+
+        // 【上一个】按钮
+        btn[0].onclick = function () {
+            styleArr.unshift(styleArr.pop());
+            
+            animation(adItem[0], styleArr[0]);
+            animation(adItem[1], styleArr[1]);
+            animation(adItem[2], styleArr[2]);
+            animation(adItem[3], styleArr[3]);
+            animation(adItem[4], styleArr[4]);
+        }
+
+        /*
+        【1,2,3,4,5】
+            换元素：
+            换数组：
+        */
+        // 【下一个】按钮
+        btn[1].onclick = function () {
+            styleArr.push(styleArr.shift());
+
+            animation(adItem[0], styleArr[0]);
+            animation(adItem[1], styleArr[1]);
+            animation(adItem[2], styleArr[2]);
+            animation(adItem[3], styleArr[3]);
+            animation(adItem[4], styleArr[4]);
+        }
+
+
+        // 单一元素多属性动画
+        function animation(ele, obj) {
+            if(ele.timer){
+                clearInterval(ele.timer);
+                ele.timer = null;
+            }
+
+            ele.timer = setInterval(function () {
+                // 设置一个flag监视是否所有属性都已经到达终点
+                var haveArrived = true;
+
+                var start, target, step;
+
+                for (var key in obj) {
+                    // 设置起点
+                    if (key == "opacity") {
+                        start = Math.floor(getComputedStyle(ele, null)[key] * 100);
+                    } else if (key == "z-index") {      // 层级不需要动画，直接赋值
+                        ele.style[key] = obj[key];
+                        continue;
+                    } else {
+                        start = parseInt(getComputedStyle(ele, null)[key]);
+                    }
+
+                    // 设置终点
+                    if (key == "opacity") {
+                        target = obj[key] * 100;
+                    } else {
+                        target = obj[key];
+                    }
+
+                    // 步长
+                    step = (target - start) / 10;
+                    if (Math.abs(step) < 1) {
+                        step = step > 0 ? 1 : Math.floor(step);
+                    }
+
+                    // 运动
+                    if (key == "opacity") {
+                        ele.style[key] = (start + step) / 100;
+                    } else {
+                        ele.style[key] = start + step + "px";
+                    }
+                    if (start !== target) {
+                        haveArrived = false;
+                    }
+                }
+
+                // 都到达终点，清除定时器
+                if (haveArrived) {
+                    clearInterval(ele.timer);
+                    ele.timer = null;
+                    console.log(1)
+                }
+            }, 1000 / 60);
+        }
+
+    </script>
+</body>
+
+</html>

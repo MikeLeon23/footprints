@@ -742,8 +742,9 @@ console.log(Math.random());
 // 随机 0-99 范围
 console.log(Math.floor(Math.random() * 100));
 // 随机 5-10 范围
-// Math.floor(Math.random()*数量 + min)
+// Math.floor(Math.random()*(max-min+1) + min), 因为是向下取整，取不到右边界
 console.log(Math.floor(Math.random() * 6 + 5));
+// 或者Math.round(Math.random()*(max-min) + 5), round是四舍五入，可以取到右边界
 
 console.log(Math.pow(3, 4));
 console.log(Math.pow(3, 300000000000000000));

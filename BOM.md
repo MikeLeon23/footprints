@@ -416,7 +416,50 @@ element.onscroll=function(){};
 
 ### client家族
 
+> 家族成员`clientWidth` `clientHeight` `clientTop` `clientLeft`
 
+#### clientWidth 和 clientHeight
+
+检测盒子的大小，计算方式：自身宽高 + padding，内容溢出不算，滚动条宽度（默认宽度17）不算。
+
+获取浏览器可视区域宽高
+
++ `document.documentElement.clientWidth/clientHeight`  获取浏览器可视区域的宽高，没有 IE 兼容问题
++ `window.innerWidth/innerHeight`	IE <= 8 不支持，表示获取 *window* 可视区域的内部大小(带滚动条)
++ `window.outerWidth/outerHeight`	IE <= 8 不支持，表示整个浏览器窗体的大小，包括侧边栏（如果存在）、窗口镶边（window chrome）和调正窗口大小的边框（window resizing borders/handles）。该属性为只读，没有默认值
++ `window.screen.width/height` 返回屏幕的宽度或高度。在返回该值时，IE 会考虑缩放设置。只有在缩放比例为 100% 时，IE 才返回真实的屏幕宽度。
++ `window.screen.availWidth` 返回浏览器窗口可占用的水平宽度（单位：像素）。
+
+#### clientTop 和 clientLeft
+
+> 表示元素内容区域与元素的左上边距。只读属性。内容区域 = 内容 + *padding*，*padding* 之外就剩 *border*，所以这两个属性实际上指的是元素上左边框的宽度。
+
+PS：这两个属性可以搭配 *offset* 家族获取任一元素与 *body* 之间的上左边距
+
+代码：
+
+```js
+// 递归
+// inner-body-left = inner.offsetLeft + inner.offsetParent.clientLeft + inner.offsetParent-body-left
+function getDistance(ele){
+	if(ele == document.body){
+		return {
+			top: 0,
+			left: 0
+		};
+	}
+	return {
+		top: ele.offsetTop + 
+        	ele.offsetParent.clientTop + 
+        	getDistance(ele.offsetParent).top,
+		left: ele.offsetLeft + 
+        	ele.offsetParent.clientLeft + 
+        	getDistance(ele.offsetParent).left
+	}
+}
+```
+
+## 其他
 
 ### 函数防抖和节流
 
@@ -510,6 +553,79 @@ function throttle(func, wait){
         	}, wait);            
         }
     };
+}
+```
+
+### 获取元素的样式
+
+行内样式可以通过 `ele.style.styleName` 获取
+
+内联样式和外联样式可以通过以下两种方式获取：
+
+1. `window.getComputedStyle(element, [pseudoElt]).styleName`	返回的是一个带单位的字符串
+
+   + 仅用于谷歌和火狐等标准浏览器
+   + *element* 用于获取计算样式的元素
+   + *pseudoElt* 指定一个要匹配的伪元素的字符串。必须对普通元素省略（或 *null*），一般都写成 *null*，如果要获取伪元素的样式，则写上要获取的伪元素的名字
+
+2. `element.currentStyle.styleName` 仅用于 *IE 9* 以下
+
+3. 兼容写法
+
+   <pre style="background-color: rgb(39, 40, 34);color: rgb(255, 204, 153);padding: 20px 0;">
+   	/**
+       * 获取任意元素的css样式
+       **/
+       function getStyle(ele,styleName){
+           if(ele.currentStyle){
+               return ele.currentStyle[styleName];
+           }else{
+               return window.getComputedStyle(ele,null)[styleName];
+           }
+       }    
+   </pre>
+
+   
+
+### 小知识
+
+我们可以使用以下伪元素选择器去修改各式 *webkit* 浏览器的滚动条样式:
+
+- `::-webkit-scrollbar` — 整个滚动条.
+- `::-webkit-scrollbar-button` — 滚动条上的按钮 (上下箭头)
+- `::-webkit-scrollbar-thumb` — 滚动条上的滚动滑块
+- `::-webkit-scrollbar-track` — 滚动条轨道
+- `::-webkit-scrollbar-track-piece` — 滚动条没有滑块的轨道部分
+- `::-webkit-scrollbar-corner` — 当同时有垂直滚动条和水平滚动条时交汇的部分
+- `::-webkit-resizer` — 某些元素的corner部分的部分样式(例：*textarea* 的可拖动按钮)
+
+好看的样式：
+
+```css
+body::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width : 10px;  /*高宽分别对应横竖滚动条的尺寸*/
+}
+body::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius   : 10px;
+    background-color: skyblue;
+    background-image: -webkit-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.2) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.2) 75%,
+        transparent 75%,
+        transparent
+    );
+}
+body::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    box-shadow   : inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background   : #ededed;
+    border-radius: 10px;
 }
 ```
 

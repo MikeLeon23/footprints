@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单一元素多属性动画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            opacity: .5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+
+    <script>
+
+        function animation(ele, obj) {
+
+            ele.timer = setInterval(function () {
+                // 设置一个flag监视是否所有属性都已经到达终点
+                var haveArrived = true;
+
+                var start, target, step;
+
+                for (var key in obj) {
+                    // 设置起点
+                    if (key == "opacity") {
+                        start = getComputedStyle(ele, null)[key] * 100;
+                    } else if (key == "z-index") {      // 层级不需要动画，直接赋值
+                        ele.style[key] = obj[key];
+                        continue;
+                    } else {
+                        start = parseInt(getComputedStyle(ele, null)[key]);
+                    }
+
+                    // 设置终点
+                    if (key == "opacity") {
+                        target = obj[key] * 100;
+                    } else {
+                        target = obj[key];
+                    }
+
+                    // 步长
+                    step = (target - start) / 10;
+                    if (Math.abs(step) < 1) {
+                        step = step > 0 ? 1 : Math.floor(step);
+                    }
+
+                    // 运动
+                    if (key == "opacity") {
+                        ele.style[key] = (start + step) / 100;
+                    } else {
+                        ele.style[key] = start + step + "px";
+                    }
+                    if (start !== target) {
+                        haveArrived = false;
+                    }
+                }
+
+                // 都到达终点，清除定时器
+                if (haveArrived) {
+                    clearInterval(ele.timer);
+                    ele.timer = null;
+                }
+            }, 1000 / 60);
+        }
+
+        // 获取元素
+        var boxEle = document.querySelector(".box");
+        // 绑定点击事件
+        boxEle.onclick = function () {
+            animation(boxEle, {
+                width: 600,
+                height: 400,
+                opacity: 1,
+                "z-index": 9,
+                top: 100,
+                left: 100
+            });
+        };
+    </script>
+</body>
+
+</html>
