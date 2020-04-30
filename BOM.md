@@ -221,7 +221,7 @@ offsetTop/Left 和 style.top/left 的区别：
 </script>
 ```
 
-#### `offsetParent`
+#### offsetParent
 
 检测父系盒子中带有定位的父盒子节点
 
@@ -303,7 +303,7 @@ function slowlyMove(ele, target) {
 
 
 
-#### `scrollWidth` 和 `scrollHeight`
+#### scrollWidth 和 scrollHeight
 
 > 检测盒子的宽高 内容高度 + padding。（调用者：节点元素。属性。） 盒子内容的宽高。（如果有内容超出了，显示内容的宽/高度）
 
@@ -314,7 +314,7 @@ function slowlyMove(ele, target) {
 
 
 
-#### `scrollTop` 和 `scrollLeft`
+#### scrollTop 和 scrollLeft
 
 注意：这两个是**可读写**的
 
@@ -339,7 +339,7 @@ var scrollLeft = document.documentElement.scrollLeft || window.pageXOffset || do
 
 
 
-#### `onscroll` 事件
+#### onscroll 事件
 
 > 当元素的滚动条滚动时触发的事件。
 
@@ -458,6 +458,246 @@ function getDistance(ele){
 	}
 }
 ```
+
+## window
+
+### window.open()
+
+使用 `window.open()` 方法既可以导航到一个特定的 URL，也可以打开一个新的浏览器窗口。
+
+语法：
+
+```js
+var windowObjectReference = window.open(strUrl, strWindowName, [strWindowFeatures]);
+```
+
+#### 返回值
+
+WindowObjectReference：打开的新窗口对象的引用。如果调用失败，返回值会是 `null`。如果父子窗口满足“**同源策略**”，可以通过这个引用访问新窗口的属性或方法。
+
+```js
+var win = window.open("../test.html","_blank",
+    "height=400,width=400,top=10,left=10,resizable=yes");
+
+win.resizeTo(500,500);	// 调整大小
+
+win.moveTo(100,100);	// 移动位置
+
+// 关闭新打开的窗口，close()方法无须满足同源策略，对任何窗口都能使用
+win.close();
+
+// 网站名解析:https://www.baidu.com
+// https：协议
+// www：服务器(可有可无)
+// baidu.com：域名
+```
+
+返回的WindowObjectReference对象还有一个 `opener` 属性，其中保存着打开它的原始窗口对象。这个属性只在弹出窗口中的最外层 `window` 对象（top）中有定义，而且指向调用 `window.open()` 的窗口或框架。例如：
+
+```js
+var win = window.open("http://www.baidu.com/","_blank",
+    "height=400,width=400,top=10,left=10,resizable=yes");
+
+console.log(win.opener === window);   // true
+```
+
+#### 参数
+
+1. 要加载的URL
+2. 窗口目标，相当于 a 标签的 target 属性
+3. 一个特性字符串
+
+通常只须传递第一个参数，最后一个参数只在不打开新窗口的情况下使用。
+
+```js
+// <iframe src="./2-location对象.html" width="800" height="400" name="ifr"></iframe>
+window.open('https://www.baidu.com');
+window.open("https://www.baidu.com",'_self');
+// window.open("https://www.baidu.com",'ifr');
+```
+
+如果给 `window.open()` 传递的第二个参数并不是一个已经存在的窗口或框架，那么该方法就会根据在第三个参数位置上传入的字符串创建一个新窗口或新标签页。如果没有传入第三个参数，那么就会打开一个带有全部默认设置（工具栏、地址栏和状态栏等）的新浏览器窗口（或者打开一个新标签页）。在不打开新窗口的情况下，会忽略第三个参数。
+
+第三个参数是一个逗号分隔的设置字符串，表示在新窗口中都显示哪些特性。下表列出了可以出现在这个字符串中的设置选项。
+
+| 设置       | 值      | 说明                                                         |
+| ---------- | ------- | ------------------------------------------------------------ |
+| fullscreen | yes或no | 表示浏览器窗口是否最大化。仅限IE                             |
+| height     | 数值    | 表示新窗口的高度。不能小于100                                |
+| left       | 数值    | 表示新窗口的左坐标。不能是负值                               |
+| location   | yes或no | 表示是否在浏览器窗口中显示地址栏。不同浏览器的默认值不同。如果设置为no，地址栏可能会隐藏，也可能会被禁用（取决于浏览器） |
+| menubar    | yes或no | 表示是否在浏览器窗口中显示菜单栏。默认值为no                 |
+| resizable  | yes或no | 表示是否可以通过拖动浏览器窗口的边框改变其大小。默认值为no   |
+| scrollbars | yes或no | 表示如果内容在视口中显示不下，是否允许滚动。默认值为no       |
+| status     | yes或no | 表示是否在浏览器窗口中显示状态栏。默认值为no                 |
+| toolbar    | yes或no | 表示是否在浏览器窗口中显示工具栏。默认值为no                 |
+| top        | 数值    | 表示新窗口的上坐标。不能是负值                               |
+| width      | 数值    | 表示新窗口的宽度。不能小于100                                |
+
+举例：
+
+```js
+// 这行代码会打开一个新的可以调整大小的窗口，窗口初始大小为400×400像素，并且距屏幕上沿和左边各10像素，且窗口大小可以改变
+window.open("http://www.baidu.com/","_blank",
+    "height=400,width=400,top=10,left=10,resizable=yes"); // 会打开新页面
+
+window.open("http://www.baidu.com/","_self",
+    "height=400,width=400,top=10,left=10,resizable=yes"); // 忽略第三个参数,不会打开新页面
+```
+
+### history对象
+
+> 保存从窗口打开后，成功访问过的url的历史记录栈。出于安全方面的考虑，开发人员无法得知用户浏览过的 URL。不过，借由用户访问过的页面列表，同样可以在不知道实际 URL 的情况下实现后退和前进。
+
+#### 属性
+
+`length` ：保存着历史记录的数量。这个数量包括所有历史记录，即所有向后和向前的记录。对于加载到窗口、标签页或框架中的第一个页面而言，`history.length` 等于1。
+
+#### 方法
+
+- `history.go(n)` 参数n表示向后或向前跳转的页面数的一个整数值。负数表示向后跳转（类似于单击浏览器的“后退”按钮），正数表示向前跳转（类似于单击浏览器的“前进”按钮）。
+
+```js
+history.go(2)    // 前进两页
+history.go(-1)   // 后退一页
+history.go(0)	 // 刷新
+```
+
+- `history.back()`   后退一页
+- `history.forward()`    前进一页
+
+### location对象
+
+> location对象保存当前窗口正在打开的URL的对象，它既是 `window` 对象的属性，也是 `document` 对象的属性（`window.location` === `document.location`）
+
+#### 属性
+
+### 
+
+| 属性名   | 例子                         | 说明                                                         |
+| -------- | ---------------------------- | ------------------------------------------------------------ |
+| hash     | "#contents"                  | 返回 URL 中的 hash（#号后跟零或多个字符），如果 URL 中不包含散列，则返回空字符串 |
+| host     | "www.zhihu.com:80"           | 返回服务器名称和端口号（如果有）                             |
+| hostname | "www.zhihu.com"              | 返回不带端口号的服务器名称                                   |
+| href     | "http://www.ceshi.com/index" | 返回当前加载页面的完整URL。而 `location` 对象的 `toString()` 方法也返回这个值 |
+| pathname | "/search"                    | 返回URL中的目录和（或）文件名                                |
+| port     | "8080"                       | 返回 URL 中指定的端口号。如果 URL 中不包含端口号，则这个属性返回空字符串 |
+| protocol | "http:"                      | 返回页面使用的协议。通常是 http: 或 https:                   |
+| search   | "?q=javascript"              | 返回URL的查询字符串。这个字符串以问号开头                    |
+| origin   | "http://www.ceshi.com/index" | 返回页面使用协议+网站名                                      |
+
+#### 方法
+
+- 在当前窗口打开，可后退
+  `location.assign(url)` => `location.href=url` => `location=url`
+
+- 在当前窗口打开，不会生成历史记录，不可后退即替换当前页面的地址
+  `location.replace(url)`
+
+- 重新加载页面
+  - 普通刷新，优先从浏览器本地缓冲获取资源
+    F5
+    `history.go(0)`
+    `location.reload(false)`，默认是false，可以不写
+
+  - 强制刷新，无论本地是否有缓存，总是强制从服务器获取资源
+
+    Ctrl + F5
+
+    `location.reload(true)`
+
+### navigator对象
+
+包含有关访问者浏览器的信息。
+
+- `navigator.language`：浏览器设置的语言；
+
+- `navigator.appCodeName`（不准确）：属性是一个只读字符串，声明了浏览器的代码名。在所有以 Netscape 代码为基础的浏览器中，它的值是 "Mozilla"。为了兼容起见，在 Microsoft 的浏览器中，它的值也是 "Mozilla"，同时在safari在浏览器的 `console` 里运行`navigator.appCodeName` 得出的结果还是"Mozilla"，所以这个看起来并不实用，因为IE、chrome、safari返回的都是“Mozilla”。
+
+- `navigator.appName`（不准确）：返回所使用浏览器的名称。由于兼容性问题，HTML5 规范允许该属性返回 "Netscape"。该属性并不一定能返回正确的浏览器名称。在基于 Gecko 的浏览器 （例如 Firefox）和基于 WebKit 的浏览器（例如 Chrome 和 Safari）中，返回的浏览器名称都是 "Netscape"。
+
+- `navigator.appVersion`（已废弃）：属性可返回浏览器的平台和版本信息。该属性是一个只读的字符串。该特性已经从 Web 标准中删除，虽然一些浏览器目前仍然支持它，但也许会在未来的某个时间停止支持，请尽量不要使用该特性。
+
+- `navigator.platform`：是一个只读的字符串，声明了运行浏览器的操作系统和（或）硬件平台。可能的值有: "Win32", "Linux i686", "MacPPC", "MacIntel"等。
+
+- `navigator.userAgent`（用的最多，也可以说相对更准确）：是一个只读的字符串，声明了浏览器用于 HTTP 请求的用户代理头的值。主要是各家浏览器厂商都想要自己的浏览器被其他的兼容，所以都会或多或少的加上一些其他的信息在里面。
+  代码：
+
+```js
+var browserName = navigator.userAgent.toLowerCase(); 
+//区分手机端还是PC端
+isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(browserName));
+//判断浏览器
+isIE = /msie/i.test(browserName) && !/opera/.test(browserName);
+isIE6 = /msie 6.0/i.test(browserName);
+isIE7 = /msie 7.0/i.test(browserName);
+isIE8 = /msie 8.0/i.test(browserName);
+isFirefox = /firefox/i.test(browserName);
+isChrome = /chrome/i.test(browserName) && /webkit/i.test(browserName) && /mozilla/i.test(browserName);
+isOpera = /opera/i.test(browserName);
+isSafari = /webkit/i.test(browserName) &&!(/chrome/i.test(browserName) && /webkit/i.test(browserName) && /mozilla/i.test(browserName));
+//判断微信
+isWeixin = /micromessenger/i.test(browserName);
+```
+
+ `navigator.onLine`：属性是一个只读的布尔值，声明了系统是否处于脱机模式。 
+
+```js
+// 监听浏览器联网状态，断网或者连上网会弹出相应提示
+window.addEventListener("offline", function(e) {alert("offline");})
+window.addEventListener("online", function(e) {alert("online");})
+```
+
+`navigator.cookieEnabled`：属性可返回一个布尔值，如果浏览器启用了 cookie，该属性值为 true。如果禁用了 cookie，则值为 false。 
+
+### window的其他方法
+
++ `widnow.onresize`：当页面窗口大小发生变化的时候会触发该事件
+
+- `resizeBy(w, h)`：根据指定的像素来调整窗口的大小。
+
+  该方法定义指定窗口的右下角移动的像素，左上角将不会被移动(它停留在其原来的坐标)。有两个参数，第一个参数是必需的，指定窗口宽度增加的像素数。第二个参数可选，指定窗口高度增加的像素数。两个参数可为正数，也可为负数。
+
+- `resizeTo(w, h)`：用于把窗口大小调整为指定的宽度和高度。
+
+　　该方法两个参数都是必需的，用来指定设置窗口的宽度和高度，以像素计。
+
+- `moveBy(xnum, ynum)`：可相对窗口的当前坐标把它移动指定的像素。
+
+　　该方法有两个参数，第一个参数指定要把窗口右移的像素数，第二个参数指定要把窗口下移的像素数。
+
+- `moveTo(x, y)`：可把窗口的左上角移动到一个指定的坐标。
+
+　　该方法有两个参数，第一个参数指定窗口新位置的 x 坐标，第二个参数指定窗口新位置的 y 坐标。
+
+- `scrollBy(xnum, ynum)`：可把内容滚动指定的像素数。
+
+　　该方法有两个必需参数，第一个参数指定把文档向右滚动的像素数。第二个参数指定把文档向下滚动的像素数。
+
+- `scrollTo(x, y)`：可把内容滚动到指定的坐标。
+
+　　该方法有两个必需参数，第一个指定要在窗口文档显示区左上角显示的文档的 x 坐标。第二个参数指定要在窗口文档显示区左上角显示的文档的 y 坐标。
+
+## URL
+
+是统一资源定位符（Uniform Resource Locator）的简称，是互联网上标准资源的地址。互联网上的每个文件都有一个唯一的URL，它包含的信息指出文件的位置以及浏览器应该如何处理它。
+
+URL 的一般语法格式为：
+
+```http
+protocol://host[:port]/path/[?query]#fragment
+```
+
+| 组成     | 说明                                                   |
+| -------- | ------------------------------------------------------ |
+| protocol | 通讯协议                                               |
+| host     | 域名或网络ID地址 www.baidu.com                         |
+| port     | 端口号                                                 |
+| path     | 资源路径 以 / 分隔的路径地址，表示主机上的文件存放地址 |
+| query    | 参数 以 ? 键值对的形式表示，多个键值对通过 & 符号分隔  |
+| fragment | 片段  # 后面的内容，常见于链接，锚点                   |
+
+
 
 ## 其他
 
@@ -587,7 +827,7 @@ function throttle(func, wait){
 
    
 
-### 小知识
+### 修改浏览器滚动条样式
 
 我们可以使用以下伪元素选择器去修改各式 *webkit* 浏览器的滚动条样式:
 
@@ -627,5 +867,370 @@ body::-webkit-scrollbar-track {
     background   : #ededed;
     border-radius: 10px;
 }
+```
+
+### 新的动画函数
+
+#### 传统动画的弊端
+
+编写动画的关键是循环间隔的设置，一方面，循环间隔足够短，动画效果才能显得平滑流畅；另一方面，循环间隔还要足够长，才能确保浏览器有能力渲染产生的变化。
+
+大部分的电脑显示器的刷新频率是 *60HZ*，也就是每秒钟重绘60次。大多数浏览器都会对重绘操作加以限制，不超过显示器的重绘频率，因为即使超过那个频率用户体验也不会提升。因此，最平滑动画的最佳循环间隔是 *1000ms / 60* ，约为 *16.7ms*。
+
+在实际项目中我们经常会遇到生成动画的需求，传统方法是通过使用 `setTimeout` 和 `setInterval` 进行实现，但是定时器动画有两个弊端：
+
+- 时间间隔并不好拿捏，设置太短浏览器重绘频率太快会产生性能问题，太慢的话又显得像PPT不够平滑。
+- 它们实际上只是把任务添加到了任务队列中，但是如果前面的任务还没有执行完成，它们必须要等待。 所要执行的动画就会被搁置。
+
+
+
+为了解决这个问题 HTML5 加入了 `requestAnimationFrame`
+
+特点如下:
+
++ `requestAnimationFrame` 不需要设置时间，采用系统时间间隔，保持最佳绘制效率，能达到最佳的动画效果。
++ `requestAnimationFrame` 会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成。
++ 当 `requestAnimationFrame()` 是由浏览器专门为动画提供的API，在运行时浏览器会自动优化方法的调用，并且如果页面不是激活状态下的话，动画会自动暂停，有效节省了CPU开销
+
+#### requestAnimationFrame
+
+MDN的上的解释：
+
+> `window.requestAnimationFrame()` 方法告诉浏览器您希望执行动画并请求浏览器在下一次重绘之前调用指定的函数来更新动画。该方法使用一个回调函数作为参数，这个回调函数会在浏览器重绘之前调用。 
+
+**语法**
+
+```js
+var requestId = requestAnimationFrame(callback);
+```
+
+这会让 `callback` 函数在浏览器每次重绘的最近时间运行。
+
+多个 `requestAnimationFrame` 回调只会有一次几何重新计算和重绘，而不是多次。
+
+**注意：**requestAnimationFrame()调用一次就执行一次，不会循环执行，如果想要循环执行的效果，那么可以在回调函数内部再次调用requestAnimationFrame()，形成循环。写法如下：
+
+```js
+requestAnimationFrame(function fn(){
+    requestAnimationFrame(fn);
+});
+```
+
+
+
+**返回值**
+
+请求 ID ，是一个整数，是回调列表中唯一的标识。是个非零值，没别的意义。可以传这个值给 `window.cancelAnimationFrame()` 以取消回调函数。 
+
+```js
+// 取消回调的周期执行
+cancelAnimationFrame(requestId);
+```
+
+**回调函数参数**
+
+requestAnimationFrame会默认给回调函数（callback） 传递一个参数 —— 从页面加载开始经过的毫秒数。这个时间也可通过调用 `performance.now()` 得到。如果在回调函数中需要使用这个参数，需要给回调函数写一个形参，在回调函数中，这个形参代表的就是requestAnimationFrame传给回调函数的参数。如下：
+
+```js
+// 给requestAnimationFrame默认传递的参数一个名字：time
+requestAnimationFrame(function fn(time){
+    console.log(time);
+    requestAnimationFrame(fn);	
+})
+```
+
+> 注：`performance.now()` 返回一个表示从性能测量时刻开始经过的毫秒数
+
+**例子**
+
+```html
+<div id="box"></div>
+<script type="text/javascript">
+    var n = 0;
+    function move(){
+        n += 5;
+        box.style.left = n + "px";
+        if(n < 300) requestAnimationFrame(move);
+    }
+    move();
+</script>
+```
+
+**与`setInterval` 对比**
+
+```js
+// 让页面加载两秒
+var count = 0;
+
+// requestAnimationFrame实现
+window.onload = function (){
+    var old = performance.now();
+    var end = null;
+    function fn(time){
+    	console.log(time - old);
+    	old = time;
+    	count ++;
+    	if(count === 20){
+    		window.cancelAnimationFrame(end);
+        	return;	// 这里如果不return的话，后面end=requestAnimationFrame(fn)还会继续执行
+    	}
+    	end = requestAnimationFrame(fn);
+    }
+    requestAnimationFrame(fn);
+};
+// 另一种写法
+window.onload = function(){
+    var old = performance.now();
+    var end = null;
+    requestAnimationFrame(function fn(time){
+        console.log(time - old);
+        old = time;
+        count++;
+        if(count < 20){
+            end = requestAnimationFrame(fn);
+        }else{
+            window.cancelAnimationFrame(end);
+            end = null;
+        }
+    });
+};
+
+// setInterval实现
+window.onload = function (){
+    var timer = setInterval(function (){
+    	count ++;
+    	var time = performance.now();
+    	console.log(time - old);
+    	if(count === 20){
+    		clearInterval(timer);
+    	}
+    	old = time;
+    },1000/60)
+}
+```
+
+误区：clearInterval()、clearTimeout()执行只会让定时器不执行下一次，本次会一直执行到底。如果clearInterval()和clearTimeout()后面还有语句，也会执行。
+
+#### 时间型动画
+
+**setInterval()创建动画的缺点：**
+
+- 无法控制动画完成的时长
+- 可能由于别的任务堵塞，导致定时器执行时间产生巨大波动
+
+这些问题可以通过requestAnimationFrame创建动画解决。
+
+**补间动画：**在固定的时间点，有固定的位置。只需要根据运动的已过时间t计算移动距离s
+
+使用requestAnimationFrame创建一个通用的动画函数：
+
+```js
+/**
+ * 补间动画方法
+ * @param { Number } start 开始数值
+ * @param { Number } end   结束数值
+ * @param { Number } time  补间时间
+ * @param { Function } callback 每帧的回调函数
+ **/
+function animate(start, end, time, callback){
+	var startTime = performance.now(); // 设置开始的时间戳
+	var differ = end - start; // 拿到数值差值
+	// 创建每帧之前要执行的动画
+    function loop(now){
+        var passTime = now - startTime; // 获取当前时间和开始的时间差
+        var per = passTime / time; // 计算当前已过百分比
+        if( per >= 1 ){  // 判读如果已经执行
+            per = 1; // 设置为最后的状态
+        }
+        var pass = differ * per; // 通过已过时间的百分比 * 开始结束数值差得出当前的数值
+        callback(pass); // 调用回调函数,把数值传递进去,这里的回调函数应该是移动函数
+        if(per < 1) requestAnimationFrame(loop) //下一帧调用每帧之前要执行的函数
+    }
+    requestAnimationFrame(loop) // 下一帧调用每帧之前要执行的函数
+}
+```
+
+带有时序函数的动画封装：
+
+```js
+function animate(timing, draw, duration){
+    var start = performance.now();
+    requestAnimationFrame(function animate(time){
+        // timeFraction 从 0 增加到 1
+        var timeFraction = (time - start) / duration;
+        if(timeFraction > 1) timeFraction = 1;
+        
+        // 计算当前动画状态
+        var process = timing(timeFraction);
+        
+        draw(process); // 绘制
+        
+        if(timeFraction < 1){
+            requestAnimationFrame(animate);
+        }
+    })
+}
+```
+
+解析：
+
+这里animate函数接受3个描述动画的基本参数：
+
++ `duration`  动画运行的总毫秒数。 比如 1000
+
++ `timing(timeFraction)`  计算动画进度的函数（ 时序函数）。获取从 0 到 1 的小数时间，返回动画进度，通常也是从 0 到 1。类似 CSS 属性 `transition-timing-function`，传入一个已过去的时间与总时间之比的小数（0 代表开始，1 代表结束），返回动画完成度（类似 Bezier 曲线中的 y）。
+
++ `draw(process)`  获取动画完成状态并绘制的函数。值 `progress = 0` 表示开始动画状态，`process = 1` 表示结束状态。这是实际绘制动画的函数。例如：
+
+```js
+function draw(process){
+    box.style.left = process + "px";
+}
+```
+
+与 CSS 动画不同，我们可以在这里设计任何时序函数和任何绘图函数。时序函数不受 Bezier 曲线的限制。并且 `draw` 不局限于操作 CSS 属性，还可以为类似烟花动画或其他动画创建新元素。 
+
+
+
+#### 时序函数
+
+**线性时序函数**
+
+```js
+function linear(timefractoin){
+	return timeFraction;
+}
+```
+
+**幂函数**
+
+```js
+function quad(timeFraction) {
+  return Math.pow(timeFraction, 2)	// 抛物线
+}
+```
+
+**拉弓（先退再进）**
+
+```js
+// 其实就是一个开口向上，过原点，对称轴在y轴右边的二次函数
+function circle(x, timeFraction){
+	return Math.pow(timeFraction, 2) * ((x+1) * timeFraction - x);
+}
+```
+
+**弹跳**
+
+bounce 函数的效果类似于我们抛球后，球落下然后弹跳几次停下来，但是顺序是相反的。
+
+```js
+function bounce(timeFraction){
+    for(var a = 0,b = 1, result; 1; a += b, b/= 2){
+        if(timeFraction >= (7 - 4 * a) / 11){
+            return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2);
+        }
+    }
+}
+```
+
+**伸缩动画**
+
+另一个“伸缩函数”接受附加参数 x 作为“初始范围”。
+
+```js
+function elastic(x, timeFraction){
+	return Math.pow(2, 10 * (timeFraction - 1)) * Math.cos(20 * Math.PI * x / 3 * timeFraction); 
+}
+```
+
+#### 逆转：ease
+
+有一组时序函数。它们的直接应用称为“easeIn”。有时我们需要以相反的顺序显示动画。这是通过“easeOut”变换完成的。
+
+**easeOut**变换
+
+在“easeOut”模式中，我们将 `timing` 函数封装到 `timingEaseOut`中：
+
+```js
+timingEaseOut(timeFraction) = 1 - timing(1 - timeFraction);
+```
+
+换句话说，我们有一个“变换”函数 `makeEaseOut`，它接受一个“常规”时序函数 `timing` 并返回一个封装器，里面封装了 `timing` 函数： 
+
+```js
+// 接受时序函数，返回变换后的变体
+function makeEaseOut(timing) {
+  return function(timeFraction) {
+    return 1 - timing(1 - timeFraction);
+  }
+}
+```
+
+ 例如，我们可以使用上面描述的 `bounce` 函数： 
+
+```javascript
+var bounceEaseOut = makeEaseOut(bounce);
+```
+
+ 这样，弹跳不会在动画开始时执行，而是在动画结束时。这样看起来更好： 
+
+- 常规弹跳 —— 物体在底部弹跳，然后突然跳到顶部。
+- `easeOut` 变换之后 —— 物体跳到顶部之后，在那里弹跳。
+
+```js
+function makeEaseOut(timing) {
+    return function(timeFraction) {
+        return 1 - timing(1 - timeFraction);
+    }
+}
+
+function bounce(timeFraction) {
+    for (let a = 0, b = 1, result; 1; a += b, b /= 2) {
+        if (timeFraction >= (7 - 4 * a) / 11) {
+            return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2)
+        }
+    }
+}
+
+let bounceEaseOut = makeEaseOut(bounce);
+
+brick.onclick = function() {
+    animate({
+        duration: 3000,
+        timing: bounceEaseOut,
+        draw: function(progress) {
+            box.style.left = progress * 600 + 'px';
+        }
+    });
+};
+```
+
+#### easeInOut变换
+
+我们还可以在动画的开头和结尾都显示效果。该变换称为“easeInOut”。
+
+给定时序函数，我们按下面的方式计算动画状态：
+
+```js
+if (timeFraction <= 0.5) { // 动画前半部分
+  return timing(2 * timeFraction) / 2;
+} else { // 动画后半部分
+  return (2 - timing(2 * (1 - timeFraction))) / 2;
+}
+```
+
+封装后：
+
+```js
+function makeEaseInOut(timing) {
+  return function(timeFraction) {
+    if (timeFraction < .5)
+      return timing(2 * timeFraction) / 2;
+    else
+      return (2 - timing(2 * (1 - timeFraction))) / 2;
+  }
+}
+
+bounceEaseInOut = makeEaseInOut(bounce);
 ```
 
