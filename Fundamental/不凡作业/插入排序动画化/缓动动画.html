@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+
+
+    <script>
+        var box = document.querySelector(".box");
+        box.onclick = function(){
+            slowlyMove(box, 1000);
+        };
+        function slowlyMove(ele, target) {
+            console.log(2);
+            if (ele.offsetLeft == target) {
+                return;
+            }
+
+            if (ele.timer) {
+                clearInterval(ele.timer);
+            }
+
+            var start, step;
+
+            ele.timer = setInterval(function () {
+                console.log(1)
+                start = ele.offsetLeft;
+
+                step = (target - start) / 10;
+
+                if (Math.abs(step) < 1) {
+                    step = step > 0 ? 1 : Math.floor(step);
+                }
+
+                ele.style.left = start + step + "px";
+
+                if (start == target) {
+                    clearInterval(ele.timer);
+                    ele.timer = null;
+                }
+            }, 1000 / 60);
+        }
+    </script>
+</body>
+
+</html>

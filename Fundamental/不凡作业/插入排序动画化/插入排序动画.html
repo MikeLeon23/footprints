@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            position: relative;
+            width: 940px;
+            height: 300px;
+            margin: 20px auto;
+            border: 1px solid red;
+            list-style: none;
+        }
+
+        li {
+            position: absolute;
+            bottom: 0;
+            width: 50px;
+            background-color: #00FF00;
+        }
+
+        .move {
+            background-color: #00ccaa;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .done {
+            background-color: #0da20d;
+        }
+
+        button {
+            margin-left: 100px;
+            padding: 12px 40px;
+            font-size: 16px;
+            letter-spacing: .1rem;
+            background-color: #fff;
+            border-radius: 3px;
+            border: 1px solid #999;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="box"></ul>
+
+    <button id="create">生成柱状图</button>
+    <button id="plan">开始排序</button>
+
+    <script>
+        var Btns = document.querySelectorAll("button");
+
+        Btns[0].onclick = function () {
+            initHistogram();
+        };
+
+        var heightArr = getHeightArr(10, 300, 20);
+        console.log(heightArr);
+
+        var liEle = document.getElementsByTagName("li");
+
+        // 插入排序动画化
+        Btns[1].onclick = function () {
+
+            // 定时器模拟循环
+            var i=1, flag = true, originTop;
+            var timer = setInterval(function(){
+                // 外层
+                if(i < heightArr.length){
+                    if(flag){
+                        j = i;
+                        originTop = liEle[j].offsetTop;
+                        // slowlyMoveUp(liEle[j], 200);
+                        if(liEle[j-1].offsetHeight > liEle[j].offsetHeight){
+                            liEle[j].style.top = "300px";
+                            liEle[j].classList.add("red");
+                        }
+                    }
+                    var num = liEle[j].offsetHeight;
+                
+                    // 内层
+                    if(j > 0 && liEle[j-1].offsetHeight > num){
+                        var temp = liEle[j-1].offsetLeft;
+                        slowlyMoveLeft(liEle[j-1], liEle[j].offsetLeft);
+                        slowlyMoveLeft(liEle[j], temp);
+
+                        liEle[j].parentNode.insertBefore(liEle[j], liEle[j-1]);
+                        j--;
+                        flag = false;
+                    }else{
+                        slowlyMoveUp(liEle[j], originTop);
+                        liEle[j].classList.remove("red");
+                        i++;
+                        flag = true;
+                        for(var k = 0; k < i; k++){
+                            liEle[k].classList.add("done");
+                        }
+                    }
+                }else{
+                    clearInterval(timer);
+                }
+            }, 2000)
+            
+
+            // 非定时器方式
+            // for (var i = 1; i < heightArr.length; i++) {
+            //     var j = i;
+            //     var num = liEle[j].offsetHeight;
+            //     liEle[j].style.bottom = "-200px";
+            //     while(j > 0 && liEle[j-1].offsetHeight > num) {
+            //         var temp = liEle[j-1].offsetLeft;
+            //         liEle[j-1].style.left = liEle[j].offsetLeft + "px";
+            //         liEle[j].style.left = temp + "px";
+            //         liEle[j].parentNode.insertBefore(liEle[j], liEle[j-1]);
+            //         j--;
+            //     }
+            //     liEle[j].style.bottom = "0px";
+            // }
+        }
+
+
+        // 柱状图高度数组的初始化函数
+        function getHeightArr(num, maxH, minH) {
+            var heightArr = [];
+            for (var i = 0; i < num; i++) {
+                var randomH = Math.round(Math.random() * ((maxH - minH) / 10)) * 10 + minH;
+                if (!heightArr.includes(randomH)) {
+                    heightArr.push(randomH);
+                } else {
+                    i--;
+                }
+            }
+            return heightArr;
+        }
+
+        // 柱状图初始化函数
+        function initHistogram() {
+            // console.log(heightArr);
+            var str = "";
+            for (var i = 0; i < heightArr.length; i++) {
+                str += "<li style='left: " + (90 * i + 40) + "px; height: " + heightArr[i] + "px'></li>";
+                // console.log(str);
+            }
+            var boxEle = document.querySelector("#box");
+            boxEle.innerHTML = str;
+        }
+
+        // 缓动动画，左右移动
+        function slowlyMoveLeft(ele, target) {
+            if (ele.offsetLeft == target) {
+                return;
+            }
+
+            if (ele.timer) {
+                clearInterval(ele.timer);
+            }
+
+            var start, step;
+
+            ele.timer = setInterval(function () {
+                start = ele.offsetLeft;
+
+                step = (target - start) / 10;
+
+                if (Math.abs(step) < 1) {
+                    step = step > 0 ? 1 : Math.floor(step);
+                }
+
+                ele.style.left = start + step + "px";
+
+                if (start == target) {
+                    clearInterval(ele.timer);
+                    ele.timer = null;
+                }
+            }, 1000 / 60);
+        }
+
+        // 缓动动画，上下移动
+        function slowlyMoveUp(ele, target) {
+            if (ele.offsetTop == target) {
+                return;
+            }
+
+            if (ele.timer) {
+                clearInterval(ele.timer);
+            }
+
+            var start, step;
+
+            ele.timer = setInterval(function () {
+                start = ele.offsetTop;
+
+                step = (target - start) / 10;
+
+                if (Math.abs(step) < 1) {
+                    step = step > 0 ? 1 : Math.floor(step);
+                }
+
+                ele.style.top = start + step + "px";
+
+                if (start == target) {
+                    clearInterval(ele.timer);
+                    ele.timer = null;
+                }
+            }, 1000 / 60);
+        }
+
+
+
+    </script>
+</body>
+
+</html>

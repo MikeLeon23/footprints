@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .process {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 20px;
+            background-color: orange;
+        }
+
+        p {
+            line-height: 30px;
+            text-indent: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="process"></div>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+
+
+    <script>
+        function showTime() {
+            var day = new Date();
+            var dateEle = document.createElement("p");
+            dateEle.innerText = day;
+            document.body.appendChild(dateEle);
+        }
+
+        var processEle = document.querySelector(".process");
+        // setInterval(function () {
+        //     // 文档整体的高度
+        //     var documentHeight = document.body.offsetHeight;
+
+        //     // 浏览器窗口视口的高度
+        //     var clientHeight = document.documentElement.clientHeight;
+        //     // 文档滚动卷进去的高度
+        //     var scrollHeight = document.documentElement.scrollTop;
+
+        //     // 判断，如果页面滚动到底部，就执行函数
+        //     if (documentHeight - scrollHeight - clientHeight <= 100) {
+        //         console.log(documentHeight, clientHeight, scrollHeight);
+        //         showTime();
+        //     }
+        // }, 100)
+
+        function throttle(func, wait) {
+            var timeout = null;
+            return function () {
+                if (!timeout) {
+                    func();
+                    timeout = setTimeout(function () {
+                        timeout = null;
+                    }, wait);
+                }
+            };
+        }
+
+        window.onscroll = throttle(function () {
+            // 文档整体的高度
+            var documentHeight = document.body.offsetHeight;
+
+            // 浏览器窗口视口的高度
+            var clientHeight = document.documentElement.clientHeight;
+            // 文档滚动卷进去的高度
+            var scrollHeight = document.documentElement.scrollTop;
+
+            // 判断，如果页面滚动到底部，就执行函数
+            if (documentHeight - scrollHeight - clientHeight <= 100) {
+                console.log("documentHeight: "+documentHeight, "clientHeight: "+clientHeight, "scrollHeight: "+scrollHeight);
+                showTime();
+            }
+
+            processEle.style.width = window.pageYOffset * document.documentElement.clientWidth / (document.body.offsetHeight - document.documentElement.clientHeight) + "px";
+        }, 100);
+
+    </script>
+</body>
+
+</html>

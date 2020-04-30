@@ -5,6 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        p {
+            line-height: 30px;
+            text-indent: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -46,7 +57,37 @@
             document.body.appendChild(dateEle);
         }
 
-        setInterval(function () {
+        // 定时器实现
+        // setInterval(function () {
+        //     // 文档整体的高度
+        //     var documentHeight = document.body.offsetHeight;
+
+        //     // 浏览器窗口视口的高度
+        //     var clientHeight = document.documentElement.clientHeight;
+        //     // 文档滚动卷进去的高度
+        //     var scrollHeight = document.documentElement.scrollTop;
+
+        //     // 判断，如果页面滚动到底部，就执行函数
+        //     if (documentHeight - scrollHeight - clientHeight <= 100) {
+        //         console.log(documentHeight, clientHeight, scrollHeight);
+        //         showTime();
+        //     }
+        // }, 100)
+
+        // 节流函数实现
+        function throttle(func, wait) {
+            var timeout = null;
+            return function () {
+                if (!timeout) {
+                    func();
+                    timeout = setTimeout(function () {
+                        timeout = null;
+                    }, wait);
+                }
+            };
+        }
+
+        window.onscroll = throttle(function () {
             // 文档整体的高度
             var documentHeight = document.body.offsetHeight;
 
@@ -57,10 +98,10 @@
 
             // 判断，如果页面滚动到底部，就执行函数
             if (documentHeight - scrollHeight - clientHeight <= 100) {
-                console.log(documentHeight, clientHeight, scrollHeight);
+                console.log("documentHeight: "+documentHeight, "clientHeight: "+clientHeight, "scrollHeight: "+scrollHeight);
                 showTime();
             }
-        }, 100)
+        }, 100);
 
     </script>
 </body>
