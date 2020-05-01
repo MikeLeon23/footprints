@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时序函数逆转</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 50px 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+
+    <script>
+        // 绑定事件处理程序
+        box.onclick = function () {
+            animate(box, move, 800);
+        };
+
+        // 动画函数，传入参数依次为DOM对象，回调函数，动画持续时间
+        function animate(ele, func, duration) {
+            var startTime = performance.now();
+            requestAnimationFrame(function fn(now) {
+                var ratio = (now - startTime) / duration;
+                if (ratio >= 1) {
+                    ratio = 1;
+                }
+                func(ele, ratio);
+
+                if (ratio < 1) {
+                    var end = requestAnimationFrame(fn);
+                } else {
+                    cancelAnimationFrame(end);
+                    end = null;
+                }
+            });
+        }
+
+        // 带有时序函数的动画绘制函数
+        function move(ele, ratio) {
+            // 这里第一次传入的t可能会小于0，原因是performance.now()执行的不够快，
+            // 导致requestAnimationFrame默认传给回调函数的参数time更早获得
+            console.log(ratio);
+            var bounceEaseOut = makeEaseOus(bounce);
+            ele.style.top = 500 * bounceEaseOut(ratio) + "px";
+        }
+
+
+        // 弹跳bounce
+        function bounce(timeFraction) {
+            for (var a = 0, b = 1, result; 1; a += b, b /= 2) {
+                if (timeFraction >= (7 - 4 * a) / 11) {
+                    return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2);
+                }
+            }
+        }
+
+
+        // 时序函数逆转（即动画效果的逆转），由已有的动画函数进行变换得到
+        // 抽象成函数先对直线x=0.5做对称变换，变换的结果在对直线y=0.5做对称变换
+        // 在数学上，y=f(x)变换后的函数表达式为y=1-f(1-x)
+        // 效果举例：先慢后快的函数，变换之后就变成了先快后慢的函数。bounce函数变换之后就成了自由落体弹跳函数
+        function makeEaseOus(timing) {
+            return function(timeFraction){
+                return 1-timing(1-timeFraction);
+            }
+        }
+        // 相应的，动画函数稍作修改
+        function move(ele, ratio) {
+            console.log(ratio);
+            var bounceEaseOut = makeEaseOus(bounce);
+
+            // 为了看起来更像自由落体，改为上下运动
+            ele.style.top = 500 * bounceEaseOut(ratio) + "px";
+        }
+    </script>
+</body>
+</html>

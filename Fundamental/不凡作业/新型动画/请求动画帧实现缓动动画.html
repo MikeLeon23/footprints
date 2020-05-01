@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>请求动画帧</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        box = document.querySelector("#box");
+
+        // 请求动画帧实现缓动动画
+        box.onclick = function () {
+            slowlyMove(box, 800);
+        };
+
+        function slowlyMove(ele, target) {
+            if (ele.offsetLeft === target) {
+                return;
+            }
+
+            var start, step;
+            requestAnimationFrame(function fn() {
+                start = ele.offsetLeft;
+                step = (target - start) / 10;
+                if (Math.abs(step) < 1) {
+                    step = step > 0 ? 1 : Math.floor(step);
+                }
+
+                ele.style.left = start + step + "px";
+
+                if (start + step == target) {
+                    cancelAnimationFrame(end);
+                    end = null;
+                } else {
+                    var end = requestAnimationFrame(fn);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

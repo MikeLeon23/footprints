@@ -471,7 +471,7 @@ function getDistance(ele){
 var windowObjectReference = window.open(strUrl, strWindowName, [strWindowFeatures]);
 ```
 
-#### 返回值
+**返回值**
 
 WindowObjectReference：打开的新窗口对象的引用。如果调用失败，返回值会是 `null`。如果父子窗口满足“**同源策略**”，可以通过这个引用访问新窗口的属性或方法。
 
@@ -501,7 +501,7 @@ var win = window.open("http://www.baidu.com/","_blank",
 console.log(win.opener === window);   // true
 ```
 
-#### 参数
+**参数**
 
 1. 要加载的URL
 2. 窗口目标，相当于 a 标签的 target 属性
@@ -549,11 +549,11 @@ window.open("http://www.baidu.com/","_self",
 
 > 保存从窗口打开后，成功访问过的url的历史记录栈。出于安全方面的考虑，开发人员无法得知用户浏览过的 URL。不过，借由用户访问过的页面列表，同样可以在不知道实际 URL 的情况下实现后退和前进。
 
-#### 属性
+**属性**
 
 `length` ：保存着历史记录的数量。这个数量包括所有历史记录，即所有向后和向前的记录。对于加载到窗口、标签页或框架中的第一个页面而言，`history.length` 等于1。
 
-#### 方法
+**方法**
 
 - `history.go(n)` 参数n表示向后或向前跳转的页面数的一个整数值。负数表示向后跳转（类似于单击浏览器的“后退”按钮），正数表示向前跳转（类似于单击浏览器的“前进”按钮）。
 
@@ -570,9 +570,7 @@ history.go(0)	 // 刷新
 
 > location对象保存当前窗口正在打开的URL的对象，它既是 `window` 对象的属性，也是 `document` 对象的属性（`window.location` === `document.location`）
 
-#### 属性
-
-### 
+**属性**
 
 | 属性名   | 例子                         | 说明                                                         |
 | -------- | ---------------------------- | ------------------------------------------------------------ |
@@ -586,15 +584,15 @@ history.go(0)	 // 刷新
 | search   | "?q=javascript"              | 返回URL的查询字符串。这个字符串以问号开头                    |
 | origin   | "http://www.ceshi.com/index" | 返回页面使用协议+网站名                                      |
 
-#### 方法
+**方法**
 
-- 在当前窗口打开，可后退
+- assign()方法，在当前窗口打开，可后退
   `location.assign(url)` => `location.href=url` => `location=url`
 
-- 在当前窗口打开，不会生成历史记录，不可后退即替换当前页面的地址
+- replace()方法，在当前窗口打开，使用 replace 方法跳转地址不会体现到历史记录中，不可后退即替换当前页面的地址
   `location.replace(url)`
 
-- 重新加载页面
+- reload()方法，重新加载页面
   - 普通刷新，优先从浏览器本地缓冲获取资源
     F5
     `history.go(0)`
@@ -649,6 +647,10 @@ window.addEventListener("online", function(e) {alert("online");})
 ```
 
 `navigator.cookieEnabled`：属性可返回一个布尔值，如果浏览器启用了 cookie，该属性值为 true。如果禁用了 cookie，则值为 false。 
+
+### screen对象
+
+screen 对象基本上只用来表明客户端的能力，其中包括浏览器窗口外部的显示器的信息，如像素宽度和高度等。该对象作用不大，我们一般不太使用。
 
 ### window的其他方法
 
@@ -1097,7 +1099,7 @@ function draw(process){
 **线性时序函数**
 
 ```js
-function linear(timefractoin){
+function linear(timeFraction){
 	return timeFraction;
 }
 ```
