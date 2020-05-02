@@ -461,6 +461,12 @@ function getDistance(ele){
 
 ## window
 
+我们之前已经学过一些 window 的属性或方法，比如：
+
+ `window.onload` 页面加载事件，当文档内容（包括CSS、页面图像等）完全加载完毕后会触发该事件。
+
+`DOMContentLoaded` 事件触发时，仅当 DOM 加载完毕，不包括样式表，图片，音视频等等。IE>9 可用。加载速度比 `load` 事件更快一些。
+
 ### window.open()
 
 使用 `window.open()` 方法既可以导航到一个特定的 URL，也可以打开一个新的浏览器窗口。
@@ -483,7 +489,7 @@ win.resizeTo(500,500);	// 调整大小
 
 win.moveTo(100,100);	// 移动位置
 
-// 关闭新打开的窗口，close()方法无须满足同源策略，对任何窗口都能使用
+// 关闭窗口，close()方法无须满足同源策略，对任何窗口都能使用
 win.close();
 
 // 网站名解析:https://www.baidu.com
@@ -587,11 +593,13 @@ history.go(0)	 // 刷新
 **方法**
 
 - assign()方法，在当前窗口打开，可后退
-  `location.assign(url)` => `location.href=url` => `location=url`
+  `location.assign(url)` 效果等同于 `location.href=url` 和`location=url`
 
 - replace()方法，在当前窗口打开，使用 replace 方法跳转地址不会体现到历史记录中，不可后退即替换当前页面的地址
   `location.replace(url)`
 
+  Chrome浏览器试验结果显示，执行replace()之后可以后退，会生成历史记录
+  
 - reload()方法，重新加载页面
   - 普通刷新，优先从浏览器本地缓冲获取资源
     F5

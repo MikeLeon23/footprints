@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        ul {
+            list-style: none;
+            float: left;
+            box-sizing: border-box;
+        }
+
+        li {
+            height: 100px;
+            margin-bottom: 10px;
+            font-size: 50px;
+            color: #ffffff;
+            line-height: 100%;
+            text-align: center;
+        }
+
+        .box {
+            width: 1200px;
+            margin: 0 auto;
+            font-size: 0;
+            overflow: hidden;
+        }
+
+        .waterfall {
+            width: 25%;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul class="waterfall"></ul>
+        <ul class="waterfall"></ul>
+        <ul class="waterfall"></ul>
+        <ul class="waterfall"></ul>
+    </div>
+
+    <script>
+        var count = 0;
+        // 初始化页面函数，添加图块至刚刚超过页面高度
+        function pageInit() {
+            while (document.documentElement.offsetHeight < document.documentElement.clientHeight + 300) {
+                addImage();
+            }
+        }
+
+        pageInit();
+
+        // 页面滚动时调用函数添加图块
+        window.onscroll = function () {
+            if (document.body.offsetHeight - window.pageYOffset - document.documentElement.clientHeight < 100) {
+                addImage();
+            }
+        };
+
+        // 节流函数版本
+        // window.onscroll = throttle(function(){
+        //     if (document.body.offsetHeight - window.pageYOffset - document.documentElement.clientHeight < 100) {
+        //         addImage();
+        //     }
+        // }, 50);
+
+        // 给页面添加图块的函数
+        function addImage() {
+            count++;
+            // 创建新图块
+            var liEle = document.createElement("li");
+            var height = Math.round(Math.random() * 150) + 200 + "px";
+            liEle.style.height = height;
+            liEle.style.lineHeight = height;
+            liEle.style.backgroundColor = "rgb(" + Math.round(Math.random() * 255) + ", " + Math.round(Math.random() * 255) + ", " + Math.round(Math.random() * 255) + ")"
+            liEle.innerText = ""+count;
+
+            // 获取高度最小的ul
+            var ulEles = document.getElementsByClassName("waterfall");
+            var lowest = getLowestList(ulEles);
+
+            // 给高度最小的ul添加新图块
+            console.log(ulEles);
+            ulEles[lowest].appendChild(liEle);
+        }
+
+        // 获取高度最小ul的函数
+        function getLowestList(ulEles) {
+            var lowestList = 0;
+            for (var i = 0; i < ulEles.length; i++) {
+                if (ulEles[i].offsetHeight < ulEles[lowestList].offsetHeight) {
+                    lowestList = i;
+                }
+            }
+            return lowestList;
+        }
+
+        // 节流函数
+        function throttle(func, wait) {
+            var timeout = null;
+            return function(){
+                if(!timeout){
+                    func();
+                    timeout = setTimeout(function(){
+                        timeout = null;
+                    }, wait);
+                }
+            };
+        }
+    </script>
+</body>
+
+</html>
