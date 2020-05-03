@@ -752,7 +752,7 @@ data-my-name="mm"`，获取`Node.dataset['myName']
 
 #### addEventListener的使用
 
-语法：`target.addEventListener(type,listener,useCapture]);`
+语法：`target.addEventListener(type,listener,[useCapture]);`
 
 - target： 文档节点、document、window 或 XMLHttpRequest。 (事件源)
 - type： 字符串，事件名称，不含“on”，比如“click”、“mouseover”、“keydown”等。

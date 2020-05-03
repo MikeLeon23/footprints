@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+
+    <script>
+        function moveUp(ele, target) {
+            if (ele.offsetTop == target) {
+                return;
+            }
+            if (ele.timer) {
+                clearInterval(ele.timer);
+            }
+            ele.timer = setInterval(function () {
+                var start = ele.offsetTop;
+                var step = target > start ? 2 : -2;
+                ele.style.top = start + step + "px";
+                console.log(ele.style.top)
+                if (Math.abs(target - start) < 2) {
+                    ele.style.top = target + "px";
+                    clearInterval(ele.timer);
+                    ele.timer = null;
+                }
+            }, 1000/60)
+        }
+
+        box.onclick = function(){
+            moveUp(box, 300);
+        }
+    </script>
+</body>
+</html>
