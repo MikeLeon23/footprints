@@ -179,6 +179,7 @@
                     ele.timer = null;
                 }
             }, 1000/60)
+            ele.classList.add("active");
         }
 
         // 将所有红色方块复位的函数
@@ -191,6 +192,9 @@
             ele[2].style.left = "0px";
             ele[3].style.left = "-400px";
             ele[3].style.top = "0px";
+            for(var i = 0; i < ele.length; i++){
+                ele[i].classList.remove("active");
+            }
         }
     </script>
 </body>
