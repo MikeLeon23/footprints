@@ -40,6 +40,13 @@
             var startTime = performance.now();
             requestAnimationFrame(function fn(now) {
                 var ratio = (now - startTime) / duration;
+
+                // 这里第一次获得的ratio可能会小于0，原因是performance.now()执行的不够快，
+                // 导致requestAnimationFrame默认传给回调函数的参数time更早获得，
+                // 故ratio=(now-startTime)/duration为负，需要修正为0
+                if (ratio < 0) {
+                    ratio = 0;
+                }
                 if (ratio >= 1) {
                     ratio = 1;
                 }
@@ -56,13 +63,11 @@
 
         // 带有时序函数的动画绘制函数
         function move(ele, ratio) {
-            // 这里第一次传入的ratio可能会小于0，原因是performance.now()执行的不够快，
-            // 导致requestAnimationFrame默认传给回调函数的参数time更早获得，故ratio=(now-startTime)/duration为负
             console.log(ratio);
-            ele.style.left = 500 * bounce(ratio) + "px";
+            ele.style.left = 500 * linear(ratio) + "px";
         }
 
-        
+
 
         // 时序函数
 
@@ -95,7 +100,7 @@
             return Math.pow(2, 10 * (timeFraction - 1)) * Math.cos(20 * Math.PI * x / 3 * timeFraction);
         }
 
-        
+
     </script>
 </body>
 
