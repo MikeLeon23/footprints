@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            margin: 200px auto;
+            border: 1px solid red;
+            overflow: hidden;
+        }
+
+        .block {
+            position: absolute;
+            top: 300px;
+            left: 0;
+            width: 400px;
+            height: 300px;
+            background-color: red;
+        }
+
+        .trans {
+            transition: all ease .4s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="block"></div>
+    </div>
+
+    <script>
+
+        var boxEle = document.getElementsByClassName("box")[0], // 红框盒子
+            block = document.querySelector(".block"),   // 红方块
+            w = boxEle.offsetWidth, // 盒子宽度
+            h = boxEle.offsetHeight,  // 盒子高度
+            centerX = boxEle.offsetLeft + w / 2,  // 盒子中心x坐标，坐标系原点是盒子中心，x轴向右，y轴向下
+            centerY = boxEle.offsetTop + h / 2;   // 盒子中心y坐标
+        var x = 0,  // 鼠标触发事件时的位置坐标(x, y)
+            y = 0,
+            angle = 0,  // 与坐标轴原点连线与x轴方向的夹角
+            quarterOfPi = 0,  // 角度π/4
+            d = 0;  // 方向参数，0、1、2、3分别代表下、右、上、左
+        var direction = ["下", "右", "上", "左"];  // 方向的中文数组
+
+        // 各个红色方块位置参数组成的数组，按照下、右、上、左排序
+        var site = [
+            {
+                top: 300,
+                left: 0
+            },
+            {
+                top: 0,
+                left: 400
+            },
+            {
+                top: -300,
+                left: 0
+            },
+            {
+                top: 0,
+                left: -400
+            }
+        ]
+
+        // 鼠标进入盒子事件
+        boxEle.addEventListener("mouseenter", function (event) {
+            d = getDirection();
+            
+            block.classList.remove("trans");
+            block.style.left = site[d].left + "px";
+            block.style.top = site[d].top + "px";
+
+            setTimeout(function(){
+                block.classList.add("trans");
+                block.style.top = "0px";
+                block.style.left = "0px";
+            }, 50);
+        })
+
+        // 鼠标离开盒子事件
+        boxEle.addEventListener("mouseleave", function (event) {
+            d = getDirection();
+            
+            block.style.left = site[d].left + "px";
+            block.style.top = site[d].top + "px";
+        })
+
+        // 获取鼠标进入和离开的方向的函数
+        function getDirection() {
+            x = (event.pageX - centerX) * (w > h ? 1 : h / w);
+            y = (centerY - event.pageY) * (w > h ? w / h : 1);
+            angle = Math.atan2(y, x);
+
+            quarterOfPi = Math.PI / 4;
+            d = (Math.round(angle / (Math.PI / 2)) + 5) % 4;
+            console.log(direction[d]);
+
+            return d;
+        }
+    </script>
+</body>
+
+</html>

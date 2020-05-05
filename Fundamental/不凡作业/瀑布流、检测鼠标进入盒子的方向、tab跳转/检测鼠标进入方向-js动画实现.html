@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            margin: 200px auto;
+            border: 1px solid red;
+            overflow: hidden;
+        }
+
+        .block {
+            position: absolute;
+            top: 300px;
+            left: 0;
+            width: 400px;
+            height: 300px;
+            background-color: red;
+        }
+
+        .box .block:nth-child(1) {
+            top: 300px;
+        }
+
+        .box .block:nth-child(2) {
+            left: 400px;
+        }
+
+        .box .block:nth-child(3) {
+            top: -300px;
+        }
+
+        .box .block:nth-child(4) {
+            left: -400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="block"></div>
+        <!-- <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div> -->
+    </div>
+
+    <script>
+
+        var boxEle = document.getElementsByClassName("box")[0], // 红框盒子
+            w = boxEle.offsetWidth, // 盒子宽度
+            h = boxEle.offsetHeight,  // 盒子高度
+            centerX = boxEle.offsetLeft + w / 2,  // 盒子中心x坐标，坐标系原点是盒子中心，x轴向右，y轴向下
+            centerY = boxEle.offsetTop + h / 2;   // 盒子中心y坐标
+        var x = 0,  // 鼠标触发事件时的位置坐标(x, y)
+            y = 0,
+            angle = 0,  // 与坐标轴原点连线与x轴方向的夹角
+            quarterOfPi = 0,  // 角度π/4
+            d = 0;  // 方向参数，0、1、2、3分别代表下、右、上、左
+        var direction = ["下", "右", "上", "左"];  // 方向的中文数组
+
+        // 各个红色方块位置参数组成的数组，按照下、右、上、左排序
+        var site = [
+            {
+                top: 300,
+                left: 0
+            },
+            {
+                top: 0,
+                left: 400
+            },
+            {
+                top: -300,
+                left: 0
+            },
+            {
+                top: 0,
+                left: -400
+            }
+        ]
+
+        // 鼠标进入盒子事件
+        boxEle.addEventListener("mouseenter", function (event) {
+            d = getDirection();
+            move(d, true);
+        })
+
+        // 鼠标离开盒子事件
+        boxEle.addEventListener("mouseleave", function (event) {
+            d = getDirection();
+            move(d, false);
+        })
+
+        // 获取鼠标进入和离开的方向的函数
+        function getDirection() {
+            x = (event.pageX - centerX) * (w > h ? 1 : h / w);
+            y = (centerY - event.pageY) * (w > h ? w / h : 1);
+            angle = Math.atan2(y, x);
+
+            quarterOfPi = Math.PI / 4;
+            var d = (Math.round(angle / (Math.PI / 2)) + 5) % 4;
+            console.log(direction[d]);
+
+            return d;
+        }
+
+        // 红色方块移入/移出盒子的函数
+        function move(d, bool) {
+            var block = document.getElementsByClassName("block")[0];
+            if (bool) {
+                resetBlocks(block, d);
+                switch (d) {
+                    case 0:
+                        moveUp(block, 0);
+                        break;
+                    case 1:
+                        moveLeft(block, 0);
+                        break;
+                    case 2:
+                        moveUp(block, 0);
+                        break;
+                    case 3:
+                        moveLeft(block, 0);
+                        break;
+                }
+            } else {
+                switch (d) {
+                    case 0:
+                        moveUp(block, 300);
+                        break;
+                    case 1:
+                        moveLeft(block, 400);
+                        break;
+                    case 2:
+                        moveUp(block, -300);
+                        break;
+                    case 3:
+                        moveLeft(block, -400);
+                        break;
+                }
+            }
+        }
+
+        // 横向移动的缓动函数
+        function moveLeft(ele, target) {
+            if (ele.offsetLeft == target) {
+                return;
+            }
+            if (ele.timer) {
+                clearInterval(ele.timer);
+            }
+            ele.timer = setInterval(function () {
+                var start = ele.offsetLeft;
+                var step = (target - start) / 10;
+                if (Math.abs(step) < 1) {
+                    step = step > 0 ? 1 : Math.floor(step);
+                }
+                ele.style.left = start + step + "px";
+                if (start == target) {
+                    clearInterval(ele.timer);
+                    ele.timer = null;
+                }
+            }, 1000 / 60)
+            ele.classList.add("active");
+        }
+
+        // 纵向移动的缓动函数
+        function moveUp(ele, target) {
+            if (ele.offsetTop == target) {
+                return;
+            }
+            if (ele.timer) {
+                clearInterval(ele.timer);
+            }
+            ele.timer = setInterval(function () {
+                var start = ele.offsetTop;
+                var step = (target - start) / 10;
+                if (Math.abs(step) < 1) {
+                    step = step > 0 ? 1 : Math.floor(step);
+                }
+                ele.style.top = start + step + "px";
+                if (start == target) {
+                    clearInterval(ele.timer);
+                    ele.timer = null;
+                }
+            }, 1000 / 60)
+            ele.classList.add("active");
+        }
+
+        // 将所有红色方块复位的函数
+        function resetBlocks(ele, d) {
+            ele.style.top = site[d].top + "px";
+            ele.style.left = site[d].left + "px";
+        }
+    </script>
+</body>
+
+</html>

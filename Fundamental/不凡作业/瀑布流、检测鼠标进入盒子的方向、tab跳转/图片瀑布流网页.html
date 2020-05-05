@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
         }
-        
+
         ul {
             list-style: none;
             float: left;
@@ -52,8 +52,10 @@
         var count = 0;
         // 初始化页面函数，添加图块至刚刚超过页面高度
         function pageInit() {
-            while (document.documentElement.offsetHeight < document.documentElement.clientHeight + 300) {
-                addImage();
+            while (document.documentElement.offsetHeight < document.documentElement.clientHeight + 100) {
+                for (var i = 0; i < 4; i++) {
+                    addImage();
+                }
             }
         }
 
@@ -62,7 +64,9 @@
         // 页面滚动时调用函数添加图块
         window.onscroll = function () {
             if (document.body.offsetHeight - window.pageYOffset - document.documentElement.clientHeight < 100) {
-                addImage();
+                for (var i = 0; i < 4; i++) {
+                    addImage();
+                }
             }
         };
 
@@ -82,14 +86,13 @@
             liEle.style.height = height;
             liEle.style.lineHeight = height;
             liEle.style.backgroundColor = "rgb(" + Math.round(Math.random() * 255) + ", " + Math.round(Math.random() * 255) + ", " + Math.round(Math.random() * 255) + ")"
-            liEle.innerText = ""+count;
+            liEle.innerText = "" + count;
 
             // 获取高度最小的ul
             var ulEles = document.getElementsByClassName("waterfall");
             var lowest = getLowestList(ulEles);
 
             // 给高度最小的ul添加新图块
-            console.log(ulEles);
             ulEles[lowest].appendChild(liEle);
         }
 
@@ -107,10 +110,10 @@
         // 节流函数
         function throttle(func, wait) {
             var timeout = null;
-            return function(){
-                if(!timeout){
+            return function () {
+                if (!timeout) {
                     func();
-                    timeout = setTimeout(function(){
+                    timeout = setTimeout(function () {
                         timeout = null;
                     }, wait);
                 }
