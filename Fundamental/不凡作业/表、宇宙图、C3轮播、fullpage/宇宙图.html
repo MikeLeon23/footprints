@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宇宙图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #030617;
+        }
+        ul {
+            list-style: none;
+        }
+        .universe {
+            position: relative;
+            width: 800px;
+            height: 800px;
+            margin: 50px auto;
+        }
+        .universe .circles li {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #fff;
+            border-radius: 50%;
+        }
+        .universe .circles li:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            border: unset;
+            background-color: orange;
+            box-shadow:0px 0px 50px orange;
+        }
+
+        .universe .planet li {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            /* background-color: orange; */
+            animation: move 10s linear infinite;
+        }
+        /* .universe .planet li:nth-child(1){
+            animation: move 10s linear infinite;
+            transform-origin: -70px 10px;
+        } */
+
+        @keyframes move {
+            0%{
+                transform: rotate(0deg);
+            }
+            100%{
+                transform: rotate(360deg);
+            }
+        }
+
+        .Asteroid-belt {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            height: 400px;
+            transform: translate(-50%, -50%);
+            background: url("image/round.png") center no-repeat;
+            background-size: 95%;
+        }
+
+        #moon {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: white;
+            animation: move 2s linear infinite;
+            transform-origin: 20px 20px;
+        }
+
+        #Saturn-ring {
+            position: absolute;
+            top: 3px;
+            left: -7px;
+            width: 30px;
+            height: 10px;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="universe">
+        <ul class="circles">
+            <li id="sun"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div class="Asteroid-belt"></div>
+        <ul class="planet">
+            <li></li>
+            <li></li>
+            <li><p id="moon"></p></li>
+            <li></li>
+            <li></li>
+            <li><p id="Saturn-ring"></p></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+    <script>
+        var circles = document.querySelectorAll(".universe .circles li");
+        for(var i = 1; i < circles.length; i++){
+            circles[i].style.width = 80 + 80*i + "px";
+            circles[i].style.height = 80 + 80*i + "px";
+        }
+        
+        var planets = document.querySelectorAll(".universe .planet li");
+        var colorArr = ["pink", "#f43420", "#2ef148", "#fc33e5", "#b2a8aa", "#1205ed", "#96e25a", "#e0892b", "#66f3f5"]
+        for(var i = 0; i < planets.length; i++){
+            var p = planets[i];
+            p.style.top = "390px";
+            p.style.left = 440 + 40*(i+1) -10 + "px";
+            p.style.backgroundColor = colorArr[i];
+            p.style.transformOrigin = -(70+40*i)+"px "+"10px";
+            p.style.animationDuration = 8 + 2*i + "s";
+            p.style.animationDelay = 5 + Math.floor(Math.random()*5-3) + "s";
+        }
+    </script>
+</body>
+</html>

@@ -54,7 +54,7 @@ window.onload = function() {
 <div style="width: 200px;height: 200px;border: 1px solid red;" hidden></div>
 ```
 
-- 全屏显示 可以通过css设置元素子代的全屏样式，通过 js 控制元素打开全屏
+- **fullscreen** 全屏显示 可以通过css设置元素子代的全屏样式，通过 js 控制元素打开全屏
 
 ```html
 <style>
@@ -97,6 +97,16 @@ function closeFullscreen(){
 	}else if (document.mozCancelFullScreen) {
 		document.mozCancelFullScreen();
 	}
+}
+```
+
+**注意：**给全屏状态下的元素添加全屏样式不起作用，给全屏状态下的元素的子类添加样式可用
+
+```css
+/* :fullscreen 实验中的功能,使用请加浏览器前缀 慎用 */
+.全屏状态下的元素:fullscreen 子类{
+    width: 500px;
+    height: 100%;	
 }
 ```
 
@@ -342,6 +352,8 @@ HTML5 新增 audio 标签 和 video 标签来解决音视频的问题;语法:
 ```
 
 由于版权等原因，不同的浏览器可支持播放的格式是不一样的: 
+
+![image.png](https://upload-images.jianshu.io/upload_images/6784887-63f857d2781f53fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 多浏览器支持方案:
 

@@ -4,18 +4,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>实现todoList</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body {
+            background-color: #CDCDCD;
+        }
+
+        /* 中心区域 */
+        .center {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 头部样式 */
+        header {
+            height: 50px;
+            background-color: rgba(47, 47, 47, 0.98);
+        }
+
+        header .center {
+            display: flex;
+            height: 100%;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header span {
+            font-size: 24px;
+            color: #DDD;
+        }
+
+        header input {
+            width: 60%;
+            height: 24px;
+            text-indent: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.24), 0 1px 6px rgba(0, 0, 0, 0.45) inset;
+            border: none;
+        }
+
+        /* 标题样式 */
+        h2 {
+            margin: 20px 0;
+        }
+
+        h2 span {
+            float: right;
+            margin-top: 5px;
+            padding: 0 5px;
+            font-size: 14px;
+            color: #666;
+            line-height: 22px;
+            text-align: center;
+            border-radius: 20px;
+            background-color: #E6E6FA;
+        }
+
+        /* 通用列表样式 */
+        ul li {
+            display: flex;
+            height: 36px;
+            margin-bottom: 10px;
+            align-items: center;
+            border-radius: 3px;
+            border-left: 5px solid #629A9C;
+            background-color: #fff;
+        }
+
+        ul li input {
+            width: 22px;
+            height: 22px;
+            margin: 0 8px;
+            cursor: pointer;
+        }
+
+        ul li p {
+            flex-grow: 2;
+        }
+
+        ul li span {
+            width: 14px;
+            height: 12px;
+            margin-right: 5px;
+            font-size: 14px;
+            color: #FFF;
+            font-weight: bold;
+            text-align: center;
+            line-height: 14px;
+            border-radius: 14px;
+            border: 6px double #FFF;
+            background-color: #CCC;
+            cursor: pointer;
+        }
+
+        /* 已经完成的列表样式 */
+        .done li {
+            border-left: 5px solid #999;
+            opacity: 0.5;
+        }
+    </style>
 </head>
 
 <body>
-    <input type=”text” list=”data”>
-    <datalist id=”data”>
-        <option>男</option>
-        <option>女</option>
-        <option>不详</option>
-    </datalist>
-    <meter value="81" min="0" max="100" low="60" high="80"></meter>
-    <progress value="22" max="100"></progress>
+    <header>
+        <div class="center">
+            <span>ToDoList</span>
+            <input type="text" placeholder="请输入todo" id="ipt">
+        </div>
+    </header>
+    <div class="center">
+        <h2>正在进行 <span id="todoCount">0</span></h2>
+        <ul id="todo">
+            <!-- <li>
+                <input type="checkbox">
+                <p class="content">内容</p>
+                <span>-</span>
+            </li> -->
+        </ul>
+
+        <h2>已经完成 <span id="doneCount">0</span></h2>
+        <ul class="done" id="done">
+            <!-- <li>
+                <input type="checkbox" checked="true">
+                <p class="content">内容</p>
+                <span>-</span>
+            </li> -->
+        </ul>
+    </div>
+
+    <script>
+        var todo = document.getElementById("todo");
+        var done = document.getElementById("done");
+
+        // 进入和刷新页面时，重新渲染todoList
+        var arr = JSON.parse(localStorage.getItem("todoList")) || [];
+        refresh();
+
+        // 输入框回车添加todo
+        var ipt = document.getElementById("ipt");
+        ipt.addEventListener("keydown", function (event) {
+            if (event.keyCode == 13) {
+                if (ipt.value.trim() == "") {
+                    return;
+                }
+                arr.push({ checked: false, content: ipt.value });
+                localStorage.setItem("todoList", JSON.stringify(arr));
+                refresh();
+                ipt.value = "";
+            }
+        })
+
+        // 勾选改变阵营
+        function change() {
+            arr[event.target.parentNode.dataset.index].checked = event.target.checked;
+            localStorage.setItem("todoList", JSON.stringify(arr));
+            refresh();
+        }
+
+        // 删除某一项
+        function remove() {
+            var target = event.target.parentNode.dataset.index;
+            arr.splice(target, 1);
+            localStorage.setItem("todoList", JSON.stringify(arr));
+            refresh();
+        }
+
+        // 双击添加contentEditable属性
+        var contentEles = document.getElementsByClassName("content");
+        console.log(contentEles);
+        for (var i = 0; i < contentEles.length; i++) {
+            (function(i) {
+                console.log(contentEles[i]);
+                contentEles[i].addEventListener("dbclick", function (event) {
+                    console.log(event.target);
+                })
+            })(i);
+        }
+
+
+        // 页面todoList刷新函数
+        function refresh() {
+            todo.innerHTML = "";
+            done.innerHTML = "";
+
+            var todoCount = 0, doneCount = 0;
+
+            for (var i = 0; i < arr.length; i++) {
+                if (!arr[i].checked) {
+                    // var liEle = document.createElement("li");
+                    // liEle.dataset.index = i;
+                    // liEle.innerHTML = '<input type="checkbox" onchange="change()"><p >' + arr[i].content + '</p><span onclick="remove()">-</span>';
+                    // todo.appendChild(liEle);
+                    todo.insertAdjacentHTML("beforeend", `<li data-index="${i}" onfocus="edit()">
+                    <input type="checkbox" onchange="change()">
+                    <p class="content">${arr[i].content}</p>
+                    <span onclick="remove()">-</span></li>`)
+                    todoCount++;
+                } else {
+                    // var liEle = document.createElement("li");
+                    // liEle.dataset.index = i;
+                    // liEle.innerHTML = '<input type="checkbox" checked onchange="change()"><p >' + arr[i].content + '</p><span onclick="remove()">-</span>';
+                    // done.appendChild(liEle);
+                    done.insertAdjacentHTML("beforeend", `<li data-index="${i}" onfocus="edit()">
+                    <input type="checkbox" checked onchange="change()">
+                    <p class="content">${arr[i].content}</p>
+                    <span onclick="remove()">-</span></li>`)
+                    doneCount++;
+                }
+            }
+            document.getElementById("todoCount").innerText = todoCount;
+            document.getElementById("doneCount").innerText = doneCount;
+        }
+    </script>
 </body>
 
 </html>

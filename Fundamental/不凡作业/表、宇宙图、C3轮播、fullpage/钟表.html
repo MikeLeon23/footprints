@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>钟表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+        .watch {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 50px auto;
+            border: 2px solid red;
+            border-radius: 50%;
+        }
+        .hour {
+            position: absolute;
+            top: 120px;
+            left: 195px;
+            width: 10px;
+            height: 80px;
+            background-color: black;
+            animation: move 43200s steps(200) infinite;
+            transform-origin: bottom;
+        }
+
+        .minute {
+            position: absolute;
+            top: 80px;
+            left: 197px;
+            width: 6px;
+            height: 120px;
+            background-color: blue;
+            animation: move 3600s steps(200) infinite;
+            transform-origin: bottom;
+        }
+
+        .second {
+            position: absolute;
+            top: 50px;
+            left: 199px;
+            width: 2px;
+            height: 150px;
+            background-color: red;
+            animation: move 60s steps(60) infinite;
+            transform-origin: bottom;
+        }
+
+        @keyframes move {
+            0%{
+                transform: rotate(0deg);
+            }
+            100%{
+                transform: rotate(360deg);
+            }
+        }
+
+        .watch ul li {
+            position: absolute;
+            top: 197.5px;
+            left: 0;
+            width: 20px;
+            height: 5px;
+            background-color: orange;
+            transform-origin: 200px 2.5px;
+            transition: all .4s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="watch">
+        <div class="hour"></div>
+        <div class="minute"></div>
+        <div class="second"></div>
+        <ul class="kedu">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+    <script>
+        var liEles = document.querySelectorAll(".watch ul li");
+        console.log(liEles);
+        for(var i = 0; i < liEles.length; i++){
+            // var deg = 30*i;
+            liEles[i].style.transform = `rotate(${30*i}deg)`;
+        }
+    </script>
+</body>
+</html>
