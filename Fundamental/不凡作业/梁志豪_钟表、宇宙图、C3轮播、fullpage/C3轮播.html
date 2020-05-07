@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C3轮播</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .course {
+            position: relative;
+            width: 1200px;
+            margin: 50px auto;
+            overflow: hidden;
+        }
+
+        .part {
+            width: 300px;
+            margin: 0 auto;
+            margin-bottom: 50px;
+            border: 1px solid #d6dbe2;
+            overflow: hidden;
+        }
+
+        .part .cname {
+            float: left;
+            width: 50%;
+            text-align: center;
+            line-height: 30px;
+            cursor: pointer;
+        }
+
+        .part .cname.active {
+            color: #fff;
+            background-color: red;
+        }
+
+        .box {
+            width: 200%;
+            height: auto;
+            margin-left: 0;
+            transition: all ease .4s;
+        }
+
+        .box .details {
+            float: left;
+            width: 50%;
+        }
+
+        .box .details li {
+            float: left;
+            width: 25%;
+            height: 250px;
+            padding: 0 10px 20px;
+            box-sizing: border-box;
+        }
+
+        .details li div {
+            width: 100%;
+            height: 100%;
+            background-color: #ebedef;
+            transition: all .3s ease;
+        }
+
+        .details .title {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .details .color {
+            display: block;
+            width: 100%;
+            height: 10px;
+        }
+
+        .dot {
+            width: 100%;
+        }
+
+        .dot ul {
+            /* overflow: hidden; */
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dot .dot-item {
+            float: left;
+            width: 8px;
+            height: 8px;
+            margin: 0 5px;
+            border-radius: 50%;
+            background-color: #ebedef;
+        }
+
+        .dot .dot-item.active {
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="course">
+        <nav class="part">
+
+        </nav>
+        <div class="box">
+
+        </div>
+        <div class="dot">
+            <!-- <ul>
+                <li class="dot-item"></li>
+                <li class="dot-item"></li>
+                <li class="dot-item"></li>
+            </ul> -->
+        </div>
+    </div>
+    <script src="data/data.js"></script>
+    <script>
+
+        // 头部模块标题部分和底部小圆点动态生成
+        var part = document.querySelector(".part");
+        var dot = document.querySelector(".dot");
+        var partHTML = "";
+        var dotHTML = "<ul>"
+        for (var i = 0; i < data["course"].length; i++) {
+            if (i == 0) {
+                partHTML += `<div class="cname active" onclick="move(${i})">${data["course"][i]["cname"]}</div>`;
+                dotHTML += `<li class="dot-item active"></li>`;
+            } else {
+                partHTML += `<div class="cname" onclick="move(${i})">${data["course"][i]["cname"]}</div>`;
+                dotHTML += `<li class="dot-item"></li>`;
+            }
+        }
+        part.innerHTML = partHTML;
+        dot.innerHTML = dotHTML + "</ul>";
+
+        // 主体部分，课程卡片动态生成
+        var boxEle = document.querySelector(".box");
+        for (var i = 0; i < data["course"].length; i++) {
+            var detailsEle = document.createElement("ul");
+            detailsEle.classList.add("details");
+
+            for (var j = 0; j < data["course"][i]["details"].length; j++) {
+                // 申明一个空字符串
+                var detailHTML = "<div>";
+                var liEle = document.createElement("li");
+                liEle.classList.add("course-card");
+
+                // 空字符串拼接上颜色条和课程标题
+                detailHTML +=
+                    `<span class="color" style="background-color:${data["course"][i]["details"][j]["color"]}"></span>
+                    <p class="title">${data["course"][i]["details"][j]["title"]}</p>`;
+
+                for (var k = 0; k < data["course"][i]["details"][j]["pcontent"].length; k++) {
+                    // 空字符串继续拼接上课程描述
+                    detailHTML += `<p class="pcontent">${data["course"][i]["details"][j]["pcontent"][k]}</p>`;
+                }
+                detailHTML += `</div>`;
+
+                liEle.innerHTML = detailHTML;
+                detailsEle.appendChild(liEle);
+            }
+            boxEle.appendChild(detailsEle);
+        }
+
+
+        // 标题按钮绑定事件
+        function move(i) {
+            // 移动
+            boxEle.style.marginLeft = -1200 * i + "px";
+            // 标题样式改变
+            var cnameEles = document.querySelectorAll(".part .cname");
+            document.querySelector(".part .cname.active").classList.remove("active");
+            cnameEles[i].classList.add("active");
+            // 激活小圆点
+            var dotItems = document.querySelectorAll(".dot .dot-item");
+            document.querySelector(".dot .dot-item.active").classList.remove("active");
+            dotItems[i].classList.add("active");
+        }
+
+        // 事件委托，把课程小卡片的事件委托给整个course
+        var courseEle = document.getElementsByClassName("course")[0];
+        courseEle.addEventListener("mouseover", function (event) {
+            var ele = event.target.closest("li");
+            if (ele) {
+                ele = ele.firstChild;
+                ele.style.color = ele.children[0].style.backgroundColor;
+                ele.style.marginTop = "-6px";
+                ele.style.boxShadow = "0px 10px 20px 2px grey";
+            }
+        })
+        courseEle.addEventListener("mouseout", function (event) {
+            var ele = event.target.closest("li");
+            if (ele) {
+                ele = ele.firstChild;
+                ele.style.color = "";
+                ele.style.marginTop = "0px";
+                ele.style.boxShadow = "unset";
+            }
+        })
+    </script>
+</body>
+
+</html>

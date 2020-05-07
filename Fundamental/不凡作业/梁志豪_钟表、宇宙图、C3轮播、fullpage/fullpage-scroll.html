@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fullpage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        ul {
+            list-style: none;
+        }
+        .page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            list-style: none;
+            width: 100%;
+            height: 100%;
+            transform: translateY(0%);
+            transition: all .4s ease;
+        }
+        .page .section {
+            width: 100%;
+            height: 100%;
+            font-size: 120px;
+            line-height: 240px;
+            color: #fff;
+            text-align: center;
+        }
+        .red {
+            background-color: red;
+        }
+        .blue {
+            background-color: blue;
+        }
+        .green {
+            background-color: green;
+        }
+        .purple {
+            background-color: purple;
+        }
+
+        .dot {
+            position: fixed;
+            top: 50%;
+            right: 50px;
+            transform: translateY(-50%);
+        }
+
+        .dot .dot-item {
+            width: 20px;
+            height: 20px;
+            margin-top: 20px;
+            border-radius: 50%;
+            background-color: #dadfe8;
+        }
+        .dot .dot-item.active {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <ul class="page">
+        <li class="section red">1</li>
+        <li class="section blue">2</li>
+        <li class="section green">3</li>
+        <li class="section purple">4</li>
+    </ul>
+    <ul class="dot">
+        <li class="dot-item active"></li>
+        <li class="dot-item"></li>
+        <li class="dot-item"></li>
+        <li class="dot-item"></li>
+    </ul>
+
+    <script>
+        var pageEle = document.querySelector(".page");
+        var dots = document.querySelectorAll(".dot-item");
+
+        var count = 0;
+
+        // 鼠标滚轮事件，节流函数实现
+        window.onmousewheel = throttle(function(){
+            if(event.wheelDelta > 0){
+                count--;
+                if(count < 0){
+                    count = 0;
+                }
+                pageEle.style.transform = `translateY(${-count*100}%)`;
+                dotActive(count);
+                console.log('上');
+            }else{
+                count++;
+                if(count > 3){
+                    count = 3;
+                }
+                pageEle.style.transform = `translateY(${-count*100}%)`;
+                dotActive(count);
+                console.log('下');
+            }
+        }, 600);
+
+        // 小圆点绑定点击事件，使用立即执行函数实现
+        for(var i = 0; i < 4; i++){
+            (function(i){
+                dots[i].onclick = function(){
+                    count = i;
+                    pageEle.style.transform = `translateY(${-count*100}%)`;
+                    dotActive(count);
+                };
+            })(i);
+        }
+
+        // 节流函数
+        function throttle(func, wait){
+            return function(){
+                if(!func.timer){
+                    func();
+                    func.timer = setTimeout(function(){
+                        func.timer = null;
+                    }, wait);
+                }
+            };
+        }
+
+        // 激活小圆点
+        function dotActive(i){
+            document.querySelector(".dot-item.active").classList.remove("active");
+            // var dots = document.querySelectorAll(".dot-item");
+            dots[i].classList.add("active");
+        }
+    </script>
+</body>
+</html>
