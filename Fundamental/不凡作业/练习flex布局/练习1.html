@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>底部对齐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .box {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            width: 600px;
+            height: 600px;
+            margin: 100px auto;
+        }
+
+        .box li {
+            display: flex;
+            width: 33.3%;
+            height: 33.3%;
+            background-color: orange;
+        }
+
+        .box li:first-child{
+            margin-right: 33.3%;
+        }
+
+        .box li span {
+            font-size: 20px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <ul class="box">
+        <li><span>1</span></li>
+        <li><span>2</span></li>
+        <li><span>3</span></li>
+        <li><span>4</span></li>
+        <li><span>5</span></li>
+        <li><span>6</span></li>
+        <li><span>7</span></li>
+        <li><span>8</span></li>
+    </ul>
+
+    <script>
+        var liEle = document.querySelectorAll("li");
+        for(var i = 0; i < liEle.length; i++){
+            if(i % 3 == 2){
+                liEle[i].style.backgroundColor = "green";
+            }else if(i % 3 == 1){
+                liEle[i].style.backgroundColor = "yellow";
+            }else {
+                liEle[i].style.backgroundColor = "red";
+            }
+        }
+    </script>
+</body>
+</html>

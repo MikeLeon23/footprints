@@ -575,7 +575,7 @@ Flex 是 Flexible Box 的缩写，意为"弹性布局"，用来为盒状模型�
 }
 ```
 
-注意，设为 Flex 布局以后，子元素的`float`、`clear`和`vertical-align`属性将失效。
+注意，设为 Flex 布局以后，<font color="red">子元素的`float`、`clear`和`vertical-align`属性将失效。</font>
 
 ### 基本概念
 

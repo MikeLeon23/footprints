@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>底部对齐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .box {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            width: 1000px;
+            height: 400px;
+            margin: 100px auto;
+            border: 1px solid red;
+        }
+
+        .box li {
+            display: flex;
+            width: 20%;
+            height: 30%;
+            margin-top: 20px;
+            margin-right: 66.67px;
+            background-color: orange;
+        }
+
+        .box li:nth-child(4){
+            margin-right: 0;
+        }
+
+        .box li span {
+            font-size: 20px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <ul class="box">
+        <li><span>1</span></li>
+        <li><span>2</span></li>
+        <li><span>3</span></li>
+        <li><span>4</span></li>
+        <li><span>5</span></li>
+        <li><span>6</span></li>
+        <li><span>7</span></li>
+    </ul>
+</body>
+</html>
