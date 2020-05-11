@@ -1,0 +1,148 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  width: 1200px;
+  height: 100px;
+  margin: 0 auto;
+  background-color: blue;
+}
+header nav {
+  float: left;
+}
+header nav ul {
+  list-style: none;
+}
+header nav ul li {
+  float: left;
+  width: 100px;
+  font-size: 18px;
+  font-weight: bold;
+  font-style: italic;
+  font-family: "微软雅黑";
+  border: 5px solid red;
+  border-left-width: 10px;
+  border-left-color: blue;
+  border-right: 0;
+}
+header nav ul li.act {
+  color: red;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: orange;
+  font-size: 20px;
+}
+
+.box1 {
+  border: 1px solid #fff;
+}
+
+.box2 {
+  width: 100px;
+  height: 200px;
+  font-size: 80px;
+  color: red;
+}
+
+.box3 {
+  width: 100px;
+  height: 200px;
+  font-size: #fff;
+}
+.box3 span {
+  line-height: 10px;
+}
+.box3 span {
+  width: 20px;
+}
+
+.box4 {
+  width: 99px;
+  height: 200px;
+  font-size: blue;
+}
+.box4 span {
+  line-height: 10px;
+}
+
+.common, .box5, .box6 {
+  width: 100px;
+  height: 200px;
+}
+
+.box5 span, .box6 span {
+  color: green;
+}
+
+.box6 {
+  background-color: #fff;
+}
+
+.box7 {
+  color: #000;
+}
+
+.box8 {
+  width: 200px;
+}
+
+.d-1 {
+  width: 100px;
+}
+
+.d-2 {
+  width: 200px;
+}
+
+.d-3 {
+  width: 300px;
+}
+
+.d-4 {
+  width: 400px;
+}
+
+.d-5 {
+  width: 500px;
+}
+
+.d-6 {
+  width: 600px;
+}
+
+.d-7 {
+  width: 700px;
+}
+
+.d-8 {
+  width: 800px;
+}
+
+.d-9 {
+  width: 900px;
+}
+
+.icon-success {
+  background-image: url("../imgs/success.png");
+}
+
+.icon-error {
+  background-image: url("../imgs/error.png");
+}
+
+.icon-warning {
+  background-image: url("../imgs/warning.png");
+}
+
+.box9 {
+  color: #000;
+  font-size: 1rem;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,141 @@
+@import "./init.scss";
+
+header {
+    width: 1200px;
+    height: 100px;
+    // font-size: $basefont;
+    margin: 0 auto;
+    background-color: blue;
+    // nav ul {
+    //     list-style: none;
+    // }
+    nav {
+        float: left;
+        ul {
+            list-style: none;
+            li {
+                float: left;
+                width: 100px;
+                font: {
+                    size: 18px;
+                    weight: bold;
+                    style: italic;
+                    family: "微软雅黑";
+                }
+                border: 5px solid red {
+                    left: {
+                        width: 10px;
+                        color: blue;
+                    }
+                    right: 0;
+                }
+                &.act {
+                    color: red;
+                }
+            }
+        }
+    }
+}
+
+$name: "Aric";
+$basefont: 20px;
+$color: #fff;
+$border: 1px solid $color;
+
+.box {
+    width: 100px;
+    height: 100px;
+    background-color: orange;
+    font-size: $basefont;
+}
+
+.box1 {
+    border: $border;
+}
+
+@mixin common {
+    width: 100px;
+    height: 200px;
+    font-size: 80px;
+}
+
+@mixin common1($w, $h, $bgc: #fff) {
+    width: $w;
+    height: $h;
+    font-size: $bgc;
+    span {
+        line-height: 10px;
+    }
+}
+
+.box2 {
+    @include common;
+    color: red;
+}
+
+.box3 {
+    @include common1(100px, 200px, #fff);
+    span {
+        width: 20px;
+    }
+}
+
+.box4 {
+    @include common1($h: 200px, $w: 99px, $bgc: blue);
+}
+
+.common {
+    width: 100px;
+    height: 200px;
+}
+
+.box5 {
+    @extend .common;
+    span {
+        color: green;
+    }
+}
+
+.box6 {
+    @extend .box5;
+    background-color: #fff;
+}
+
+$colors: (light: #fff, dark: #000, gray: #eee);
+
+.box7 {
+    color: map-get($colors, dark);
+} 
+
+$flag: false;
+$w1: 150;
+
+.box8 {
+    @if $w1 > 200 {
+        width: 100px;
+    }@else{
+        width: 200px;
+    }
+}
+
+@for $i from 1 to 10 {
+    .d-#{$i} {
+        width: $i * 100px;
+    }
+}
+
+$icons: success error warning;
+@each $icon in $icons {
+    .icon-#{$icon} {
+        background-image: url("../imgs/#{$icon}.png")
+    }
+}
+
+@function getColor($key){
+    @return map-get($colors, $key);
+}
+
+.box9 {
+    color: getColor(dark);
+    font-size: 1rem;
+}
