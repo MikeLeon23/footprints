@@ -1,0 +1,384 @@
+@import "./common.scss";
+
+/* 头部 */
+header {
+    width: 100%;
+    margin-bottom: 10px;
+
+    .header-c {
+        display: flex;
+        width: 90%;
+        margin: auto;
+        justify-content: space-between;
+        align-items: center;
+
+        .location {
+            display: flex;
+            align-items: center;
+            font-size: .426667rem;
+            color: #333333;
+
+            span {
+                width: .32rem;
+                height: .32rem;
+                margin-left: .08rem;
+                background: url("../asset/icon/icon2x.png") no-repeat -2.77333333333rem -5.28rem;
+                background-size: 11.733333rem auto;
+            }
+        }
+
+        .logo {
+            font-size: .64rem;
+            color: #FED852;
+        }
+
+        .search {
+            width: .533333rem;
+            height: .533333rem;
+            background: url("../asset/icon/icon2x.png") no-repeat -3.84rem -5.1733333rem;
+            background-size: 11.733333rem auto;
+        }
+    }
+}
+
+/* banner图部分 */
+.banner {
+    position: relative;
+    width: 100%;
+    height: 3.754rem;
+    overflow: hidden;
+
+    .content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        width: 400%;
+
+        li {
+            width: 25%;
+
+            img {
+                width: 100%;
+                vertical-align: bottom;
+            }
+        }
+    }
+    .dot {
+        position: absolute;
+        bottom: .133333rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2.666667rem;
+        height: .266667rem;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        li {
+            width: .213333rem;
+            height: .213333rem;
+            border-radius: 50%;
+            background-color: #fff;
+            &.act {
+                background-color: orangered;
+            }
+        }
+    }
+}
+
+/* 服务icon列表 */
+.service {
+    position: relative;
+    width: 100%;
+    height: 4.213333rem;
+    margin-bottom: .266667rem;
+    overflow: hidden;
+    .box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        width: 200%;
+
+        ul {
+            display: flex;
+            width: 50%;
+            flex-wrap: wrap;
+
+            li {
+                width: 20%;
+
+                .circle {
+                    width: 1.173333rem;
+                    height: 1.173333rem;
+                    margin: .373333rem auto .133333rem;
+                    border-radius: 50%;
+
+                    div {
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                }
+
+                p {
+                    text-align: center;
+                    font-size: .32rem;
+                    color: #666666;
+                }
+            }
+        }
+    }
+}
+
+/* 热门精选模块 */
+@mixin title {
+    display: flex;
+    width: 100%;
+    margin-bottom: .32rem;
+    justify-content: center;
+    align-items: center;
+
+    .line:nth-child(1) {
+        width: .933333rem;
+        height: 0;
+        background-color: #666666;
+        border: 1px solid #666666;
+        border-radius: 50% 0 0 50%;
+        opacity: .5;
+    }
+
+    .line:nth-child(3) {
+        width: .933333rem;
+        height: 0;
+        background-color: #666666;
+        border: 1px solid #666666;
+        border-radius: 0 50% 50% 0;
+        opacity: .5;
+    }
+
+    p {
+        font-size: .426667rem;
+        color: #666666;
+        margin: 0 .213333rem;
+    }
+}
+
+.popular {
+    width: 100%;
+
+    .title {
+        @include title;
+    }
+
+    .card {
+        width: 100%;
+        height: 100%;
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-content: space-between;
+
+            li {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 4.853333rem;
+                height: 1.813333rem;
+                margin-bottom: .293333rem;
+                background-color: #F2F4F5;
+
+                span {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+
+                    border: .333333rem solid #FED852 {
+                        right-color: transparent;
+                        bottom-color: transparent;
+                    }
+                }
+
+                p {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    font-size: .266667rem;
+                    color: #FFFFFF;
+                    transform: rotate(-45deg);
+                    margin: .026667rem 0 0 .053333rem;
+                }
+
+                div {
+                    .e-title {
+                        font-size: .373333rem;
+                        color: #666666;
+                        margin-bottom: .08rem;
+                    }
+
+                    .e-descri {
+                        font-size: .266667rem;
+                        color: #999999;
+                    }
+                }
+
+                img {
+                    width: 1.333333rem;
+                    height: 1.333333rem;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+}
+
+/* 预约部分 */
+.reservation {
+    width: 100%;
+    margin-bottom: .4rem;
+
+    .title {
+        @include title;
+    }
+
+    .reserv {
+        display: flex;
+
+        .img {
+            width: 50%;
+            height: 4.106667rem;
+            background: url("../asset/image/appointment.png") no-repeat -6.13333333rem 0;
+            background-size: auto 4.106667rem;
+        }
+
+        .text {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: center;
+            width: 50%;
+
+            p {
+                text-align: center;
+                font-size: .373333rem;
+                color: #999999;
+            }
+
+            p:first-child {
+                margin-bottom: .133333rem;
+            }
+
+            div {
+                width: 4.133333rem;
+                height: 1.066667rem;
+                margin-top: .4rem;
+                text-align: center;
+                font-size: .426667rem;
+                color: #FFFFFF;
+                background: linear-gradient(-90deg, #FAE462 0%, #FA9E51 97%);
+                border-radius: .533333rem;
+                line-height: 1.066667rem;
+            }
+        }
+    }
+}
+
+/* 礼品卡部分 */
+.gift {
+    width: 100%;
+
+    .title {
+        @include title;
+    }
+
+    .card {
+        width: 8.506667rem;
+        height: 4.48rem;
+        margin: 0 auto .293333rem;
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 100%;
+            height: 100%;
+            border-radius: .16rem;
+            background: url("../asset/image/cards.jpg") center no-repeat;
+            background-size: 100% auto;
+
+            .mask {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                height: .906667rem;
+                background: rgba(0, 0, 0, 0.30);
+
+                .descri {
+                    margin-left: .4rem;
+                    font-size: .373333rem;
+
+                    span:first-child {
+                        color: #FFFFFF;
+                    }
+
+                    span:last-child {
+                        font-size: .266667rem;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .price {
+                    margin-right: .266667rem;
+                    font-size: .266667rem;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+/* 更多服务 */
+.more {
+    width: 100%;
+    height: 1.2rem;
+    text-align: center;
+    line-height: 1.2rem;
+    font-size: .373333rem;
+    color: #999999;
+    background-color: #F2F4F5;
+}
+
+/* 底部导航 */
+footer {
+    width: 100%;
+
+    .nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin: .16rem auto .16rem;
+        li {
+            .icon {
+                width: 1.2rem;
+                height: .693333rem;
+            }
+            p {
+                text-align: center;
+                font-size: .266667rem;
+                color: #999999;
+            }
+        }
+        @for $i from 1 through 4 {
+            li:nth-child(#{$i}) {
+                .icon {
+                    background: url("../asset/icon/icon2x.png") no-repeat #{(44-$i*43.5)/37.5}rem -2.5866666666rem;
+                    background-size: 11.733333rem auto;
+                } 
+            }
+        }
+    }
+}

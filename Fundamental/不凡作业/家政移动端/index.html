@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>首页</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="header-c">
+            <div class="location">
+                <p>郑州</p><span></span>
+            </div>
+            <span class="logo">LOGO</span>
+            <div class="search"></div>
+        </div>
+    </header>
+
+    <!-- banner图 -->
+    <div class="banner">
+        <!-- <ul class="content">
+                <li><img src="asset/image/m1.jpg" alt="" srcset=""></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul> -->
+    </div>
+
+    <!-- 服务icon列表 -->
+    <div class="service">
+        <div class="box">
+            <ul>
+                <li>
+                    <div class="circle">
+                        <div class="icon"></div>
+                    </div>
+                    <p></p>
+                </li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 热门精选 -->
+    <div class="popular">
+        <div class="title">
+            <div class="line"></div>
+            <p>热门精选</p>
+            <div class="line"></div>
+        </div>
+        <div class="card">
+            <ul>
+                <li class="item">
+                    <div class="flag">
+                        <span></span>
+                        <p class="flag">热</p>
+                    </div>
+                    <div>
+                        <div class="e-title">包月保洁</div>
+                        <div class="e-descri">轻松一月，保洁无忧</div>
+                    </div>
+                    <img src="asset/image/1.jpg" alt="">
+                </li>
+                <li class="item"></li>
+                <li class="item"></li>
+                <li class="item"></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 预约 -->
+    <div class="reservation">
+        <div class="title">
+            <div class="line"></div>
+            <p>家庭保洁·快速预约</p>
+            <div class="line"></div>
+        </div>
+        <div class="reserv">
+            <div class="img"></div>
+            <div class="text">
+                <p>专注家政保洁</p>
+                <p>2700万家庭的共同选择</p>
+                <div>点我立即预约</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 礼品卡专区 -->
+    <div class="gift">
+        <div class="title">
+            <div class="line"></div>
+            <p>礼品卡专区</p>
+            <div class="line"></div>
+        </div>
+        <ul class="card">
+            <li>
+                <div class="mask">
+                    <div class="descri">
+                        <span>福卡</span>
+                        <span>含4小时保洁</span>
+                    </div>
+                    <div class="price">￥6000/30张</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 更多服务 -->
+    <div class="more">
+        更多服务>
+    </div>
+
+    <!-- 底部导航 -->
+    <footer>
+        <ul class="nav">
+            <li>
+                <div class="icon"></div>
+                <p>首页</p>
+            </li>
+            <li>
+                <div class="icon"></div>
+                <p>订单</p>
+            </li>
+            <li>
+                <div class="icon"></div>
+                <p>我的</p>
+            </li>
+            <li>
+                <div class="icon"></div>
+                <p>客服</p>
+            </li>
+        </ul>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script type="text/javascript">
+        // 网页打开或者调成大小时，重新计算rem单位大小
+        window.onload = setFont();
+        window.onresize = setFont();
+        function setFont() {
+            document.documentElement.style.fontSize = window.screen.width / 10 + "px";
+        }
+
+        // 生成banner部分
+        var banner = document.querySelector(".banner");
+        var bannerHTML = `<ul class="content">`
+        for (var i = 0; i < 4; i++) {
+            bannerHTML += `<li><img src="asset/image/m${i + 1}.jpg" alt="" srcset=""></li>`
+        }
+        bannerHTML += `</ul><ul class="dot">`;
+        for (var i = 0; i < 4; i++) {
+            if(i == 0){
+                bannerHTML += `<li class="act"></li>`
+            }else {
+                bannerHTML += `<li></li>`;
+            }
+        }
+        bannerHTML += `</ul>`;
+        banner.innerHTML = bannerHTML;
+
+        // 生成服务列表
+        var box = document.querySelector(".service .box");
+        var boxHTML = "";
+        for (var i = 0; i < serviceArr.length; i++) {
+            if (i % 10 === 0) {
+                boxHTML += "<ul>";
+            }
+            boxHTML += `
+                <li>
+                    <div class="circle" style="background: ${serviceArr[i].color}">
+                        <div class="icon" style="background: url('asset/icon/icon2x.png') no-repeat ${-44 * (i % 10 < 5 ? (i < 10 ? i : i - 5) : (i < 10 ? i : i - 10))/37.5}rem ${(i % 10 < 5 ? 0 : -44)/37.5}rem; background-size: 11.733333rem auto;"></div>
+                    </div>
+                    <p>${serviceArr[i].item}</p>
+                </li>`;
+            if (i % 10 === 9) {
+                boxHTML += "</ul>"
+            }
+        }
+        box.innerHTML = boxHTML;
+
+        // 生成热门精选模块
+        var popularCard = document.querySelector(".popular .card");
+        var popularHTML = "<ul>";
+        for (var i = 0; i < popularArr.length; i++) {
+            popularHTML += `
+                    <li class="item">
+                        <div class="flag" style="display: ${popularArr[i].hotFlag ? "block" : "none"}">
+                            <span></span>
+                            <p class="flag">热</p>
+                        </div>
+                        <div>
+                            <div class="e-title">${popularArr[i].title}</div>
+                            <div class="e-descri">${popularArr[i].description}</div>
+                        </div>
+                        <img src="asset/image/${i + 1}.jpg" alt="">
+                    </li>`;
+        }
+        popularHTML += "</ul>";
+        popularCard.innerHTML = popularHTML;
+
+        // banner轮播
+        var banner = document.querySelector(".banner");
+        var content = banner.querySelector(".content");
+        var dots = banner.querySelector(".dot");
+        var w = banner.offsetWidth;
+        var count = 0;
+        banner.ontouchstart = function (event) {
+            var startX = content.offsetLeft;
+            var innerX = event.targetTouches[0].pageX - content.offsetLeft;
+            var max = -content.children[0].offsetWidth * (content.children.length - 1);
+
+            content.style.transition = "";
+            banner.ontouchmove = function (event) {
+                var endX = event.targetTouches[0].pageX - innerX;
+                content.style.left = endX + "px";
+                if (content.offsetLeft > 100) {
+                    content.style.left = "100px";
+                } else if (content.offsetLeft < max - 100) {
+                    content.style.left = max - 100 + "px";
+                }
+            };
+
+            banner.ontouchend = function (event) {
+                content.style.transition = "all .4s ease";
+                if (content.offsetLeft > 0) {
+                    content.style.left = "0px";
+                } else if (content.offsetLeft < max) {
+                    content.style.left = max + "px";
+                }
+                var distance = content.offsetLeft - startX;
+                if (distance < - 100) {
+                    count = count >= content.children.length-1 ? content.children.length-1 : count+1;
+                } else if (distance > 100) {
+                    count = count <= 0 ? 0 : count-1;
+                }
+
+                swipe(count);
+            };
+        };
+
+        function swipe(i) {
+            dots.querySelector(".act").classList.remove("act");
+            dots.children[i].classList.add("act");
+            content.style.left = -i * w + "px";
+        }
+            
+        // 服务列表轮播
+        var service = document.querySelector(".service");
+        var box = service.querySelector(".box");
+        var serviceCount = 0;
+        box.ontouchstart = function(event){
+            var startX = box.offsetLeft;
+            var innerX = event.targetTouches[0].pageX - box.offsetLeft;
+            var max = -box.children[0].offsetWidth * (box.children.length-1);
+
+            box.style.transition = "";
+            box.ontouchmove = function(event){
+                var endX = event.targetTouches[0].pageX - innerX;
+                box.style.left = endX + "px";
+                if(box.offsetLeft > 50) {
+                    box.style.left = "50px";
+                }else if (box.offsetLeft < max - 50){
+                    box.style.left = max - 50 + "px";
+                }
+            };
+
+            box.ontouchend = function(event){
+                box.style.transition = "all .4s ease";
+                if(box.offsetLeft > 0) {
+                    box.style.left = "0px";
+                }else if (box.offsetLeft < max) {
+                    box.style.left = max + "px";
+                }
+
+                var distance = box.offsetLeft - startX;
+                if(distance < -50) {
+                    count = count >= box.children.length-1 ? box.children.length-1 : count+1;
+                }else if(distance > 50){
+                    count = count <= 0 ? 0 : count-1;
+                }
+
+                box.style.left = -count * box.children[0].offsetWidth + "px";
+            }
+        };
+
+    </script>
+</body>
+
+</html>

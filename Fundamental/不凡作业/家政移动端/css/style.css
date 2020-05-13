@@ -1,0 +1,404 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* 头部 */
+header {
+  width: 100%;
+  margin-bottom: 10px;
+}
+header .header-c {
+  display: flex;
+  width: 90%;
+  margin: auto;
+  justify-content: space-between;
+  align-items: center;
+}
+header .header-c .location {
+  display: flex;
+  align-items: center;
+  font-size: .426667rem;
+  color: #333333;
+}
+header .header-c .location span {
+  width: .32rem;
+  height: .32rem;
+  margin-left: .08rem;
+  background: url("../asset/icon/icon2x.png") no-repeat -2.7733333333rem -5.28rem;
+  background-size: 11.733333rem auto;
+}
+header .header-c .logo {
+  font-size: .64rem;
+  color: #FED852;
+}
+header .header-c .search {
+  width: .533333rem;
+  height: .533333rem;
+  background: url("../asset/icon/icon2x.png") no-repeat -3.84rem -5.1733333rem;
+  background-size: 11.733333rem auto;
+}
+
+/* banner图部分 */
+.banner {
+  position: relative;
+  width: 100%;
+  height: 3.754rem;
+  overflow: hidden;
+}
+.banner .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 400%;
+}
+.banner .content li {
+  width: 25%;
+}
+.banner .content li img {
+  width: 100%;
+  vertical-align: bottom;
+}
+.banner .dot {
+  position: absolute;
+  bottom: .133333rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2.666667rem;
+  height: .266667rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.banner .dot li {
+  width: .213333rem;
+  height: .213333rem;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.banner .dot li.act {
+  background-color: orangered;
+}
+
+/* 服务icon列表 */
+.service {
+  position: relative;
+  width: 100%;
+  height: 4.213333rem;
+  margin-bottom: .266667rem;
+  overflow: hidden;
+}
+.service .box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 200%;
+}
+.service .box ul {
+  display: flex;
+  width: 50%;
+  flex-wrap: wrap;
+}
+.service .box ul li {
+  width: 20%;
+}
+.service .box ul li .circle {
+  width: 1.173333rem;
+  height: 1.173333rem;
+  margin: .373333rem auto .133333rem;
+  border-radius: 50%;
+}
+.service .box ul li .circle div {
+  width: 100%;
+  height: 100%;
+}
+.service .box ul li p {
+  text-align: center;
+  font-size: .32rem;
+  color: #666666;
+}
+
+/* 热门精选模块 */
+.popular {
+  width: 100%;
+}
+.popular .title {
+  display: flex;
+  width: 100%;
+  margin-bottom: .32rem;
+  justify-content: center;
+  align-items: center;
+}
+.popular .title .line:nth-child(1) {
+  width: .933333rem;
+  height: 0;
+  background-color: #666666;
+  border: 1px solid #666666;
+  border-radius: 50% 0 0 50%;
+  opacity: .5;
+}
+.popular .title .line:nth-child(3) {
+  width: .933333rem;
+  height: 0;
+  background-color: #666666;
+  border: 1px solid #666666;
+  border-radius: 0 50% 50% 0;
+  opacity: .5;
+}
+.popular .title p {
+  font-size: .426667rem;
+  color: #666666;
+  margin: 0 .213333rem;
+}
+.popular .card {
+  width: 100%;
+  height: 100%;
+}
+.popular .card ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+}
+.popular .card ul li {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4.853333rem;
+  height: 1.813333rem;
+  margin-bottom: .293333rem;
+  background-color: #F2F4F5;
+}
+.popular .card ul li span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0.333333rem solid #FED852;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}
+.popular .card ul li p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: .266667rem;
+  color: #FFFFFF;
+  transform: rotate(-45deg);
+  margin: .026667rem 0 0 .053333rem;
+}
+.popular .card ul li div .e-title {
+  font-size: .373333rem;
+  color: #666666;
+  margin-bottom: .08rem;
+}
+.popular .card ul li div .e-descri {
+  font-size: .266667rem;
+  color: #999999;
+}
+.popular .card ul li img {
+  width: 1.333333rem;
+  height: 1.333333rem;
+  border-radius: 50%;
+}
+
+/* 预约部分 */
+.reservation {
+  width: 100%;
+  margin-bottom: .4rem;
+}
+.reservation .title {
+  display: flex;
+  width: 100%;
+  margin-bottom: .32rem;
+  justify-content: center;
+  align-items: center;
+}
+.reservation .title .line:nth-child(1) {
+  width: .933333rem;
+  height: 0;
+  background-color: #666666;
+  border: 1px solid #666666;
+  border-radius: 50% 0 0 50%;
+  opacity: .5;
+}
+.reservation .title .line:nth-child(3) {
+  width: .933333rem;
+  height: 0;
+  background-color: #666666;
+  border: 1px solid #666666;
+  border-radius: 0 50% 50% 0;
+  opacity: .5;
+}
+.reservation .title p {
+  font-size: .426667rem;
+  color: #666666;
+  margin: 0 .213333rem;
+}
+.reservation .reserv {
+  display: flex;
+}
+.reservation .reserv .img {
+  width: 50%;
+  height: 4.106667rem;
+  background: url("../asset/image/appointment.png") no-repeat -6.13333333rem 0;
+  background-size: auto 4.106667rem;
+}
+.reservation .reserv .text {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  width: 50%;
+}
+.reservation .reserv .text p {
+  text-align: center;
+  font-size: .373333rem;
+  color: #999999;
+}
+.reservation .reserv .text p:first-child {
+  margin-bottom: .133333rem;
+}
+.reservation .reserv .text div {
+  width: 4.133333rem;
+  height: 1.066667rem;
+  margin-top: .4rem;
+  text-align: center;
+  font-size: .426667rem;
+  color: #FFFFFF;
+  background: linear-gradient(-90deg, #FAE462 0%, #FA9E51 97%);
+  border-radius: .533333rem;
+  line-height: 1.066667rem;
+}
+
+/* 礼品卡部分 */
+.gift {
+  width: 100%;
+}
+.gift .title {
+  display: flex;
+  width: 100%;
+  margin-bottom: .32rem;
+  justify-content: center;
+  align-items: center;
+}
+.gift .title .line:nth-child(1) {
+  width: .933333rem;
+  height: 0;
+  background-color: #666666;
+  border: 1px solid #666666;
+  border-radius: 50% 0 0 50%;
+  opacity: .5;
+}
+.gift .title .line:nth-child(3) {
+  width: .933333rem;
+  height: 0;
+  background-color: #666666;
+  border: 1px solid #666666;
+  border-radius: 0 50% 50% 0;
+  opacity: .5;
+}
+.gift .title p {
+  font-size: .426667rem;
+  color: #666666;
+  margin: 0 .213333rem;
+}
+.gift .card {
+  width: 8.506667rem;
+  height: 4.48rem;
+  margin: 0 auto .293333rem;
+}
+.gift .card li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+  border-radius: .16rem;
+  background: url("../asset/image/cards.jpg") center no-repeat;
+  background-size: 100% auto;
+}
+.gift .card li .mask {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: .906667rem;
+  background: rgba(0, 0, 0, 0.3);
+}
+.gift .card li .mask .descri {
+  margin-left: .4rem;
+  font-size: .373333rem;
+}
+.gift .card li .mask .descri span:first-child {
+  color: #FFFFFF;
+}
+.gift .card li .mask .descri span:last-child {
+  font-size: .266667rem;
+  color: #FFFFFF;
+}
+.gift .card li .mask .price {
+  margin-right: .266667rem;
+  font-size: .266667rem;
+  color: #fff;
+}
+
+/* 更多服务 */
+.more {
+  width: 100%;
+  height: 1.2rem;
+  text-align: center;
+  line-height: 1.2rem;
+  font-size: .373333rem;
+  color: #999999;
+  background-color: #F2F4F5;
+}
+
+/* 底部导航 */
+footer {
+  width: 100%;
+}
+footer .nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: .16rem auto .16rem;
+}
+footer .nav li .icon {
+  width: 1.2rem;
+  height: .693333rem;
+}
+footer .nav li p {
+  text-align: center;
+  font-size: .266667rem;
+  color: #999999;
+}
+footer .nav li:nth-child(1) .icon {
+  background: url("../asset/icon/icon2x.png") no-repeat 0.0133333333rem -2.5866666666rem;
+  background-size: 11.733333rem auto;
+}
+footer .nav li:nth-child(2) .icon {
+  background: url("../asset/icon/icon2x.png") no-repeat -1.1466666667rem -2.5866666666rem;
+  background-size: 11.733333rem auto;
+}
+footer .nav li:nth-child(3) .icon {
+  background: url("../asset/icon/icon2x.png") no-repeat -2.3066666667rem -2.5866666666rem;
+  background-size: 11.733333rem auto;
+}
+footer .nav li:nth-child(4) .icon {
+  background: url("../asset/icon/icon2x.png") no-repeat -3.4666666667rem -2.5866666666rem;
+  background-size: 11.733333rem auto;
+}
+
+/*# sourceMappingURL=style.css.map */

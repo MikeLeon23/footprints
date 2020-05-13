@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商城</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+        .top-bar {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            background-color: rgba(0, 0, 0, .5);
+            z-index: 2;
+        }
+        .box {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100%;
+            background-color: yellowgreen;
+            z-index: 1;
+        }
+        .aside {
+            position: absolute;
+            top: 100px;
+            left: 0;
+            width: 100%;
+        }
+
+        .aside li {
+            width: 100%;
+            height: 40px;
+            margin-bottom: 10px;
+            background-color: orange;
+            text-align: center;
+            line-height: 40px;
+        }
+        .aside li.act {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar"></div>
+    <div class="box">
+        <ul class="aside">
+            <li class="act">li_1</li>
+            <li>li_2</li>
+            <li>li_3</li>
+            <li>li_4</li>
+            <li>li_5</li>
+            <li>li_6</li>
+            <li>li_7</li>
+            <li>li_8</li>
+            <li>li_9</li>
+            <li>li_10</li>
+            <li>li_11</li>
+            <li>li_12</li>
+            <li>li_13</li>
+            <li>li_14</li>
+            <li>li_15</li>
+            <li>li_16</li>
+            <li>li_17</li>
+            <li>li_18</li>
+            <li>li_19</li>
+            <li>li_20</li>
+        </ul>
+    </div>
+
+    <script>
+        var aside = document.querySelector(".aside");
+        aside.addEventListener("click", function(e){
+            console.log(e.target.offsetTop);
+            if(e.target.tagName == "LI"){
+                var targetY = -(e.target.offsetTop - 100);
+                if(targetY < -(aside.offsetHeight - 100)){
+                    targetY = -(aside.offsetHeight - 100) + "px";
+                }
+                aside.style.top = targetY + "px";
+                aside.querySelector(".act").classList.remove("act");
+                e.target.classList.add("act");
+            }
+        })
+
+        aside.addEventListener("touchstart", function(e){
+            var startY = e.targetTouches[0].pageY - aside.offsetTop;
+
+            aside.addEventListener("touchmove", function(e){
+                aside.style.top = e.targetTouches[0].pageY - startY + "px";
+            })
+
+            aside.addEventListener("touchend", function(){
+
+            })
+        })
+    </script>
+</body>
+</html>
