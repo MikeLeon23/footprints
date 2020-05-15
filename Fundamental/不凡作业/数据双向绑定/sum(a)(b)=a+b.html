@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sum(a)(b)=a+b</title>
+</head>
+
+<body>
+<!--
+    因为：sum(a)(b) = a + b;
+    所以：sum(a)(i) = (function(i){return a + i})(i)
+    所以：sum(a) = (function(x){
+                        return function(i){
+                            return x + i;
+                        }
+                    })(a)
+    所以：sum = function(x){
+                    return function(i){
+                        return x + i;
+                    }
+                } 
+-->
+    <script>
+        // 由以上分析可知像sum(a)(b)=a+b这样工作的函数就是：
+        var sum = function (x) {
+            return function (i) {
+                return x + i;
+            }
+        }
+    </script>
+</body>
+
+</html>

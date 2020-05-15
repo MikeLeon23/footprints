@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据双向绑定</title>
+</head>
+
+<body>
+    <input type="text" placeholder="请输入姓名" value="" v-module="name">
+    <input type="text" placeholder="请输入年龄" value="" v-module="age">
+    <input type="text" placeholder="请输入年龄" value="">
+    <script>
+        var data = {};
+        var eles = document.querySelectorAll("input[v-module]");
+        var nameInput, ageInput;
+        for(var i = 0; i < eles.length; i++){
+            if(eles[i].getAttribute("v-module") == "name"){
+                nameInput = eles[i];
+            }
+            if(eles[i].getAttribute("v-module") == "age"){
+                ageInput = eles[i];
+            }
+        }
+        
+        Object.defineProperties(data, {
+            name: {
+                get(){
+                    return nameInput.value;
+                },
+                set(value){
+                    nameInput.value = value;
+                }
+            },
+            age: {
+                get(){
+                    return ageInput.value;
+                },
+                set(value){
+                    ageInput.value = value;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
