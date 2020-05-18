@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+
+        // 方法一，toString()
+        function flatArr1(arr) {
+            var str = arr.toString();
+            var strArr = str.split(",");
+            var newArr = [];
+            for (var i = 0; i < strArr.length; i++) {
+                if (newArr.indexOf(parseInt(strArr[i])) == -1) {
+                    newArr.push(parseInt(strArr[i]));
+                }
+            }
+            return newArr;
+        }
+        var newArr1 = flatArr1(arr).sort(function (a, b) { return a - b; });
+        console.log(newArr1);
+
+        // 方法二，递归
+        function flatArr2(arr, newarr = []) {
+            var temp = arr;
+            for (var i = 0; i < temp.length; i++) {
+                if (typeof (temp[i]) == "number") {
+                    if (newarr.indexOf(temp[i]) == -1) {
+                        newarr.push(temp[i]);
+                    }
+                } else {
+                    flatArr2(temp[i], newarr);
+                }
+            }
+            return newarr;
+        }
+        var newArr2 = flatArr2(arr).sort(function (a, b) { return a - b; });
+        console.log(newArr2);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // var person = [{name: "kevin"}, {name: "daisy"}];
+        // var name = person.map(function(item){
+        //     return item.name;
+        // });
+
+        // // 第一版
+        // var curry = function(fn){
+        //     var args = [].slice.call(arguments, 1);
+        //     return function(){
+        //         var newArgs = args.concat([].slice.call(arguments));
+        //         return fn.apply(this, newArgs);
+        //     };
+        // };
+        function add(x, y) {
+            return x + y;
+        }
+
+        function curriedAdd(x) {
+            return function (y) {
+                return x + y;
+            }
+        }
+
+        function currying(fn, ...args1){
+            return function(...args2){
+                return fn(...args1, ...args2);
+            }
+        }
+
+        var increment = currying(add, 1);
+
+        function trueCurrying(fn, ...args){
+            if(args.length >= fn.length){
+                return fn(...args);
+            }
+
+            return function(...args2){
+                return trueCurrying(fn, ...args, ...args2);
+            }
+        }
+    </script>
+</body>
+
+</html>

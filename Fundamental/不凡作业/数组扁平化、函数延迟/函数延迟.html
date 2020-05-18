@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数延迟</title>
+</head>
+
+<body>
+    <script>
+        function func(str) {
+            console.log(str);
+        }
+
+        // 延迟函数
+        function delay(func, wait) {
+            return function (str) {
+                setTimeout(function(){
+                    func(str);
+                }, wait);
+            }
+        }
+
+        let f1000 = delay(func, 1000);
+        let f1500 = delay(func, 2000);
+
+        f1000("hello");
+        f1500("world");
+    </script>
+</body>
+
+</html>
