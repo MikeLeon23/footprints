@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="never">
+    <title>豆瓣电影</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .filter {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 50px;
+        }
+
+        .filter div {
+            width: 100px;
+            height: 30px;
+            margin-right: 10px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid red;
+            border-radius: 2px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .filter .act {
+            font-size: bold;
+            color: #fff;
+            background-color: red;
+        }
+
+        .pagination {
+            width: 100%;
+            height: 50px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            border-bottom: 3px solid red;
+        }
+
+        .pagination .page {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            text-align: center;
+            line-height: 30px;
+            border: 1px solid red;
+            border-radius: 2px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .pagination .page.act {
+            color: #fff;
+            background-color: red;
+        }
+
+        .movie-list {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+        }
+
+        .movie-list .movie {
+            display: flex;
+            width: 23%;
+            border: 1px solid silver;
+            margin-bottom: 10px;
+        }
+
+        .movie img {
+            width: 40%;
+            height: 166px;
+        }
+
+        .movie .descri {
+            width: 60%;
+        }
+
+        .movie .descri p {
+            margin-left: 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter">
+        <div data-type="in_theaters">正在热映</div>
+        <div data-type="coming_soon">即将上映</div>
+        <div data-type="top250">Top250</div>
+    </div>
+    <ul class="pagination">
+        <!-- <li class="page">1</li>
+        <li class="page">2</li>
+        <li class="page">3</li>
+        <li class="page">4</li>
+        <li class="page">5</li> -->
+    </ul>
+    <ul class="movie-list">
+        <!-- <li class="movie">
+            <img src="行吧.jpg" alt="" srcset="">
+            <div class="descri">
+                <p>名称：</p>
+                <p>类型：</p>
+                <p>时间：</p>
+                <p>导演：</p>
+                <p>编剧：</p>
+            </div>
+        </li> -->
+    </ul>
+
+    <script>
+        /*
+			url:
+			即将上映：http://bufantec.com/api/douban/movie/coming_soon
+			正在热映：http://bufantec.com/api/douban/movie/in_theaters
+			top250：http://bufantec.com/api/douban/movie/top250
+		*/
+        var filter = document.querySelector(".filter");
+        var pagination = document.querySelector(".pagination");
+        var movieList = document.querySelector(".movie-list");
+
+        // 筛选按钮点击事件
+        filter.addEventListener("click", function (event) {
+            if (event.target.tagName == "DIV") {
+                if (event.target.parentNode.querySelector(".act")) {
+                    event.target.parentNode.querySelector(".act").classList.remove("act");
+                }
+                event.target.classList.add("act");
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        var obj = JSON.parse(request.responseText);
+                        initMovieList(obj);
+                        initPagination(obj);
+                    }
+                };
+
+                request.open("GET", `http://bufantec.com/api/douban/movie/` + event.target.dataset.type + "?limit=12");
+                request.send(null);
+            }
+        });
+
+        // 分页按钮点击事件
+        pagination.addEventListener("click", function (event) {
+            if (event.target.tagName == "LI") {
+                event.target.parentNode.querySelector(".act").classList.remove("act");
+                event.target.classList.add("act");
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        var obj = JSON.parse(request.responseText);
+                        initMovieList(obj);
+                        // initPagination(obj);
+                    }
+                };
+                var type = document.querySelector(".filter .act").dataset.type;
+                var start = event.target.dataset.index * 1;
+                request.open("GET", `http://bufantec.com/api/douban/movie/` + type + `?start=${start + 1}&limit=12`);
+                request.send(null);
+            }
+        });
+
+        // 请求数据函数
+        // function ajax(e) {
+        //     var request = new XMLHttpRequest();
+        //     request.onreadystatechange = function () {
+        //         if (request.readyState == 4 && request.status == 200) {
+        //             var obj = JSON.parse(request.responseText);
+        //             initMovieList(obj);
+        //             initPagination(obj);
+        //         }
+        //         request.open("GET", `http://bufantec.com/api/douban/movie/` + e.target.dataset.type + "?limit=12");
+        //         request.send(null);
+        //     };
+        // }
+
+        // 初始化影片列表的函数
+        function initMovieList(obj) {
+            var listHTML = "";
+            for (var i = 0; i < obj.data.list.length; i++) {
+                listHTML += `
+                <li class="movie">
+                    <img src="${obj.data.list[i].medium}" alt="" srcset="" onerror="load()">
+                    <div class="descri">
+                        <p>名称：${obj.data.list[i].title || "未知"}</p>
+                        <p>类型：${obj.data.list[i].genres || "未知"}</p>
+                        <p>时间：${obj.data.list[i].longtime || "未知"}</p>
+                        <p>导演：${obj.data.list[i].director || "未知"}</p>
+                        <p>编剧：${obj.data.list[i].scriptwriter || "未知"}</p>
+                    </div>
+                </li>`;
+            }
+            movieList.innerHTML = listHTML;
+        }
+
+        // 加载图片失败后的处理函数
+        function load(){
+            event.target.src = "行吧.jpg";
+        }
+        
+        // 初始化分页列表
+        function initPagination(obj) {
+            var pageHTML = "";
+            for (var i = 0; i < obj.data.totalPage; i++) {
+                pageHTML += i == 0 ? `<li data-index="${i}" class="page act">${i + 1}</li>` : `<li data-index="${i}" class="page">${i + 1}</li>`;
+            }
+            pagination.innerHTML = pageHTML;
+        }
+    </script>
+</body>
+
+</html>
