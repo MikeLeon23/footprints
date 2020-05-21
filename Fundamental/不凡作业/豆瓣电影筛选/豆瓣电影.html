@@ -183,20 +183,6 @@
             }
         });
 
-        // 请求数据函数
-        // function ajax(e) {
-        //     var request = new XMLHttpRequest();
-        //     request.onreadystatechange = function () {
-        //         if (request.readyState == 4 && request.status == 200) {
-        //             var obj = JSON.parse(request.responseText);
-        //             initMovieList(obj);
-        //             initPagination(obj);
-        //         }
-        //         request.open("GET", `http://bufantec.com/api/douban/movie/` + e.target.dataset.type + "?limit=12");
-        //         request.send(null);
-        //     };
-        // }
-
         // 初始化影片列表的函数
         function initMovieList(obj) {
             var listHTML = "";
