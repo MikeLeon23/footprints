@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <input type="text" v-model="inputValue">
+        <button @click="handleSubmit">提交</button>
+        <ul>
+            <li v-for="(item, index) in content" :key="index">{{item}}</li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el: "#root",
+            data: {
+                inputValue: "",
+                content: []
+            },
+            methods: {
+                handleSubmit: function(){
+                    this.content.push(this.inputValue);
+                    this.inputValue = "";
+                }
+            }
+        })
+    </script>
+</body>
+</html>

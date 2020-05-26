@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <input type="text" v-model="inputValue">
+        <button @click="handleSubmit">提交</button>
+        <ul>
+            <!-- <li v-for="(item, index) in content" :key="index">{{item}}</li> -->
+            <todo-item 
+                v-for="(item, index) in content" 
+                :key="index"
+                :content="item"
+            ></todo-item>
+        </ul>
+    </div>
+
+    <script>
+        // 全局组件，定义之后，在任何地方都可以直接使用，不用再vue实例中注册
+        // Vue.component("todo-item", {
+        //     template: "<li>item</li>"
+        // })
+        
+
+        // 局部组件，定义之后需要在vue实例中注册组件，然后才能在注册了的vue实例中使用局部组件
+        var TodoItem = {
+            props: ["content"],
+            template: "<li>{{content}}</li>"
+        };
+
+
+        new Vue({
+            el: "#root",
+            components: {   // 注册局部组件
+                "todo-item": TodoItem
+            },
+            data: {
+                inputValue: "",
+                content: []
+            },
+            methods: {
+                handleSubmit: function(){
+                    this.content.push(this.inputValue);
+                    this.inputValue = "";
+                }
+            }
+        })
+    </script>
+</body>
+</html>
