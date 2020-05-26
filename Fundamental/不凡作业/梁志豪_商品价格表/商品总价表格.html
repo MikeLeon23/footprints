@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        .price-sum {
+            font-size: 25px;
+            font-weight: bold;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto;
+            line-height: 30px;
+            text-align: left;
+            user-select: none;
+        }
+        .mask {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .7);
+        }
+        .mask .box{
+            /* width: 200px; */
+            height: 200px;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 8px;
+            user-select: none;
+        }
+        .box p {
+            margin-top: 20px;
+            padding: 0 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .box button {
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="sum">点击计算商品总价</button>
+        <p class="price-sum">商品总价为{{ priceSum }}</p>
+        <table border="1" cellspacing="0" cellspadding="0">
+            <tr>
+                <th>商品id</th>
+                <th>商品名称</th>
+                <th>商品价格</th>
+                <th>商品数量</th>
+            </tr>
+            <tr v-for="(item, index) in list" v-on:dblclick="showMask(index)">
+                <td>{{ item.id }}</td>
+                <td>{{ item.goods }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.num }}</td>
+            </tr>
+        </table>
+        <div class="mask" v-show="isShow" @click="closeMask">
+            <div class="box" @click.stop="">
+                <p>商品名称：{{ titleOnDisplay }}</p>
+                <p>商品简介：{{ description }}</p>
+                <button @click="del(onIndex)">删除</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    list: [
+                        {
+                            goods: "iphone",
+                            id: 1,
+                            price: 10,
+                            num: 10,
+                            info: "这是iphone手机"
+                        },
+                        {
+                            goods: "华为",
+                            id: 2,
+                            price: 20,
+                            num: 20,
+                            info: "这是华为手机"
+                        },
+                        {
+                            goods: "小米",
+                            id: 3,
+                            price: 30,
+                            num: 30,
+                            info: "这是小米手机"
+                        },
+                    ],
+                    isShow: false,
+                    titleOnDisplay: "",
+                    description: "",
+                    priceSum: 0
+                };
+            },
+            methods: {
+                showMask(index){
+                    this.isShow = !this.isShow;
+                    this.titleOnDisplay = this.list[index].goods;
+                    this.description = this.list[index].info;
+                    this.onIndex = index;
+                    console.log(this);
+                },
+                closeMask(){
+                    this.isShow = false;
+                },
+                del(index){
+                    this.list.splice(index, 1);
+                    this.isShow = false;
+                    this.sum();
+                },
+                sum(){
+                    let sum = 0;
+                    for(let i = 0; i < this.list.length; i++){
+                        sum += this.list[i].price * this.list[i].num;
+                    }
+                    this.priceSum = sum;
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>
