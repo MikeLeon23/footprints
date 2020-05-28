@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #app {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .input {
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            margin: 15px auto;
+            line-height: 30px;
+            text-align: left;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="input">
+            商品名称<input type="text" placeholder="请输入商品名称" v-model="newItem.goods">
+            商品价格<input type="text" placeholder="请输入商品价格" v-model="newItem.price">
+            商品数量<input type="text" placeholder="请输入商品数量" v-model="newItem.num">
+            <button @click="handleSubmit">提交</button>
+        </div>
+        <table border="1" cellspacing="0" cellspadding="0">
+            <tr>
+                <th><input type="checkbox" v-model="allChecked" @change="checkAll"> 全选</th>
+                <th>商品id</th>
+                <th>商品名称</th>
+                <th>商品价格</th>
+                <th>商品数量</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="(item, index) in list">
+                <td><input type="checkbox" v-model="item.checked" @change="handleCheck"></td>
+                <td>{{ item.id }}</td>
+                <td>{{ item.goods }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.num }}</td>
+                <td><button @click="del(index)">删除</button></td>
+            </tr>
+        </table>
+        <p>选中的商品价格为{{ totalPrice }}</p>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    list: [
+                        {
+                            goods: "iphone",
+                            id: 1,
+                            price: 10,
+                            num: 10,
+                            info: "这是iphone手机",
+                            checked: false
+                        },
+                        {
+                            goods: "华为",
+                            id: 2,
+                            price: 20,
+                            num: 20,
+                            info: "这是华为手机",
+                            checked: false
+                        },
+                        {
+                            goods: "小米",
+                            id: 3,
+                            price: 30,
+                            num: 30,
+                            info: "这是小米手机",
+                            checked: false
+                        },
+                    ],
+                    newItem: {
+                        // goods: "",
+                        // id: "",
+                        // price: "",
+                        // num: "",
+                        // info: ""
+                    },
+                    allChecked: false,
+                    totalPrice: 0
+                };
+            },
+            methods: {
+                handleSubmit() {
+                    if (this.newItem.goods) {
+                        if (this.newItem.price) {
+                            if (this.newItem.num) {
+                                this.newItem.id = Math.round(Math.random() * 10000);
+                                this.newItem.checked = false;
+                                this.list.push(this.newItem);
+                                this.newItem = {};
+                                this.handleCheck();
+                            } else {
+                                alert("商品数量不能为空");
+                            }
+                        } else {
+                            alert("商品价格不能为空");
+                        }
+                    } else {
+                        alert("商品名称不能为空");
+                    }
+                },
+                handleCheck() {
+                    this.allChecked = this.list.every(item => item.checked);
+                    this.sum();
+                },
+                checkAll() {
+                    this.list.forEach(item => item.checked = this.allChecked);
+                    this.sum();
+                },
+                sum() {
+                    let sum = 0;
+                    for (let i = 0; i < this.list.length; i++) {
+                        sum += this.list[i].checked ? this.list[i].price * this.list[i].num : 0;
+                    }
+                    this.totalPrice = sum;
+                },
+                del(index) {
+                    this.list.splice(index, 1);
+                    // this.sum();
+                    this.handleCheck();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
