@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可增删改查的商品列表</title>
+    <script src="vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #app {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .input {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            margin: 15px auto;
+            line-height: 30px;
+            text-align: left;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2>可增删改查的商品列表</h2>
+        <div class="input">
+            <div class="add-item">
+                商品ID <input type="text" placeholder="请输入商品ID" v-model="newItem.id">
+                商品名称 <input type="text" placeholder="请输入商品名称" v-model="newItem.goods">
+                商品数量 <input type="text" placeholder="请输入商品数量" v-model="newItem.num">
+                <button @click="handleSubmit">添加</button>
+            </div>
+            <input type="text" class="filter" placeholder="请输入要搜索的内容" v-model="filterStr">
+        </div>
+        <table border="1" cellspacing="0" cellspadding="0">
+            <tr>
+                <th><input type="checkbox" v-model="allChecked" @change="checkAll"> 全选</th>
+                <th>商品id</th>
+                <th>商品名称</th>
+                <th>商品数量</th>
+                <th>创建时间</th>
+                <th>更多操作</th>
+            </tr>
+            <tr v-for="(item, index) in lists">
+                <td><input type="checkbox" v-model="item.checked" @change="handleCheck"></td>
+                <td>{{ item.id }}</td>
+                <td>{{ item.goods }}</td>
+                <td><div contenteditable="true" @input="handleEdit(item, $event)">{{ item.num }}</div></td>
+                <td width="300">{{ item.cTime }}</td>
+                <td><button @click="del(item.id)">删除</button></td>
+            </tr>
+        </table>
+        <p>数量总计：{{ totalNum }}</p>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    list: [
+                        {
+                            goods: "iphone",
+                            id: 1,
+                            price: 10,
+                            num: 10,
+                            info: "这是iphone手机",
+                            checked: false,
+                            cTime: 2019
+                        },
+                        {
+                            goods: "华为",
+                            id: 2,
+                            price: 20,
+                            num: 20,
+                            info: "这是华为手机",
+                            checked: false,
+                            cTime: 2020
+                        },
+                        {
+                            goods: "小米",
+                            id: 3,
+                            price: 30,
+                            num: 30,
+                            info: "这是小米手机",
+                            checked: false,
+                            cTime: 2020
+                        },
+                    ],
+                    newItem: {
+                        // goods: "",
+                        // id: "",
+                        // price: "",
+                        // num: "",
+                        // info: "",
+                        // cTime: ""
+                    },
+                    allChecked: false,
+                    totalNum: 0,
+                    filterStr: ""
+                };
+            },
+            computed: {
+                lists: function(){
+                    if(this.filterStr){
+                        return this.list.filter(ele => ele.goods.includes(this.filterStr));
+                    }else{
+                        return this.list;
+                    }
+                }
+            },
+            methods: {
+                handleSubmit() {
+                    if (this.newItem.id) {
+                        if (this.newItem.goods) {
+                            if (this.newItem.num) {
+                                this.newItem.checked = false;
+                                let date = new Date();
+                                this.newItem.cTime = date.toLocaleString();
+                                this.list.push(this.newItem);
+                                this.newItem = {};
+                                this.handleCheck();
+                            } else {
+                                alert("商品数量不能为空");
+                            }
+                        } else {
+                            alert("商品名称不能为空");
+                        }
+                    } else if(this.list.findIndex(item => item.id === this.newItem.id) !== -1){
+                        alert("商品ID不能重复");
+                    }else {
+                        alert("商品ID不能为空");
+                    }
+                },
+                handleCheck() {
+                    this.allChecked = this.lists.every(item => item.checked);
+                    this.sum();
+                },
+                handleEdit(item, event){
+                    item.num = event.target.innerText;
+                    this.sum();
+                },
+                checkAll() {
+                    this.lists.forEach(item => item.checked = this.allChecked);
+                    this.sum();
+                },
+                sum() {
+                    let sum = 0;
+                    for (let i = 0; i < this.list.length; i++) {
+                        sum += this.list[i].checked ? this.list[i].num*1 : 0;
+                    }
+                    this.totalNum = sum;
+                },
+                del(id) {
+                    let index = this.list.findIndex(item => item.id === id);
+                    console.log(index);
+                    this.list.splice(index, 1);
+                    this.handleCheck();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
