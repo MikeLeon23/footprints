@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可增删改查的商品列表</title>
+    <script src="vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #app {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .input {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            margin: 15px auto;
+            line-height: 30px;
+            text-align: left;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2>可增删改查的商品列表</h2>
+        <div class="input">
+            <div class="add-item">
+                商品ID <input type="text" placeholder="请输入商品ID" v-model="newItem.id">
+                商品名称 <input type="text" placeholder="请输入商品名称" v-model="newItem.goods">
+                商品数量 <input type="text" placeholder="请输入商品数量" v-model="newItem.num">
+                <button @click="handleSubmit">添加</button>
+            </div>
+            <input type="text" class="filter" placeholder="请输入要搜索的内容" v-model="filterStr">
+        </div>
+        <table border="1" cellspacing="0" cellspadding="0">
+            <tr>
+                <th><input type="checkbox" v-model="allChecked"> 全选</th>
+                <th>商品id</th>
+                <th>商品名称</th>
+                <th>商品数量</th>
+                <th>创建时间</th>
+                <th>更多操作</th>
+            </tr>
+            <tr v-for="(item, index) in lists">
+                <td><input type="checkbox" v-model="item.checked"></td>
+                <td>{{ item.id }}</td>
+                <td>{{ item.goods }}</td>
+                <td><div contenteditable="true" @input="handleEdit(item, $event)">{{ item.num }}</div></td>
+                <td width="300">{{ item.cTime }}</td>
+                <td><button @click="del(item.id)">删除</button></td>
+            </tr>
+        </table>
+        <p>数量总计：{{ totalNum }}</p>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    list: [
+                        {
+                            goods: "iphone",
+                            id: 1,
+                            price: 10,
+                            num: 10,
+                            info: "这是iphone手机",
+                            checked: false,
+                            cTime: 2019
+                        },
+                        {
+                            goods: "华为",
+                            id: 2,
+                            price: 20,
+                            num: 20,
+                            info: "这是华为手机",
+                            checked: false,
+                            cTime: 2020
+                        },
+                        {
+                            goods: "小米",
+                            id: 3,
+                            price: 30,
+                            num: 30,
+                            info: "这是小米手机",
+                            checked: false,
+                            cTime: 2020
+                        },
+                        {
+                            goods: "OPPO",
+                            id: 4,
+                            price: 50,
+                            num: 30,
+                            info: "这是OPPO手机",
+                            checked: false,
+                            cTime: 2019
+                        },
+                        {
+                            goods: "VIVO",
+                            id: 5,
+                            price: 35,
+                            num: 30,
+                            info: "这是VIVO手机",
+                            checked: false,
+                            cTime: 2019
+                        }
+                    ],
+                    newItem: {
+                        // goods: "",
+                        // id: "",
+                        // price: "",
+                        // num: "",
+                        // info: "",
+                        // cTime: ""
+                    },
+                    filterStr: ""
+                };
+            },
+            computed: {
+                lists: function(){
+                    if(this.filterStr){
+                        return this.list.filter(ele => ele.goods.includes(this.filterStr));
+                    }else{
+                        return this.list;
+                    }
+                },
+                allChecked: {
+                    get(){
+                        return this.list.every(item => item.checked === true);
+                    },
+                    set(val){
+                        this.list.forEach(item => item.checked = val);
+                    }
+                },
+                totalNum: function(){
+                    // 这里需要注意，计算属性每次计算，return函数以外的内容不一定会执行
+                    return this.list.reduce((accumulator, current) => {
+                        if(current.checked){
+                            return accumulator + current.num*1;
+                        }else{
+                            return accumulator;
+                        }
+                    }, 0);
+                }
+            },
+            methods: {
+                handleSubmit() {
+                    if (this.newItem.id) {
+                        if (this.newItem.goods) {
+                            if (this.newItem.num) {
+                                this.newItem.checked = false;
+                                let date = new Date();
+                                this.newItem.cTime = date.toLocaleString();
+                                this.list.push(this.newItem);
+                                this.newItem = {};
+                            } else {
+                                alert("商品数量不能为空");
+                            }
+                        } else {
+                            alert("商品名称不能为空");
+                        }
+                    } else if(this.list.findIndex(item => item.id === this.newItem.id) !== -1){
+                        alert("商品ID不能重复");
+                    }else {
+                        alert("商品ID不能为空");
+                    }
+                },
+                handleEdit(item, event){
+                    console.log(event);
+                    item.num = event.target.innerText;
+                },
+                del(id) {
+                    let index = this.list.findIndex(item => item.id === id);
+                    this.list.splice(index, 1);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
