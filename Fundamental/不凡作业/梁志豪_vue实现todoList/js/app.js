@@ -8,33 +8,14 @@
 			return {
 				// 数据原始列表
 				list: [
-					{
-						text: "看书",
-						id: "1",
-						classObj: {
-							todo: true,
-							completed: false,
-							editing: false
-						}
-					},
-					{
-						text: "吃饭",
-						id: "2",
-						classObj: {
-							todo: true,
-							completed: false,
-							editing: false
-						}
-					},
-					{
-						text: "睡觉",
-						id: "3",
-						classObj: {
-							todo: true,
-							completed: false,
-							editing: false
-						}
-					}
+					// {
+					// 	text: "看书",
+					// 	id: "1",
+					// 	classObj: {
+					// 		todo: true,
+					// 		completed: false,
+					// 		editing: false
+					// 	}
 				],
 				newItem: {
 					text: "",
@@ -48,6 +29,14 @@
 				// 筛选所用的字符串
 				filterStr: "All"
 			};
+		},
+		created(){
+			if(localStorage.getItem("list")){
+				this.list = JSON.parse(localStorage.getItem("list"));
+			}
+		},
+		updated(){
+			localStorage.setItem("list", JSON.stringify(this.list));
 		},
 		computed: {
 			// 剩余未完成的项目的个数
