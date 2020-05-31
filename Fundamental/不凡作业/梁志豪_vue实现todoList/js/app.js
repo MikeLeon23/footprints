@@ -27,15 +27,19 @@
 					}
 				},
 				// 筛选所用的字符串
-				filterStr: "All"
+				filterClassObj: {
+					all: true,
+					active: false,
+					completed: false
+				}
 			};
 		},
-		created(){
-			if(localStorage.getItem("list")){
+		created() {
+			if (localStorage.getItem("list")) {
 				this.list = JSON.parse(localStorage.getItem("list"));
 			}
 		},
-		updated(){
+		updated() {
 			localStorage.setItem("list", JSON.stringify(this.list));
 		},
 		computed: {
@@ -59,12 +63,12 @@
 				}
 			},
 			// 渲染出来的数据列表
-			displayList(){
-				if(this.filterStr === "All"){
+			displayList() {
+				if (this.filterClassObj.all === true) {
 					return this.list;
-				}else if(this.filterStr === "Active"){
+				} else if (this.filterClassObj.active === true) {
 					return this.list.filter(item => !item.classObj.completed);
-				}else{
+				} else {
 					return this.list.filter(item => item.classObj.completed);
 				}
 			}
@@ -72,7 +76,7 @@
 		methods: {
 			// 提交新数据的事件处理函数
 			handleSubmit() {
-				if(this.newItem.text.trim()){	// 空值检查
+				if (this.newItem.text.trim()) {	// 空值检查
 					this.newItem.id = Math.round(Math.random() * 100000);
 					this.list.push(this.newItem);
 					this.newItem = {
@@ -106,19 +110,22 @@
 				this.list[index].classObj.completed = !this.list[index].classObj.completed;
 			},
 			// 点击删除按钮的事件处理函数
-			removeItem(id){
+			removeItem(id) {
 				let index = this.list.findIndex(item => item.id === id);
 				this.list.splice(index, 1);
 			},
 			// 点击清空已完成列表按钮的事件处理函数
-			clearCompleted(){
+			clearCompleted() {
 				this.list = this.list.filter(item => !item.classObj.completed)
 			},
 			// 点击三个筛选按钮时，共同的事件处理函数
-			filter(str, event){
-				this.filterStr = str;
-				document.getElementsByClassName("selected")[0].classList.remove("selected");
-				event.target.classList.add("selected");
+			filter(str) {
+				this.filterClassObj = {
+					all: false,
+					active: false,
+					completed: false
+				};
+				this.filterClassObj[str] = true;
 			}
 		}
 	});

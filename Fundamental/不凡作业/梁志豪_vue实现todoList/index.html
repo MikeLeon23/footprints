@@ -40,13 +40,13 @@
 				<!-- Remove this if you don't implement routing -->
 				<ul class="filters">
 					<li>
-						<a class="selected" href="#/" @click="filter('All', $event)">All</a>
+						<a v-bind:class="{selected: filterClassObj.all}" href="#/" @click="filter('all')">All</a>
 					</li>
 					<li>
-						<a href="#/active" @click="filter('Active', $event)">Active</a>
+						<a v-bind:class="{selected: filterClassObj.active}" href="#/active" @click="filter('active')">Active</a>
 					</li>
 					<li>
-						<a href="#/completed" @click="filter('Completed', $event)">Completed</a>
+						<a v-bind:class="{selected: filterClassObj.completed}" href="#/completed" @click="filter('completed')">Completed</a>
 					</li>
 				</ul>
 				<!-- Hidden if no completed items are left ↓ -->
