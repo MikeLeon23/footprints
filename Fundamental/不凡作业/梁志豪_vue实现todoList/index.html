@@ -13,7 +13,7 @@
 		<section class="todoapp" id="app" v-cloak>
 			<header class="header">
 				<h1>todos</h1>
-				<input class="new-todo" placeholder="What needs to be done?" autofocus v-model="newItem.text" @keyup.enter="handleSubmit">
+				<input class="new-todo" placeholder="What needs to be done?" autofocus v-model.trim="newItem.text" @keyup.enter="handleSubmit">
 			</header>
 			<!-- This section should be hidden by default and shown when there are todos -->
 			<section class="main">

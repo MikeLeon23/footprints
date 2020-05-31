@@ -72,17 +72,19 @@
 		methods: {
 			// 提交新数据的事件处理函数
 			handleSubmit() {
-				this.newItem.id = Math.round(Math.random() * 100000);
-				this.list.push(this.newItem);
-				this.newItem = {
-					text: "",
-					id: "",
-					classObj: {
-						todo: true,
-						completed: false,
-						editing: false
-					}
-				};
+				if(this.newItem.text.trim()){	// 空值检查
+					this.newItem.id = Math.round(Math.random() * 100000);
+					this.list.push(this.newItem);
+					this.newItem = {
+						text: "",
+						id: "",
+						classObj: {
+							todo: true,
+							completed: false,
+							editing: false
+						}
+					};
+				}
 			},
 			// 双击编辑的事件处理函数
 			edit(id) {
@@ -112,7 +114,7 @@
 			clearCompleted(){
 				this.list = this.list.filter(item => !item.classObj.completed)
 			},
-			// 点击三个筛选按钮的共同的事件处理函数
+			// 点击三个筛选按钮时，共同的事件处理函数
 			filter(str, event){
 				this.filterStr = str;
 				document.getElementsByClassName("selected")[0].classList.remove("selected");
