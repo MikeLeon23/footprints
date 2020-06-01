@@ -46,11 +46,7 @@
 			// 剩余未完成的项目的个数
 			leftItem() {
 				return this.list.reduce((accumulator, current) => {
-					if (!current.classObj.completed) {
-						return accumulator + 1;
-					} else {
-						return accumulator;
-					}
+					return !current.classObj.completed ? accumulator + 1 : accumulator;
 				}, 0);
 			},
 			// 全选按钮的value值
@@ -94,10 +90,11 @@
 			edit(id) {
 				let index = this.list.findIndex(item => item.id === id);
 				this.list[index].classObj.editing = true;
-				this.$nextTick(function () {
-					let input = document.getElementsByClassName("editing")[0];
-					input.lastChild.focus();
-				});
+				// 优化为使用vue自定义指令实现，避免直接操作dom
+				// this.$nextTick(function () {
+				// 	let input = document.getElementsByClassName("editing")[0];
+				// 	input.lastChild.focus();
+				// });
 			},
 			// 编辑输入框失去焦点的事件处理函数
 			editBlur(id) {
@@ -126,6 +123,13 @@
 					completed: false
 				};
 				this.filterClassObj[str] = true;
+			}
+		},
+		directives: {
+			focus: {
+				inserted(el){
+					el.focus();
+				}
 			}
 		}
 	});
