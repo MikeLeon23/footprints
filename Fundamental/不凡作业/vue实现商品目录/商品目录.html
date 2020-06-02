@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品目录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <goods-com v-for="item in list" :key="item.id" :dataObj="item"></goods-com>
+    </div>
+    <template id="goods">
+        <div class="goods">
+            <div class="img">
+                <img src="dataObj.imgSrc" alt="" srcset="">
+            </div>
+            <div class="title">{{dataObj.title}}</div>
+            <button>详情</button>
+        </div>
+    </template>
+
+    <script src="./vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                list: [
+                    {
+                        id: "",
+                        title: "任层到之往",
+                        imgSrc: "./行吧.jpg",
+                        description: `
+                            节话做音么空管及头西自住周力实在。
+                            置务该算增此手林集京较林号山越。
+                            史农构群两流导律构须动元过别上越公。
+                            派段光点厂提就转与员空委业安始农。`,
+                        onedit: false
+                    },
+                ],
+            },
+            components: {
+                "goods-com": {
+                    template: "#goods",
+                    props: ["dataObj"]
+                }
+            }
+        });
+    </script>
+</body>
+</html>
