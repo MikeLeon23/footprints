@@ -777,7 +777,7 @@ Flex 是 Flexible Box 的缩写，意为"弹性布局"，用来为盒状模型�
 
 它可以设为跟`width`或`height`属性一样的值（比如350px），则项目将占据固定空间。
 
-#### flex
+#### flex 
 
 `flex`属性是`flex-grow`, `flex-shrink` 和 `flex-basis`的简写，默认值为`0 1 auto`。后两个属性可选。
 

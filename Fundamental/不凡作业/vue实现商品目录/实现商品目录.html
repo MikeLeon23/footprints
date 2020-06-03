@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品目录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #app {
+            width: 700px;
+            margin: 50px auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .goods {
+            width: 200px;
+            margin-right: 50px;
+            margin-bottom: 50px;
+            box-sizing: border-box;
+            border: solid 1px red;
+        }
+
+        .goods:nth-child(3n) {
+            margin-right: 0;
+        }
+
+        .goods .title {
+            font-size: 18px;
+        }
+
+        .masks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+        }
+
+        .masks .box {
+            width: 300px;
+            height: 350px;
+            padding: 20px;
+            margin: auto;
+            border-radius: 8px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .box .title {
+            font-size: 25px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .box .title-edit {
+            margin: 10px 0;
+        }
+
+        .box .description {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        .box .description-edit {
+            margin-bottom: 10px;
+        }
+
+        .box button {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- vue根实例 -->
+    <div id="app">
+        <goods 
+            v-for="item in list" 
+            :key="item.id" 
+            :img="item.imgSrc" 
+            :title="item.title" 
+            :id="item.id"
+            @update-display="updateDisplayObj"
+        ></goods>
+        <masks 
+            v-if="showMask" 
+            :img="displayObj.imgSrc" 
+            :title="displayObj.title" 
+            :descri="displayObj.descri"
+            :show.sync="showMask"
+            @update-goods="updateGoods" 
+            @delete-item="deleteItem"
+        ></masks>
+    </div>
+
+    <!-- goods组件 -->
+    <template id="goods">
+        <div class="goods">
+            <div class="img">
+                <img :src="img" alt="" srcset="">
+            </div>
+            <p class="title">{{title}}</p>
+            <button @click="detail">详情</button>
+        </div>
+    </template>
+
+    <!-- mask组件 -->
+    <template id="masks">
+        <div class="masks" @click.self="hideMask">
+            <div class="box">
+                <img :src="img" alt="">
+                <div v-if="!onEdit">
+                    <p class="title">{{title}}</p>
+                    <p class="description">{{descri}}</p>
+                    <button @click="edit">编辑</button>
+                    <button @click="del">删除</button>
+                </div>
+                <div v-else>
+                    <input class="title-edit" type="text" name="" id="" :value="title">
+                    <textarea class="description-edit" name="" id="" cols="30" rows="10" :value="descri"></textarea>
+                    <br><button @click="save">保存</button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="./vue.js"></script>
+    <script src="./mock.js"></script>
+    <script>
+        var Random = Mock.Random;
+
+        // vue根实例
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                list: [],
+                showMask: false,
+                displayObj: {}
+            },
+            created() {
+                this.init();
+            },
+            methods: {
+                init() {
+                    for (let i = 0; i < 5; i++) {
+                        let item = {
+                            id: Random.guid(),
+                            imgSrc: Random.dataImage("200x100"),
+                            title: Random.ctitle(),
+                            descri: Random.cparagraph()
+                        };
+                        this.list.push(item);
+                    }
+                },
+                updateDisplayObj(val) {
+                    this.displayObj = this.list.find(item => item.id === val);
+                    this.showMask = true;
+                },
+                updateGoods(title, descri) {
+                    let item = this.list.find(item => item.id === this.displayObj.id);
+                    item.title = title;
+                    item.descri = descri;
+                    this.showMask = false;
+                },
+                deleteItem() {
+                    let index = this.list.findIndex(item => item.id === this.displayObj.id);
+                    this.list.splice(index, 1);
+                    this.showMask = false;
+                }
+            },
+            components: {
+                // 商品组件
+                "goods": {
+                    template: "#goods",
+                    props: ["img", "title", "id"],
+                    methods: {
+                        detail() {
+                            this.$emit("update-display", this.id);
+                        }
+                    }
+                },
+                // 详情覆盖层组件
+                "masks": {
+                    template: "#masks",
+                    props: ["img", "title", "descri"],
+                    data() {
+                        return {
+                            onEdit: false
+                        };
+                    },
+                    methods: {
+                        edit() {
+                            this.onEdit = true;
+                        },
+                        save() {
+                            let title = document.getElementsByClassName("title-edit")[0].value;
+                            let descri = document.getElementsByClassName("description-edit")[0].value;
+                            this.$emit("update-goods", title, descri);
+                        },
+                        del() {
+                            this.$emit("delete-item");
+                        },
+                        hideMask() {
+                            this.$emit("update:show", false);
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>
