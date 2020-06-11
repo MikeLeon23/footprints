@@ -1,19 +1,25 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import goods from './modules/goods.js'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    age: 40
+    user: null
   },
   mutations: {
-    increase(state, val){
-      state.age += val;
+    login(state, payload){
+      state.user = payload;
+    },
+    logout(state){
+      state.user = null;
     }
   },
   actions: {
   },
   modules: {
+    goods
   }
 })
