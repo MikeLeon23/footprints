@@ -130,7 +130,7 @@ body {
 
 .add-to-shoppingcar {
   width: 100%;
-  height: 52px;
+  height: 50px;
   background-color: green;
   text-align: center;
   line-height: 50px;

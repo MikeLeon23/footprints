@@ -32,12 +32,22 @@ export default {
             item.num--;
         },
         increase(state, id) {
-            state.shoppingCar.find(item => item.id === id).num++;
-            state.list.find(item => item.id === id).num--;
+            let item = state.list.find(item => item.id === id);
+            if(item.num > 0){
+                state.shoppingCar.find(item => item.id === id).num++;
+                state.list.find(item => item.id === id).num--;
+            }else{
+                console.log("不能再添加了");
+            }
         },
         reduce(state, id) {
-            state.shoppingCar.find(item => item.id === id).num--;
-            state.list.find(item => item.id === id).num++;
+            let item = state.shoppingCar.find(item => item.id === id);
+            if(item.num > 0){
+                state.shoppingCar.find(item => item.id === id).num--;
+                state.list.find(item => item.id === id).num++;
+            }else{
+                console.log("不能再减了");
+            }
         },
         checkOrNot(state, val){
             state.shoppingCar.forEach(item => item.checked = val);

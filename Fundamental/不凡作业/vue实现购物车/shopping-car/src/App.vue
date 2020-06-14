@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="nav" v-if="!hideBottom">
       <router-link to="/">Home</router-link>
       <router-link to="/car">购物车</router-link>
       <router-link to="/about">About</router-link>
@@ -15,9 +15,17 @@ import Mock from "./assets/js/mock.js";
 let Random = Mock.Random;
 
 export default {
+  data() {
+    return {
+      hideBottom: false
+    };
+  },
   created() {
     this.initToken();
     this.init();
+  },
+  updated() {
+    this.hideBottom = this.$route.meta.hideBottomBar;
   },
   methods: {
     initToken() {
