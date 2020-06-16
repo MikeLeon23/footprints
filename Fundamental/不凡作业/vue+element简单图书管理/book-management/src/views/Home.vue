@@ -43,7 +43,7 @@ export default {
     flex-wrap: wrap;
 
     .book {
-      width: 20%;
+      width: 240px;
       padding: 10px;
       box-sizing: border-box;
 

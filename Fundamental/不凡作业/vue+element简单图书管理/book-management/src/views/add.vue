@@ -4,10 +4,10 @@
       <!-- 表单，添加图书 -->
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="120px" class="ruleForm">
         <el-form-item label="请输入图书名称" prop="name">
-          <el-input type="text" v-model="ruleForm.name" auto-complete="off"></el-input>
+          <el-input type="text" v-model.trim="ruleForm.name" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="请输入图书简介" prop="description">
-          <el-input type="textarea" :rows="5" v-model="ruleForm.description" auto-complete="off"></el-input>
+          <el-input type="textarea" :rows="5" v-model.trim="ruleForm.description" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
@@ -72,8 +72,10 @@ export default {
               description: this.ruleForm.description,
               imgSrc: Random.dataImage("200x100", "图书")
             };
+            // 这里不应该直接修改，要通过mutations修改
             this.$store.state.books.booklist.push(newBook);
             this.$message({
+              showClose: true,
               message: '添加成功！',
               type: 'success'
             });

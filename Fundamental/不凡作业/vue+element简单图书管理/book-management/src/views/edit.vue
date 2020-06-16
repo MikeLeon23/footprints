@@ -3,7 +3,7 @@
     <!-- 顶部筛选id表单 -->
     <el-form :inline="true" :model="formInline" class="form-inline">
       <el-form-item label="请输入需要查询的商品id">
-        <el-input v-model="formInline.id" placeholder="商品id"></el-input>
+        <el-input v-model.trim="formInline.id" placeholder="商品id"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -77,6 +77,7 @@ export default {
       this.$store.commit("update", this.form);
       this.dialogFormVisible = false;
       this.$message({
+        showClose: true,
         message: '修改成功！',
         type: 'success'
       });
