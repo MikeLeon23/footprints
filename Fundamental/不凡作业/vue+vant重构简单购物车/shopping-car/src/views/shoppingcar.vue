@@ -69,6 +69,7 @@ export default {
     },
     blured(id, num) {
       // console.log(id, num);
+      
       // this.$store.commit("goods/changeByInput", [id, num]);
       // 就你妈离谱，草你妈的
     }
