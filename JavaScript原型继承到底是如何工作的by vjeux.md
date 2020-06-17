@@ -74,8 +74,8 @@ Now that we understand what the `new` operator does, we can implement it in Java
      function New (f) { 
  /*1*/  var n = { '__proto__': f.prototype };       
  		return function () { 
- /*2*/  f.apply(n, arguments); 
- /*3*/  return n;       
+ /*2*/  	f.apply(n, arguments); 
+ /*3*/  	return n;       
      	};     
      }
 ```
