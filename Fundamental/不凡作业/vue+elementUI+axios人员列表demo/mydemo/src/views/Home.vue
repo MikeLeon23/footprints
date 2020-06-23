@@ -154,6 +154,7 @@ export default {
       }).then(res => {
         if (res.data.code ==  "fail") {
           alert("用户名重复");
+          throw "用户名重复错误";
         }else{
           return request({
             method: 'post',
