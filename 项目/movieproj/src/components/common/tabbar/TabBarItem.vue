@@ -19,7 +19,7 @@
     props: {
       // 父组件传入的路由path
       path: String,
-      // 父组件传入的文字激活颜色
+      // 父组件传入的文字激活颜色, 对象形式, 可以设置默认值
       activeColor: {
         type: String,
         default: "red"

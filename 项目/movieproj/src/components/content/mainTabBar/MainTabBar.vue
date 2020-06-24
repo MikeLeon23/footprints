@@ -5,29 +5,24 @@
 <template>
   <tab-bar>
     <tab-bar-item path="/home" activeColor="orange">
-      <img slot="item-icon" src="~@/assets/image/icons/home.png" alt="">
-      <img slot="item-icon-active" src="~@/assets/image/icons/home-act.png" alt="">
+      <img slot="item-icon" src="~@/assets/image/tabbar/home.svg" alt="">
+      <img slot="item-icon-active" src="~@/assets/image/tabbar/home_active.svg" alt="">
       <div slot="item-text">首页</div>
     </tab-bar-item>
     <tab-bar-item path="/movie">
-      <img slot="item-icon" src="~@/assets/image/icons/movie.png" alt="">
-      <img slot="item-icon-active" src="~@/assets/image/icons/movie-act.png" alt="">
+      <img slot="item-icon" src="~@/assets/image/tabbar/category.svg" alt="">
+      <img slot="item-icon-active" src="~@/assets/image/tabbar/category_active.svg" alt="">
       <div slot="item-text">电影</div>
     </tab-bar-item>
     <tab-bar-item path="/ticket">
-      <img slot="item-icon" src="~@/assets/image/icons/ticket.png" alt="">
-      <img slot="item-icon-active" src="~@/assets/image/icons/ticket.png" alt="">
+      <img slot="item-icon" src="~@/assets/image/tabbar/shopcart.svg" alt="">
+      <img slot="item-icon-active" src="~@/assets/image/tabbar/shopcart_active.svg" alt="">
       <div slot="item-text">优惠券</div>
     </tab-bar-item>
     <tab-bar-item path="/cinema">
-      <img slot="item-icon" src="~@/assets/image/icons/cinema.png" alt="">
-      <img slot="item-icon-active" src="~@/assets/image/icons/cinema-act.png" alt="">
+      <img slot="item-icon" src="~@/assets/image/tabbar/profile.svg" alt="">
+      <img slot="item-icon-active" src="~@/assets/image/tabbar/profile_active.svg" alt="">
       <div slot="item-text">影院</div>
-    </tab-bar-item>
-    <tab-bar-item path="/profile">
-      <img slot="item-icon" src="~@/assets/image/icons/main.png" alt="">
-      <img slot="item-icon-active" src="~@/assets/image/icons/main-act.png" alt="">
-      <div slot="item-text">信息</div>
     </tab-bar-item>
   </tab-bar>
 </template>
