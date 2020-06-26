@@ -15,6 +15,7 @@
     props: {
       titles: {
         type: Array,
+        // 当默认值是对象或者数组时, 必须写成函数形式, 返回一个默认的对象或数组
         default() {
           return [];
         }

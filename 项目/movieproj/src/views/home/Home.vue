@@ -1,7 +1,13 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="mid">购物街</div></nav-bar>
-    <scroll class="scroll-wrapper" ref="scroll" :probe-type="3" @scroll="handleScroll">
+    <scroll 
+    class="scroll-wrapper" 
+    ref="scroll" 
+    :probe-type="3" 
+    @scroll="handleScroll"
+    :pull-up-load="true"
+    @pullingUp="loadMore">
       <home-swiper :banners="banners"></home-swiper>
       <recommend-view :recommends="recommends"></recommend-view>
       <feature-view></feature-view>
@@ -80,6 +86,11 @@
       handleScroll(position) {
         this.showBackTop = (-position.y) > 1000 ? true : false;
       },
+      loadMore() {
+        console.log("上拉加载更多");
+        this.getHomeGoods(this.currentType);
+        this.$refs.scroll.finishPullUp();
+      },
 
       /**
        * 网络请求相关方法
@@ -95,8 +106,10 @@
         const page = this.goods[type].page;
         getHomeGoods(type, page).then(res => {
           this.goods[type].list = this.goods[type].list.concat(res.data.list);
+          // 另一种实现方式, 拓展运算符逐个取出然后push到指定数组中
+          // this.goods[type].list.push(...res.data.list)
+          this.goods[type].page++;
         })
-        this.goods[type].page++;
       }
     }
   };

@@ -14,6 +14,10 @@
       probeType: {
         type: Number,
         default: 0
+      },
+      pullUpLoad: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -29,16 +33,25 @@
         值为3时, 所有页面滚动都会被监听, 不论手指是否还在触摸屏幕 */
         probeType: this.probeType,
         // click属性默认为false, 此时只有按钮可以点击, 其他dom元素上的点击事件不能触发
-        click: true
+        click: true,
+        pullUpLoad: this.pullUpLoad,
       });
       // 2. 监听滚动的位置, 发送自定义事件
       this.scroll.on("scroll", position => {
         this.$emit("scroll", position);
       });
+
+      // 3. 监听上拉加载更多, 发送自定义事件
+      this.scroll.on("pullingUp", () => {
+        this.$emit("pullingUp");
+      })
     },
     methods: {
       scrollTo(x, y, time = 400) {
         this.scroll.scrollTo(x, y, time);
+      },
+      finishPullUp() {
+        this.scroll.finishPullUp();
       }
     }
   };
