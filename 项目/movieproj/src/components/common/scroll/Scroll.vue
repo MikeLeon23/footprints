@@ -48,10 +48,16 @@
     },
     methods: {
       scrollTo(x, y, time = 400) {
-        this.scroll.scrollTo(x, y, time);
+        /* 逻辑与&&前面是为了检查scroll对象是否已经初始化完成, 如果调用的时候
+        还没有初始化, 那么&&右边的代码不会执行, 可以避免爆红 */
+        this.scroll && this.scroll.scrollTo(x, y, time);
       },
       finishPullUp() {
-        this.scroll.finishPullUp();
+        this.scroll && this.scroll.finishPullUp();
+      },
+      refresh() {
+        console.log("scroll refreshed");
+        this.scroll && this.scroll.refresh();
       }
     }
   };

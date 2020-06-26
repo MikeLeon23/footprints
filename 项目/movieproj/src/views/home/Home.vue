@@ -33,6 +33,7 @@
 
   // 引入方法
   import { getHomeMultidata, getHomeGoods } from '@/network/home.js'
+  import { debounce } from '@/common/utils.js'
 
   export default {
     components: {
@@ -72,6 +73,13 @@
       this.getHomeGoods("new");
       this.getHomeGoods("sell");
     },
+    mounted() {
+      const debouncedRefresh = debounce(this.$refs.scroll.refresh, 50);
+      // 3. 监听GoodsList组件中的图片加载完成
+      this.$bus.$on("itemImageLoaded", () => {
+        debouncedRefresh();
+      })
+    },
     methods: {
       /**
        * 事件监听相关方法
@@ -84,7 +92,7 @@
         this.$refs.scroll.scrollTo(0, 0);
       },
       handleScroll(position) {
-        this.showBackTop = (-position.y) > 1000 ? true : false;
+        this.showBackTop = (-position.y) > 1000;
       },
       loadMore() {
         console.log("上拉加载更多");
@@ -110,7 +118,9 @@
           // this.goods[type].list.push(...res.data.list)
           this.goods[type].page++;
         })
-      }
+      },
+
+
     }
   };
 </script>
