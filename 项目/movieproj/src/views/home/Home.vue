@@ -1,13 +1,14 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="mid">购物街</div></nav-bar>
-    <scroll class="scroll-wrapper">
+    <scroll class="scroll-wrapper" ref="scroll" :probe-type="3" @scroll="handleScroll">
       <home-swiper :banners="banners"></home-swiper>
       <recommend-view :recommends="recommends"></recommend-view>
       <feature-view></feature-view>
       <tab-control class="home-tab-control" :titles="titles" @tabClick="tabClick"></tab-control>
       <goods-list :goods="goodsOnDisplay"></goods-list>
     </scroll>
+    <back-top @click.native="backTop" v-show="showBackTop"></back-top>
   </div>
 </template>
 
@@ -17,6 +18,7 @@
   import Scroll from '@/components/common/scroll/Scroll'
   import TabControl from '@/components/content/tabControl/TabControl'
   import GoodsList from '@/components/content/goods/GoodsList'
+  import BackTop from '@/components/content/backTop/BackTop'
 
   // 引入页面子组件
   import HomeSwiper from './childComponents/HomeSwiper'
@@ -34,7 +36,8 @@
       HomeSwiper,
       RecommendView,
       FeatureView,
-      GoodsList
+      GoodsList,
+      BackTop
     },
     data() {
       return {
@@ -46,7 +49,8 @@
           new: {page: 1, list: []},
           sell: {page: 1, list: []}
         },
-        currentType: "pop"
+        currentType: "pop",
+        showBackTop: false,
       }
     },
     computed: {
@@ -69,6 +73,12 @@
       tabClick(index) {
         const arr = ["pop", "new", "sell"];
         this.currentType = arr[index];
+      },
+      backTop() {
+        this.$refs.scroll.scrollTo(0, 0);
+      },
+      handleScroll(position) {
+        this.showBackTop = (-position.y) > 1000 ? true : false;
       },
 
       /**
