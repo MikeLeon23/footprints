@@ -15,24 +15,19 @@ Vue.use(VueRouter)
     component: Home
   },
   {
-    path: '/cinema',
-    name: "cinema",
-    component: () => import('../views/cinema/Cinema.vue')
+    path: '/category',
+    name: "category",
+    component: () => import('../views/category/Category.vue')
   },
   {
-    path: '/movie',
-    name: "movie",
-    component: () => import('../views/movie/Movie.vue')
+    path: '/shopcart',
+    name: "shopcart",
+    component: () => import('../views/shopcart/Shopcart.vue')
   },
   {
     path: '/profile',
     name: "profile",
     component: () => import('../views/profile/Profile.vue')
-  },
-  {
-    path: '/ticket',
-    name: 'ticket',
-    component: () => import('../views/ticket/Ticket.vue')
   }
 ]
 

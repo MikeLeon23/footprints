@@ -9,20 +9,20 @@
       <img slot="item-icon-active" src="~@/assets/image/tabbar/home_active.svg" alt="">
       <div slot="item-text">首页</div>
     </tab-bar-item>
-    <tab-bar-item path="/movie">
+    <tab-bar-item path="/category">
       <img slot="item-icon" src="~@/assets/image/tabbar/category.svg" alt="">
       <img slot="item-icon-active" src="~@/assets/image/tabbar/category_active.svg" alt="">
-      <div slot="item-text">电影</div>
+      <div slot="item-text">分类</div>
     </tab-bar-item>
     <tab-bar-item path="/ticket">
       <img slot="item-icon" src="~@/assets/image/tabbar/shopcart.svg" alt="">
       <img slot="item-icon-active" src="~@/assets/image/tabbar/shopcart_active.svg" alt="">
-      <div slot="item-text">优惠券</div>
+      <div slot="item-text">购物车</div>
     </tab-bar-item>
     <tab-bar-item path="/cinema">
       <img slot="item-icon" src="~@/assets/image/tabbar/profile.svg" alt="">
       <img slot="item-icon-active" src="~@/assets/image/tabbar/profile_active.svg" alt="">
-      <div slot="item-text">影院</div>
+      <div slot="item-text">个人中心</div>
     </tab-bar-item>
   </tab-bar>
 </template>
