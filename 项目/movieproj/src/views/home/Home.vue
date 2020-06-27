@@ -1,6 +1,8 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="mid">购物街</div></nav-bar>
+    <tab-control ref="tabControl1" class="home-tab-control" 
+    :titles="titles" @tabClick="tabClick" v-show="isTabFixed"></tab-control>
     <scroll 
     class="scroll-wrapper" 
     ref="scroll" 
@@ -8,10 +10,10 @@
     @scroll="handleScroll"
     :pull-up-load="true"
     @pullingUp="loadMore">
-      <home-swiper :banners="banners"></home-swiper>
+      <home-swiper :banners="banners" @swiperImgLoaded="swiperImgLoaded"></home-swiper>
       <recommend-view :recommends="recommends"></recommend-view>
       <feature-view></feature-view>
-      <tab-control class="home-tab-control" :titles="titles" @tabClick="tabClick"></tab-control>
+      <tab-control ref="tabControl2" :titles="titles" @tabClick="tabClick"></tab-control>
       <goods-list :goods="goodsOnDisplay"></goods-list>
     </scroll>
     <back-top @click.native="backTop" v-show="showBackTop"></back-top>
@@ -58,6 +60,8 @@
         },
         currentType: "pop",
         showBackTop: false,
+        tabOffsetTop: 0,
+        isTabFixed: false
       }
     },
     computed: {
@@ -75,7 +79,7 @@
     },
     mounted() {
       const debouncedRefresh = debounce(this.$refs.scroll.refresh, 50);
-      // 3. 监听GoodsList组件中的图片加载完成
+      // 1. 监听GoodsList组件中的图片加载完成
       this.$bus.$on("itemImageLoaded", () => {
         debouncedRefresh();
       })
@@ -87,17 +91,26 @@
       tabClick(index) {
         const arr = ["pop", "new", "sell"];
         this.currentType = arr[index];
+        this.$refs.tabControl1.activeIndex = index;
+        this.$refs.tabControl2.activeIndex = index;
       },
       backTop() {
         this.$refs.scroll.scrollTo(0, 0);
       },
       handleScroll(position) {
+        // 1. 控制backTop按钮的显示
         this.showBackTop = (-position.y) > 1000;
+
+        // 2. 控制tabcontrol的吸顶效果
+        this.isTabFixed = (-position.y) > this.tabOffsetTop;
       },
       loadMore() {
         console.log("上拉加载更多");
         this.getHomeGoods(this.currentType);
         this.$refs.scroll.finishPullUp();
+      },
+      swiperImgLoaded() {
+        this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
       },
 
       /**
@@ -135,19 +148,20 @@
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 3;
+      z-index: 1;
     }
 
     .scroll-wrapper {
       height: calc(100vh - 44px - 49px);
       overflow: hidden;
       position: relative;
-
-      .home-tab-control {
-        position: sticky;
-        top: 44px;
-      }
     }
 
+    .home-tab-control {
+      position: fixed;
+      top: 44px;
+      left: 0;
+      z-index: 1;
+    }
   }
 </style>

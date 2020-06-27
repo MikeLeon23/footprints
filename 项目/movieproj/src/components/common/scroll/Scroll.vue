@@ -37,14 +37,18 @@
         pullUpLoad: this.pullUpLoad,
       });
       // 2. 监听滚动的位置, 发送自定义事件
-      this.scroll.on("scroll", position => {
-        this.$emit("scroll", position);
-      });
+      if (this.probeType === 2 || this.probeType === 3) {
+        this.scroll.on("scroll", position => {
+          this.$emit("scroll", position);
+        });
+      }
 
       // 3. 监听上拉加载更多, 发送自定义事件
-      this.scroll.on("pullingUp", () => {
-        this.$emit("pullingUp");
-      })
+      if (this.pullUpLoad) {
+        this.scroll.on("pullingUp", () => {
+          this.$emit("pullingUp");
+        })
+      }
     },
     methods: {
       scrollTo(x, y, time = 400) {
