@@ -1,23 +1,21 @@
 <template>
-  <div>
-    <swiper>
-      <swiper-item v-for="item in topImages">
+  <swiper ref="mySwiper" :options="swiperOptions" class="mySwiper">
+    <swiper-slide v-for="item in topImages" class="swiper-item">
+      <a :href="item.link">
         <img :src="item" alt="">
-      </swiper-item>
-    </swiper>
-  </div>
+      </a>
+    </swiper-slide>
+    <div class="swiper-pagination" slot="pagination"></div>
+  </swiper>
 </template>
 
 <script>
   // 引入公共组件
-  import {Swiper, SwiperItem} from '@/components/common/swiper'
+  import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+  import 'swiper/css/swiper.css'
 
   export default {
     name: "DetailSwiper",
-    components: {
-      Swiper, 
-      SwiperItem
-    },
     props: {
       topImages: {
         type: Array,
@@ -25,10 +23,32 @@
           return [];
         }
       }
-    }
+    },
+    data() {
+      return {
+        swiperOptions: {
+          pagination: {
+            el: '.swiper-pagination'
+          },
+          loop: true,
+          autoplay: true
+          // Some Swiper option/callback...
+        }
+      }
+    },
+    components: {
+      Swiper,
+      SwiperSlide
+    },
   };
 </script>
 
 <style lang="scss" scoped>
+  .mySwiper {
+    height: 300px;
 
+    .swiper-item img {
+      width: 100%;
+    }
+  }
 </style>

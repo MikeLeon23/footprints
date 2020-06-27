@@ -8,3 +8,16 @@ export function getGoodsDetail(iid) {
     }
   });
 }
+
+export class Goods {
+  constructor(itemInfo, columns, services) {
+    this.desc = itemInfo.desc;
+    this.price = itemInfo.price;
+    this.oldPrice = itemInfo.oldPrice;
+    this.discountDesc = itemInfo.discountDesc;
+    this.discountBgColor = itemInfo.discountBgColor;
+    this.lowNowPrice = itemInfo.lowNowPrice;
+    this.columns = columns;
+    this.services = services;
+  }
+}

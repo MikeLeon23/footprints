@@ -1,3 +1,4 @@
+/* 王红元老师封装的Swiper有问题, 目前已弃用 */
 <template>
   <swiper>
     <swiper-item v-for="item in banners">
