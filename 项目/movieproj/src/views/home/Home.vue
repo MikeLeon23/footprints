@@ -3,14 +3,11 @@
     <nav-bar class="home-nav"><div slot="mid">购物街</div></nav-bar>
     <tab-control ref="tabControl1" class="home-tab-control" 
     :titles="titles" @tabClick="tabClick" v-show="isTabFixed"></tab-control>
-    <scroll 
-    class="scroll-wrapper" 
-    ref="scroll" 
-    :probe-type="3" 
-    @scroll="handleScroll"
-    :pull-up-load="true"
-    @pullingUp="loadMore">
-      <home-swiper :banners="banners" @swiperImgLoaded="swiperImgLoaded"></home-swiper>
+    <scroll class="scroll-wrapper" ref="scroll" :probe-type="3" 
+    @scroll="handleScroll" :pull-up-load="true" @pullingUp="loadMore">
+      <!-- 王红元老师封装的swiper有点问题, 有时分页器会加载不出而无法滑动, 在找到解决办法之前, 先用网上的swiper -->
+      <!-- <home-swiper :banners="banners" @swiperImgLoaded="swiperImgLoaded"></home-swiper> -->
+      <home-awesome-swiper :banners="banners" @swiperImgLoaded="swiperImgLoaded"></home-awesome-swiper>
       <recommend-view :recommends="recommends"></recommend-view>
       <feature-view></feature-view>
       <tab-control ref="tabControl2" :titles="titles" @tabClick="tabClick"></tab-control>
@@ -29,7 +26,8 @@
   import BackTop from '@/components/content/backTop/BackTop'
 
   // 引入页面子组件
-  import HomeSwiper from './childComponents/HomeSwiper'
+  // import HomeSwiper from './childComponents/HomeSwiper'
+  import HomeAwesomeSwiper from './childComponents/HomeAwesomeSwiper'
   import RecommendView from './childComponents/RecommendView'
   import FeatureView from './childComponents/FeatureView'
 
@@ -42,7 +40,8 @@
       NavBar,
       Scroll,
       TabControl,
-      HomeSwiper,
+      // HomeSwiper,
+      HomeAwesomeSwiper,
       RecommendView,
       FeatureView,
       GoodsList,
@@ -61,7 +60,8 @@
         currentType: "pop",
         showBackTop: false,
         tabOffsetTop: 0,
-        isTabFixed: false
+        isTabFixed: false,
+        saveScrollY: 0
       }
     },
     computed: {
@@ -83,6 +83,15 @@
       this.$bus.$on("itemImageLoaded", () => {
         debouncedRefresh();
       })
+    },
+    activated() {
+      // 进入时, scroll组件滚动到离开前记录的位置
+      this.$refs.scroll.scrollTo(0, this.saveScrollY, 0);
+      this.$refs.scroll.refresh();
+    },
+    deactivated() {
+      // 离开时, 记录scroll组件滚动到的位置
+      this.saveScrollY = this.$refs.scroll.getScrollY();
     },
     methods: {
       /**
@@ -132,8 +141,6 @@
           this.goods[type].page++;
         })
       },
-
-
     }
   };
 </script>

@@ -28,7 +28,12 @@ Vue.use(VueRouter)
     path: '/profile',
     name: "profile",
     component: () => import('../views/profile/Profile.vue')
-  }
+  },
+  {
+    path: '/detail/:iid',
+    name: "goodsDetail",
+    component: () => import('../views/goodsDetail/GoodsDetail.vue')
+  },
 ]
 
 const router = new VueRouter({
