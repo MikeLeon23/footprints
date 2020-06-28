@@ -1,6 +1,6 @@
 <template>
   <swiper ref="mySwiper" :options="swiperOptions" class="mySwiper">
-    <swiper-slide v-for="item in topImages" class="swiper-item">
+    <swiper-slide v-for="item in topImages" :key="item" class="swiper-item">
       <a :href="item.link">
         <img :src="item" alt="">
       </a>

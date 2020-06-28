@@ -1,12 +1,15 @@
 <template>
   <div class="base-info" v-if="Object.keys(detailInfo).length !== 0">
     <div class="info-title">
-      <p>{{detailInfo.desc}}</p>
+      <p>{{detailInfo.title}}</p>
     </div>
     <div class="info-price">
       <span class="new-price">{{detailInfo.price}}</span>
       <span class="old-price">{{detailInfo.oldPrice}}</span>
-      <span v-if="detailInfo.discountDesc" class="discount">{{detailInfo.discountDesc}}</span>
+      <span v-if="detailInfo.discountDesc" class="discount" 
+      :style="{backgroundColor: detailInfo.discountBgColor}">
+        {{detailInfo.discountDesc}}
+      </span>
     </div>
     <div class="info-other">
       <span>{{detailInfo.columns[0]}}</span>

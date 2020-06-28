@@ -5,7 +5,7 @@
         <img src="@/assets/image/common/back.svg" alt="">
       </div>
       <div slot="mid" class="mid">
-        <div v-for="(item, index) in titles" 
+        <div v-for="(item, index) in titles" :key="index"
         class="mid-item" @click="itemClick(index)" 
         :class="{active: index === activeIndex}">
           <span>{{item}}</span>
