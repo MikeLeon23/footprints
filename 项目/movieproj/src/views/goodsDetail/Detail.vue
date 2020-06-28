@@ -1,13 +1,18 @@
 <template>
   <div>
-    <detail-nav-bar></detail-nav-bar>
-    <detail-swiper :top-images="topImages"></detail-swiper>
-    <detail-base-info :detail-info="goods"></detail-base-info>
-    <detail-shop-info :shop="shop"></detail-shop-info>
+    <detail-nav-bar class="detail-nav-bar"></detail-nav-bar>
+    <scroll class="detail-scroll">
+      <detail-swiper :top-images="topImages"></detail-swiper>
+      <detail-base-info :detail-info="goods"></detail-base-info>
+      <detail-shop-info :shop="shop"></detail-shop-info>
+    </scroll>
   </div>
 </template>
 
 <script>
+  // 公共组件
+  import Scroll from '@/components/common/scroll/Scroll'
+
   // 页面子组件
   import DetailNavBar from './childComps/DetailNavBar'
   import DetailSwiper from './childComps/DetailSwiper'
@@ -20,6 +25,7 @@
   export default {
     name: "Detail",
     components: {
+      Scroll,
       DetailNavBar,
       DetailSwiper,
       DetailBaseInfo,
@@ -58,5 +64,15 @@
 </script>
 
 <style lang="scss" scoped>
-
+  .detail-nav-bar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  .detail-scroll {
+    margin-top: 44px;
+    height: calc(100vh - 44px);
+    overflow: hidden;
+  }
 </style>
