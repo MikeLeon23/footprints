@@ -43,17 +43,18 @@ movieproj                                //
    ├─ router                             // 路由
    ├─ store                              // vuex数据仓库
    └─ views                              // 所有子页面文件夹目录
-      ├─ home                            // 首页目录
-      │  ├─ childComponents              // 首页子组件目录
-      │  └─ Home.vue                     // 首页页面
-      ├─ movie                           // 电影
+      ├─ home                            // 首页
       │  ├─ childComponents              // 
-      │  └─ Movie.vue                    // 
-      ├─ ticket                          // 优惠券 
-      │  └─ Ticket.vue                   // 
-      ├─ cinema                          // 影院
+      │  └─ Home.vue                     // 
+      ├─ category                        // 分类页面
       │  ├─ childComponents              // 
-      │  └─ Cinema.vue                   // 
+      │  └─ Category.vue                 // 
+      ├─ goodsDetail                     // 商品详情页 
+      │  ├─ childComps                   // 
+      │  └─ goodsDetail.vue              // 
+      ├─ shopcart                        // 购物车
+      │  ├─ childComponents              // 
+      │  └─ Shopcart.vue                 // 
       └─ profile                         // 个人中心
          ├─ childComponents              // 
          └─ Profile.vue                  // 
