@@ -31,8 +31,11 @@ Vue.use(VueRouter)
   },
   {
     path: '/detail/:iid',
-    name: "goodsDetail",
-    component: () => import('../views/goodsDetail/GoodsDetail.vue')
+    name: "detail",
+    component: () => import('../views/goodsDetail/Detail.vue'),
+    meta: {
+      hideNavBar: true
+    }
   },
 ]
 

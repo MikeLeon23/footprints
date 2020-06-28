@@ -1,6 +1,6 @@
 <template>
   <swiper ref="mySwiper" :options="swiperOptions">
-    <swiper-slide v-for="item in banners" class="swiper-item">
+    <swiper-slide v-for="item in banners" :key="item.acm" class="swiper-item">
       <a :href="item.link">
         <img :src="item.image" alt="" @load="imgLoaded">
       </a>

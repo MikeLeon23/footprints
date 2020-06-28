@@ -1,7 +1,7 @@
 /* 王红元老师封装的Swiper有问题, 目前已弃用 */
 <template>
   <swiper>
-    <swiper-item v-for="item in banners">
+    <swiper-item v-for="item in banners" :key="item.acm">
       <a :href="item.link">
         <img :src="item.image" alt="" @load="imgLoaded">
       </a>
