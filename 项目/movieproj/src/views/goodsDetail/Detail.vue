@@ -1,11 +1,12 @@
 <template>
   <div>
     <detail-nav-bar class="detail-nav-bar"></detail-nav-bar>
-    <scroll class="detail-scroll">
+    <scroll class="detail-scroll" ref="scroll">
       <detail-swiper :top-images="topImages"></detail-swiper>
       <detail-base-info :detail-info="goods"></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
-      <detail-goods-info :detail-info="detailInfo"></detail-goods-info>
+      <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad"></detail-goods-info>
+      <detail-param-info :param-info="paramInfo"></detail-param-info>
     </scroll>
   </div>
 </template>
@@ -20,9 +21,10 @@
   import DetailBaseInfo from './childComps/DetailBaseInfo'
   import DetailShopInfo from './childComps/DetailShopInfo'
   import DetailGoodsInfo from './childComps/DetailGoodsInfo'
+  import DetailParamInfo from './childComps/DetailParamInfo'
 
   // 引入方法
-  import {getGoodsDetail, Goods, Shop} from '@/network/detail.js'
+  import {getGoodsDetail, Goods, Shop, GoodsParam} from '@/network/detail.js'
 
   export default {
     name: "Detail",
@@ -32,7 +34,8 @@
       DetailSwiper,
       DetailBaseInfo,
       DetailShopInfo,
-      DetailGoodsInfo
+      DetailGoodsInfo,
+      DetailParamInfo
     },
     data() {
       return {
@@ -40,7 +43,8 @@
         topImages: [],
         goods: {},
         shop: {},
-        detailInfo: {}
+        detailInfo: {},
+        paramInfo: {}
       }
     },
     created(){
@@ -50,7 +54,6 @@
       // 2. 根据iid请求detail数据
       getGoodsDetail(this.iid).then(res => {
         // 1. 获取顶部的轮播图片数据
-        console.log(res);
         const data = res.result;
         this.topImages = data.itemInfo.topImages;
         // 2. 获取商品信息
@@ -59,11 +62,13 @@
         this.shop = new Shop(data.shopInfo);
         // 4. 保存商品的详情数据
         this.detailInfo = data.detailInfo;
+        // 5. 保存商品的参数信息
+        this.paramInfo = new GoodsParam(data.itemParams.info, data.itemParams.rule);
       })
     },
-    methods: {  
-      back() {
-        this.$router.go(-1);
+    methods: {
+      imageLoad() {
+        this.$refs.scroll.refresh();
       }
     }
   };
