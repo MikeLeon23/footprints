@@ -4,7 +4,7 @@ import Home from '../views/home/Home.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
     redirect: '/home'
