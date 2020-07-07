@@ -10,6 +10,13 @@ export function getGoodsDetail(iid) {
   });
 }
 
+// 获取商品详情页推荐信息的网络请求
+export function getRecommend() {
+  return request({
+    url: "/recommend"
+  });
+}
+
 // 商品基本信息, 封装成类
 export class Goods {
   constructor(itemInfo, columns, services) {

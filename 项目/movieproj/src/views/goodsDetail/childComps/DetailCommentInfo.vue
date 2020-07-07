@@ -52,6 +52,8 @@
 <style lang="scss" scoped>
  .comment-info {
    font-size: 14px;
+   border-bottom: 3px solid #f2f5f8;
+   margin-bottom: 5px;
    .title {
      height: 50px;
      padding: 0 15px;
@@ -61,7 +63,7 @@
      border-bottom: 2px solid #f2f5f8;
    }
    .comment {
-     padding: 10px 10px;
+     padding: 10px 10px 5px;
      .user {
         font-size: 16px;
         display: flex;
