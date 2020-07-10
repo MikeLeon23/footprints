@@ -60,7 +60,7 @@
         this.scroll && this.scroll.finishPullUp();
       },
       refresh() {
-        console.log("scroll refreshed");
+        console.log(this.$route.name + " scroll refreshed");
         this.scroll && this.scroll.refresh();
       },
       getScrollY() {

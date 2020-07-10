@@ -29,6 +29,7 @@
 
   // 引入方法
   import {getGoodsDetail, getRecommend, Goods, Shop, GoodsParam} from '@/network/detail.js'
+  import {debounce} from '@/common/utils.js'
 
   export default {
     name: "Detail",
@@ -52,7 +53,8 @@
         detailInfo: {},
         paramInfo: {},
         commentInfo: {},
-        recommends: []
+        recommends: [],
+        itemImgListener: null
       }
     },
     created(){
@@ -81,8 +83,19 @@
       // 3. 请求商品推荐数据
       getRecommend().then(res => {
         this.recommends = res.data.list;
-        console.log(res);
       })
+    },
+    mounted() {
+      const debouncedRefresh = debounce(this.$refs.scroll.refresh, 50);
+      // 1. 监听GoodsList组件中的图片加载完成
+      this.itemImgListener = () => {
+        debouncedRefresh();
+      }
+      this.$bus.$on("itemImageLoaded", this.itemImgListener);
+    },
+    destoryed() {
+      // 离开Detail页面时, 取消itemImageLoaded事件的监听
+      this.$bus.$off("itemImageLoaded", this.itemImgListener);
     },
     methods: {
       imageLoad() {

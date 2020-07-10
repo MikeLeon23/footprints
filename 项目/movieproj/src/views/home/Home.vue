@@ -34,6 +34,7 @@
   // 引入方法
   import { getHomeMultidata, getHomeGoods } from '@/network/home.js'
   import { debounce } from '@/common/utils.js'
+  import { itemListenerMixin } from '@/common/mixin.js'
 
   export default {
     components: {
@@ -47,6 +48,7 @@
       GoodsList,
       BackTop
     },
+    mixins: [itemListenerMixin],
     data() {
       return {
         banners: [],
@@ -61,7 +63,7 @@
         showBackTop: false,
         tabOffsetTop: 0,
         isTabFixed: false,
-        saveScrollY: 0
+        saveScrollY: 0,
       }
     },
     computed: {
@@ -78,11 +80,6 @@
       this.getHomeGoods("sell");
     },
     mounted() {
-      const debouncedRefresh = debounce(this.$refs.scroll.refresh, 50);
-      // 1. 监听GoodsList组件中的图片加载完成
-      this.$bus.$on("itemImageLoaded", () => {
-        debouncedRefresh();
-      })
     },
     activated() {
       // 进入时, scroll组件滚动到离开前记录的位置
@@ -90,8 +87,11 @@
       this.$refs.scroll.refresh();
     },
     deactivated() {
-      // 离开时, 记录scroll组件滚动到的位置
+      // 1. 离开时, 记录scroll组件滚动到的位置
       this.saveScrollY = this.$refs.scroll.getScrollY();
+
+      // 2. 取消itemImageLoaded事件的监听
+      this.$bus.$off("itemImageLoaded", this.itemImgListener);
     },
     methods: {
       /**
