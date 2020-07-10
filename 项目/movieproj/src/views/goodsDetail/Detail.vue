@@ -29,7 +29,7 @@
 
   // 引入方法
   import {getGoodsDetail, getRecommend, Goods, Shop, GoodsParam} from '@/network/detail.js'
-  import {debounce} from '@/common/utils.js'
+  import { itemListenerMixin } from '@/common/mixin.js'
 
   export default {
     name: "Detail",
@@ -44,6 +44,7 @@
       DetailCommentInfo,
       GoodsList
     },
+    mixins: [itemListenerMixin],
     data() {
       return {
         iid: '',
@@ -54,7 +55,6 @@
         paramInfo: {},
         commentInfo: {},
         recommends: [],
-        itemImgListener: null
       }
     },
     created(){
@@ -86,12 +86,6 @@
       })
     },
     mounted() {
-      const debouncedRefresh = debounce(this.$refs.scroll.refresh, 50);
-      // 1. 监听GoodsList组件中的图片加载完成
-      this.itemImgListener = () => {
-        debouncedRefresh();
-      }
-      this.$bus.$on("itemImageLoaded", this.itemImgListener);
     },
     destoryed() {
       // 离开Detail页面时, 取消itemImageLoaded事件的监听

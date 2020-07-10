@@ -33,7 +33,6 @@
 
   // 引入方法
   import { getHomeMultidata, getHomeGoods } from '@/network/home.js'
-  import { debounce } from '@/common/utils.js'
   import { itemListenerMixin } from '@/common/mixin.js'
 
   export default {
@@ -80,6 +79,7 @@
       this.getHomeGoods("sell");
     },
     mounted() {
+      // 操作写在mixin中
     },
     activated() {
       // 进入时, scroll组件滚动到离开前记录的位置

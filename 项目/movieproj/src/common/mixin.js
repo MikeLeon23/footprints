@@ -13,6 +13,5 @@ export const itemListenerMixin = {
       debouncedRefresh();
     }
     this.$bus.$on("itemImageLoaded", this.itemImgListener);
-    console.log(111);
   }
 };
