@@ -785,8 +785,8 @@ function throttle(func, wait){
     return function(){
         if(!timeout){
         	timeout = setTimeout(function(){
+                func();
                 timeout = null;
-            	func();
         	}, wait);            
         }
     };
