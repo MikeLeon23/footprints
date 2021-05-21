@@ -122,3 +122,5 @@ ps. 跟 `v-on` 和 `v-bind` 一样，`v-slot` 也有缩写，即把参数之前�
 ```
 
 但不能缩写成 `#="slotProp"`
+
+如果不需要使用插槽中的数据，可以写成`v-slot:header`简写为`#header`.
